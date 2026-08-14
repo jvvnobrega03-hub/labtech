@@ -1,69 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowIcon, CheckIcon, FlaskIcon } from "@/components/icons";
+import { ProductCard } from "@/components/product-card";
+import { Callout, Eyebrow, SectionHeading } from "@/components/ui";
+import { categories, products } from "@/data/products";
+import { pageMetadata } from "@/lib/metadata";
 
+export const metadata = pageMetadata("Soluções para diagnóstico e laboratórios", "Desde 1997, a Labtech atua no mercado B2B de diagnóstico com soluções para laboratórios, hospitais, clínicas e instituições.", "/");
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  const featured = products.filter((product) => product.featured);
+  return <><section className="relative overflow-hidden bg-navy text-white"><div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(111,213,174,.16)_1px,transparent_1px),linear-gradient(90deg,rgba(111,213,174,.16)_1px,transparent_1px)] [background-size:52px_52px]" /><div className="shell relative grid min-h-[680px] items-center gap-10 py-20 lg:grid-cols-[1.05fr_.95fr]"><div className="relative z-10"><Eyebrow>Diagnóstico e soluções laboratoriais</Eyebrow><h1 className="display mt-6 max-w-3xl text-5xl sm:text-6xl lg:text-[4.7rem]">Tecnologia e confiança para quem cuida de vidas.</h1><p className="mt-7 max-w-xl text-lg leading-8 text-emerald-50/80">Desde 1997, a Labtech atende o mercado B2B de diagnóstico, apoiando laboratórios, hospitais, clínicas e instituições na busca por soluções para suas rotinas.</p><div className="mt-9 flex flex-wrap gap-3"><Link href="/catalogo" className="button button-accent">Conhecer soluções <ArrowIcon className="size-5" /></Link><Link href="/orcamento" className="button border border-white/25 text-white hover:bg-white/10">Solicitar orçamento</Link></div></div><div className="relative mx-auto w-full max-w-lg"><div className="absolute -inset-12 rounded-full border border-emerald-300/15" /><div className="absolute -inset-24 rounded-full border border-emerald-300/10" /><div className="relative aspect-square overflow-hidden rounded-full border border-white/10 bg-[#052A21] shadow-2xl"><Image src="/images/hero-lab.svg" alt="Ilustração abstrata de ambiente laboratorial" fill priority className="object-cover" /></div><div className="absolute -bottom-4 -left-5 rounded-2xl border border-white/10 bg-[#052A21]/95 p-4 shadow-xl backdrop-blur"><p className="text-xs uppercase tracking-widest text-emerald-300">Atuação verificada</p><p className="mt-1 text-sm font-semibold">No mercado desde 1997</p></div></div></div></section>
+  <section className="shell py-24"><SectionHeading eyebrow="Soluções por categoria" title="Encontre o ponto de partida para sua necessidade" description="Navegue pelas categorias iniciais do catálogo e organize os itens para uma solicitação de orçamento." /><div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{categories.map((category, index) => <Link href={`/catalogo?categoria=${category.slug}`} key={category.slug} className="group rounded-3xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:border-emerald-600 hover:shadow-xl"><span className="grid size-12 place-items-center rounded-2xl bg-emerald-50 text-teal-700"><FlaskIcon className="size-6" /></span><p className="mt-8 text-xs font-bold text-slate-400">0{index + 1}</p><h2 className="mt-2 text-xl font-semibold">{category.name}</h2><p className="mt-3 text-sm leading-6 text-slate-500">{category.description}</p><ArrowIcon className="mt-6 size-5 transition group-hover:translate-x-1 group-hover:text-teal-700" /></Link>)}</div></section>
+  <section className="bg-[#EEF6F1] py-24"><div className="shell"><div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end"><SectionHeading eyebrow="Catálogo" title="Soluções em destaque" /><Link href="/catalogo" className="button button-outline">Ver catálogo completo <ArrowIcon className="size-4" /></Link></div><div className="mt-12 grid gap-6 md:grid-cols-3">{featured.map((product) => <ProductCard product={product} key={product.slug} />)}</div></div></section>
+  <section className="shell grid items-center gap-14 py-24 lg:grid-cols-2"><div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-navy"><Image src="/images/processo.svg" alt="Ilustração de um fluxo organizado para orçamento" fill className="object-cover" /></div><div><SectionHeading eyebrow="Atendimento B2B" title="Da necessidade ao orçamento, com clareza" description="Selecione produtos, informe os dados da instituição e revise tudo antes de validar a solicitação." /><ol className="mt-8 space-y-6">{[["01","Explore as categorias","Localize itens relacionados à sua rotina."],["02","Monte o orçamento","Defina quantidades e inclua observações por produto."],["03","Contextualize a instituição","Informe os dados necessários para a consulta comercial."]].map(([number,title,text]) => <li className="flex gap-4" key={number}><span className="grid size-10 shrink-0 place-items-center rounded-full bg-navy text-xs font-bold text-white">{number}</span><div><h3 className="font-semibold">{title}</h3><p className="mt-1 text-sm leading-6 text-slate-500">{text}</p></div></li>)}</ol></div></section>
+  <section className="bg-navy py-24 text-white"><div className="shell grid gap-12 lg:grid-cols-2"><SectionHeading light eyebrow="Desde 1997" title="Experiência construída no mercado de diagnóstico." description="A Labtech atua no relacionamento B2B e na apresentação de soluções para necessidades laboratoriais. Informações técnicas e comerciais são confirmadas no contexto de cada consulta." /><div className="grid gap-4 sm:grid-cols-2">{["Atendimento a instituições","Orçamento organizado por produto","Comunicação clara e acessível","Informações técnicas sem suposições"].map((item) => <div key={item} className="rounded-2xl border border-white/10 p-5"><CheckIcon className="size-5 text-mint" /><p className="mt-4 text-sm font-semibold">{item}</p></div>)}</div></div></section><Callout title="Encontre soluções para a sua rotina." text="Explore o catálogo ou inicie uma solicitação de orçamento para sua instituição." /></>;
 }

@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { FlaskIcon } from "@/components/icons";
+
+export default function NotFound() { return <section className="shell grid min-h-[70vh] place-items-center py-20 text-center"><div><span className="mx-auto grid size-16 place-items-center rounded-2xl bg-teal-50 text-teal-700"><FlaskIcon className="size-8" /></span><p className="eyebrow mt-7">Erro 404</p><h1 className="display mt-4 text-5xl">Esta página não está no experimento.</h1><p className="mx-auto mt-5 max-w-lg leading-7 text-slate-600">O endereço pode ter mudado ou não fazer parte do catálogo atual.</p><div className="mt-8 flex justify-center gap-3"><Link className="button button-primary" href="/">Voltar ao início</Link><Link className="button button-outline" href="/catalogo">Ver catálogo</Link></div></div></section>; }

@@ -1,0 +1,20 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { AddToQuote } from "@/components/add-to-quote";
+import { ProductCard } from "@/components/product-card";
+import { Breadcrumbs, Callout, Eyebrow } from "@/components/ui";
+import { CheckIcon } from "@/components/icons";
+import { getCategory, getProduct, products } from "@/data/products";
+import { pageMetadata } from "@/lib/metadata";
+import { absoluteSiteUrl } from "@/lib/config";
+
+export function generateStaticParams() { return products.map((product) => ({ slug: product.slug })); }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const product = getProduct((await params).slug); return product ? pageMetadata(product.name, product.summary, `/produtos/${product.slug}`) : { title: "Item não encontrado" }; }
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const product = getProduct((await params).slug); if (!product) notFound(); const category = getCategory(product.category); const related = products.filter((item) => item.category === product.category && item.slug !== product.slug).slice(0, 2);
+  const productUrl = absoluteSiteUrl(`/produtos/${product.slug}`);
+  const jsonLd = { "@context": "https://schema.org", "@type": "Product", name: product.name, description: product.summary, category: category?.name, ...(productUrl ? { url: productUrl } : {}) };
+  return <><section className="shell py-8"><Breadcrumbs items={[{ label: "Catálogo", href: "/catalogo" }, { label: product.name }]} /></section><section className="shell grid gap-12 pb-20 lg:grid-cols-2"><div className="relative aspect-[1.15] overflow-hidden rounded-[2rem] bg-[#e8f3f1]"><Image src={product.image} alt={`Representação editorial de ${product.name}`} fill priority className="object-cover" /><span className="catalog-badge">Produto demonstrativo</span></div><div className="self-center"><Eyebrow>{category?.name ?? "Catálogo"}</Eyebrow><h1 className="display mt-5 text-5xl md:text-6xl">{product.name}</h1><p className="mt-6 text-lg leading-8 text-slate-600">{product.summary}</p><div className="mt-7 rounded-2xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-900">Esta página é uma referência editorial. Não apresenta marca, especificação, certificação, preço ou disponibilidade.</div><div className="mt-8 flex flex-wrap gap-3"><AddToQuote slug={product.slug} /><Link href="/contato" className="button button-outline">Tirar uma dúvida</Link></div></div></section><section className="border-y border-slate-200 bg-white"><div className="shell grid gap-12 py-16 md:grid-cols-2"><div><h2 className="display text-3xl">Contexto do item</h2><p className="mt-5 leading-8 text-slate-600">{product.description}</p></div><div><h2 className="display text-3xl">Aplicações para consulta</h2><ul className="mt-5 space-y-3">{product.applications.map((application) => <li className="flex items-center gap-3 text-slate-600" key={application}><span className="grid size-7 place-items-center rounded-full bg-teal-50 text-teal-700"><CheckIcon className="size-4" /></span>{application}</li>)}</ul><p className="mt-5 text-xs leading-5 text-slate-400">As aplicações são termos de organização editorial, não declarações de adequação.</p></div></div></section>{related.length > 0 && <section className="shell py-20"><Eyebrow>Na mesma categoria</Eyebrow><h2 className="display mt-4 text-4xl">Continue explorando</h2><div className="mt-8 grid gap-6 md:grid-cols-2">{related.map((item) => <ProductCard product={item} key={item.slug} />)}</div></section>}<Callout title="Precisa contextualizar sua aplicação?" text="Adicione este item à seleção e descreva sua necessidade no fluxo de orçamento." /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} /></>;
+}
