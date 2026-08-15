@@ -48,7 +48,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={manrope.variable}>
+    <html lang="pt-BR" className={manrope.variable} data-scroll-behavior="smooth">
       <body>
         <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
         <QuoteProvider>

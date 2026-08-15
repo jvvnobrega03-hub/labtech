@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowIcon,
@@ -11,6 +10,7 @@ import {
   SupportIcon,
   TruckIcon,
 } from "@/components/icons";
+import { CinematicCentrifugeHero } from "@/components/CinematicCentrifugeHero";
 import { ProductCard } from "@/components/product-card";
 import { Callout, SectionHeading } from "@/components/ui";
 import { categories, products } from "@/data/products";
@@ -41,43 +41,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero-home">
-        <div className="shell grid min-h-[570px] items-stretch lg:grid-cols-[.95fr_1.05fr]">
-          <div className="relative z-10 flex flex-col justify-center py-16 pr-0 lg:py-20 lg:pr-14">
-            <div className="hero-kicker"><span /> Desde 1997 · atendimento B2B</div>
-            <h1 className="mt-6 max-w-[680px] text-[2.7rem] font-extrabold leading-[1.06] tracking-[-.05em] text-ink sm:text-5xl lg:text-[3.65rem]">
-              Soluções laboratoriais e hospitalares com <span className="text-teal-800">confiança, agilidade e suporte.</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-              Produtos, equipamentos, reagentes e consumíveis para laboratórios, hospitais, clínicas e centros de pesquisa — com atendimento consultivo em cada etapa.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/catalogo" className="button button-primary">Ver catálogo <ArrowIcon className="size-4.5" /></Link>
-              <Link href="/orcamento" className="button button-outline bg-white">Solicitar orçamento</Link>
-            </div>
-            <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-xs font-bold text-slate-600">
-              <span className="inline-flex items-center gap-2"><CheckIcon className="size-4 text-teal-700" />Seleção por necessidade</span>
-              <span className="inline-flex items-center gap-2"><CheckIcon className="size-4 text-teal-700" />Dados técnicos confirmados</span>
-            </div>
-          </div>
-          <div className="relative min-h-[420px] overflow-hidden lg:min-h-[570px]">
-            <Image
-              src="/images/hero-lab-v4.webp"
-              alt="Profissional de laboratório utilizando uma micropipeta em uma bancada organizada"
-              fill
-              priority
-              quality={90}
-              sizes="(max-width: 1024px) 100vw, 55vw"
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,#f8fbf9_0%,rgba(248,251,249,.68)_12%,transparent_42%)] max-lg:hidden" />
-            <div className="absolute bottom-7 left-7 max-w-[245px] rounded-2xl border border-white/70 bg-white/92 p-4 shadow-xl backdrop-blur-md">
-              <p className="text-[.65rem] font-extrabold uppercase tracking-[.18em] text-teal-800">Atendimento consultivo</p>
-              <p className="mt-1.5 text-sm font-bold leading-5 text-ink">Da escolha da linha ao orçamento institucional.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CinematicCentrifugeHero />
 
       <section className="shell relative z-10 -mt-7" aria-label="Diferenciais de atendimento">
         <div className="grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(7,43,33,.12)] sm:grid-cols-2 lg:grid-cols-4">
@@ -90,7 +54,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="shell py-20">
+      <section id="produtos" className="shell scroll-mt-28 py-20">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading eyebrow="Encontre o que você precisa" title="Um catálogo organizado pela sua rotina" description="Pesquise diretamente ou comece pela categoria mais próxima da sua necessidade." />
           <form action="/catalogo" className="flex w-full max-w-xl overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm" role="search">
@@ -161,7 +125,9 @@ export default function Home() {
         </div>
       </section>
 
-      <Callout title="Sua rotina precisa de uma solução mais precisa?" text="Explore as categorias ou organize uma solicitação para a equipe comercial da Labtech." />
+      <div id="contato" className="scroll-mt-28">
+        <Callout title="Sua rotina precisa de uma solução mais precisa?" text="Explore as categorias ou organize uma solicitação para a equipe comercial da Labtech." href="/contato" label="Falar com especialista" />
+      </div>
     </>
   );
 }
