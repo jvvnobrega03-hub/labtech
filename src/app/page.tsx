@@ -10,7 +10,7 @@ import {
   SupportIcon,
   TruckIcon,
 } from "@/components/icons";
-import { CinematicCentrifugeHero } from "@/components/CinematicCentrifugeHero";
+import CinematicCentrifugeHero from "@/components/CinematicCentrifugeHero";
 import { ProductCard } from "@/components/product-card";
 import { Callout, SectionHeading } from "@/components/ui";
 import { categories, products } from "@/data/products";

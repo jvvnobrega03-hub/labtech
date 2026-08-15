@@ -3,8 +3,12 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { gsap } from "gsap";
 
-const INTRO_FALLBACK_MS = 11_000;
+const ROBOTIC_ARM_VIDEO_SRC = "/videos/robotic-arm-hero-loop.mp4";
+const ROBOTIC_ARM_POSTER_SRC = "/videos/robotic-arm-poster.webp";
+const INTRO_REVEAL_SECONDS = 2.8;
+const INTRO_FALLBACK_MS = 6_000;
 const HERO_READY_GRACE_MS = 650;
+const VIDEO_ERROR_INTRO_MS = 1_900;
 
 export function CinematicCentrifugeHero() {
   const rootRef = useRef<HTMLElement>(null);
@@ -25,6 +29,7 @@ export function CinematicCentrifugeHero() {
   const heroReadyRef = useRef(false);
   const startTransitionRef = useRef<() => void>(() => undefined);
   const requestTransitionRef = useRef<() => void>(() => undefined);
+  const requestFallbackTransitionRef = useRef<() => void>(() => undefined);
   const [introFinished, setIntroFinished] = useState(false);
 
   useEffect(() => {
@@ -41,6 +46,7 @@ export function CinematicCentrifugeHero() {
     let scrollLocked = true;
     let readinessTimer: number | undefined;
     let fallbackTimer: number | undefined;
+    let videoErrorTimer: number | undefined;
     let media: ReturnType<typeof gsap.matchMedia> | undefined;
 
     transitionStartedRef.current = false;
@@ -89,6 +95,16 @@ export function CinematicCentrifugeHero() {
 
       gsap.set(heroVisualRef.current, { autoAlpha: 0, scale: 1.025 });
       gsap.set(revealTargets, { autoAlpha: 0, y: 36 });
+      gsap.fromTo(loaderInterfaceRef.current, {
+        autoAlpha: 0,
+        y: 18,
+      }, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.85,
+        delay: 0.18,
+        ease: "power3.out",
+      });
 
       const startTransition = () => {
         if (transitionStartedRef.current) return;
@@ -97,9 +113,13 @@ export function CinematicCentrifugeHero() {
         if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
 
         const heroVideo = heroVideoRef.current;
+        const loaderVideo = loaderVideoRef.current;
         if (heroVideo) {
           try {
-            heroVideo.currentTime = 0;
+            const handoffTime = loaderVideo?.currentTime ?? 0;
+            if (Number.isFinite(handoffTime) && Math.abs(heroVideo.currentTime - handoffTime) > 0.1) {
+              heroVideo.currentTime = handoffTime;
+            }
           } catch {
             // Some browsers block seeking until metadata is available.
           }
@@ -208,15 +228,27 @@ export function CinematicCentrifugeHero() {
         readinessTimer = window.setTimeout(startTransition, HERO_READY_GRACE_MS);
       };
 
+      const requestFallbackTransition = () => {
+        if (transitionStartedRef.current || finishRequestedRef.current || videoErrorTimer !== undefined) return;
+        gsap.to(progressRef.current, {
+          scaleX: 0.82,
+          transformOrigin: "left center",
+          duration: 0.5,
+          ease: "power1.inOut",
+        });
+        videoErrorTimer = window.setTimeout(requestTransition, VIDEO_ERROR_INTRO_MS);
+      };
+
       startTransitionRef.current = startTransition;
       requestTransitionRef.current = requestTransition;
+      requestFallbackTransitionRef.current = requestFallbackTransition;
 
       const heroVideo = heroVideoRef.current;
       heroVideo?.load();
 
       const loaderPlayback = loaderVideoRef.current?.play();
       if (loaderPlayback) {
-        void loaderPlayback.catch(requestTransition);
+        void loaderPlayback.catch(requestFallbackTransition);
       }
 
       fallbackTimer = window.setTimeout(requestTransition, INTRO_FALLBACK_MS);
@@ -261,8 +293,10 @@ export function CinematicCentrifugeHero() {
     return () => {
       if (readinessTimer !== undefined) window.clearTimeout(readinessTimer);
       if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+      if (videoErrorTimer !== undefined) window.clearTimeout(videoErrorTimer);
       startTransitionRef.current = () => undefined;
       requestTransitionRef.current = () => undefined;
+      requestFallbackTransitionRef.current = () => undefined;
       media?.revert();
       context.revert();
       unlockScroll();
@@ -272,8 +306,10 @@ export function CinematicCentrifugeHero() {
   const updateProgress = (event: SyntheticEvent<HTMLVideoElement>) => {
     const video = event.currentTarget;
     if (!progressRef.current || !Number.isFinite(video.duration) || video.duration <= 0) return;
-    const progress = Math.min(1, Math.max(0, video.currentTime / video.duration));
+    const introDuration = Math.min(INTRO_REVEAL_SECONDS, video.duration);
+    const progress = Math.min(1, Math.max(0, video.currentTime / introDuration));
     gsap.set(progressRef.current, { scaleX: progress, transformOrigin: "left center" });
+    if (video.currentTime >= introDuration) requestTransitionRef.current();
   };
 
   const markHeroReady = () => {
@@ -287,9 +323,15 @@ export function CinematicCentrifugeHero() {
     if (finishRequestedRef.current) startTransitionRef.current();
   };
 
+  const handleLoaderError = (event: SyntheticEvent<HTMLVideoElement>) => {
+    gsap.set(event.currentTarget, { autoAlpha: 0 });
+    requestFallbackTransitionRef.current();
+  };
+
   return (
     <section ref={rootRef} className="cinematic-hero" aria-label="Tecnologia laboratorial de alta precisão">
       <div ref={heroVisualRef} className="cinematic-hero__visual" aria-hidden="true">
+        <div className="cinematic-hero__fallback" />
         <video
           ref={heroVideoRef}
           className="cinematic-hero__video"
@@ -298,14 +340,14 @@ export function CinematicCentrifugeHero() {
           loop
           playsInline
           preload="auto"
-          poster="/videos/centrifuge-poster.webp"
+          poster={ROBOTIC_ARM_POSTER_SRC}
           aria-hidden="true"
           tabIndex={-1}
           onCanPlay={markHeroReady}
           onLoadedData={markHeroReady}
           onError={handleHeroError}
         >
-          <source src="/videos/centrifuge-hero-loop.mp4" type="video/mp4" />
+          <source src={ROBOTIC_ARM_VIDEO_SRC} type="video/mp4" />
         </video>
       </div>
 
@@ -352,6 +394,7 @@ export function CinematicCentrifugeHero() {
 
       {!introFinished && (
         <div ref={loaderRef} className="cinematic-loader" role="status" aria-live="polite" aria-label="Inicializando experiência Labtech">
+          <div className="cinematic-loader__fallback" aria-hidden="true" />
           <video
             ref={loaderVideoRef}
             className="cinematic-loader__video"
@@ -359,15 +402,15 @@ export function CinematicCentrifugeHero() {
             muted
             playsInline
             preload="auto"
-            poster="/videos/centrifuge-poster.webp"
+            poster={ROBOTIC_ARM_POSTER_SRC}
             aria-hidden="true"
             tabIndex={-1}
             onLoadedMetadata={updateProgress}
             onTimeUpdate={updateProgress}
             onEnded={() => requestTransitionRef.current()}
-            onError={() => requestTransitionRef.current()}
+            onError={handleLoaderError}
           >
-            <source src="/videos/centrifuge-loader.mp4" type="video/mp4" />
+            <source src={ROBOTIC_ARM_VIDEO_SRC} type="video/mp4" />
           </video>
           <div className="cinematic-loader__vignette" aria-hidden="true" />
           <div className="cinematic-loader__scan" aria-hidden="true" />
@@ -390,3 +433,5 @@ export function CinematicCentrifugeHero() {
     </section>
   );
 }
+
+export default CinematicCentrifugeHero;
