@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Source_Serif_4 } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { QuoteDrawer } from "@/components/quote-drawer";
 import { QuoteProvider } from "@/components/quote-context";
 import { Footer, Header } from "@/components/site-shell";
@@ -7,16 +7,15 @@ import { absoluteSiteUrl, publicSiteUrl, siteConfig } from "@/lib/config";
 import "./globals.css";
 
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
-const sourceSerif = Source_Serif_4({ variable: "--font-serif", subsets: ["latin"] });
 const socialImageUrl = absoluteSiteUrl("/og.png");
 
 export const metadata: Metadata = {
   ...(publicSiteUrl ? { metadataBase: new URL(publicSiteUrl) } : {}),
   applicationName: siteConfig.name,
-  title: { default: "Labtech | Diagnóstico e soluções laboratoriais", template: "%s | Labtech" },
+  title: { default: "Labtech | Produtos laboratoriais e hospitalares", template: "%s | Labtech" },
   ...(publicSiteUrl ? { alternates: { canonical: publicSiteUrl } } : {}),
   description: siteConfig.description,
-  keywords: ["laboratório", "catálogo laboratorial", "soluções laboratoriais", "orçamento"],
+  keywords: ["produtos laboratoriais", "materiais hospitalares", "equipamentos laboratoriais", "reagentes", "orçamento B2B"],
   openGraph: {
     title: "Labtech",
     description: siteConfig.description,
@@ -43,11 +42,13 @@ const organizationJsonLd = {
   ...(publicSiteUrl ? { url: publicSiteUrl } : {}),
   description: siteConfig.description,
   ...(siteConfig.email ? { email: siteConfig.email } : {}),
+  telephone: siteConfig.phoneDisplay,
+  taxID: siteConfig.taxId,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${sourceSerif.variable}`}>
+    <html lang="pt-BR" className={manrope.variable}>
       <body>
         <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
         <QuoteProvider>

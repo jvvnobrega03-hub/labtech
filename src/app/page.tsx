@@ -1,17 +1,167 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowIcon, CheckIcon, FlaskIcon } from "@/components/icons";
+import {
+  ArrowIcon,
+  BagIcon,
+  BoxIcon,
+  CategoryIcon,
+  CheckIcon,
+  SearchIcon,
+  ShieldIcon,
+  SupportIcon,
+  TruckIcon,
+} from "@/components/icons";
 import { ProductCard } from "@/components/product-card";
-import { Callout, Eyebrow, SectionHeading } from "@/components/ui";
+import { Callout, SectionHeading } from "@/components/ui";
 import { categories, products } from "@/data/products";
 import { pageMetadata } from "@/lib/metadata";
 
-export const metadata = pageMetadata("Soluções para diagnóstico e laboratórios", "Desde 1997, a Labtech atua no mercado B2B de diagnóstico com soluções para laboratórios, hospitais, clínicas e instituições.", "/");
+export const metadata = pageMetadata(
+  "Produtos laboratoriais e hospitalares",
+  "Desde 1997, a Labtech atende laboratórios, hospitais, clínicas e centros de pesquisa com produtos, soluções e atendimento especializado.",
+  "/",
+);
+
+const trustPoints = [
+  { title: "Desde 1997", text: "Experiência no mercado diagnóstico", icon: ShieldIcon },
+  { title: "Atendimento nacional", text: "Consultas para instituições em todo o Brasil", icon: TruckIcon },
+  { title: "Suporte especializado", text: "Orientação técnica e comercial", icon: SupportIcon },
+  { title: "Orçamento organizado", text: "Vários itens em uma única solicitação", icon: BagIcon },
+];
+
+const stats = [
+  { value: "1997", label: "início da nossa história" },
+  { value: "10+", label: "frentes de produtos" },
+  { value: "B2B", label: "atendimento institucional" },
+  { value: "Brasil", label: "cobertura de atendimento" },
+];
+
 export default function Home() {
   const featured = products.filter((product) => product.featured);
-  return <><section className="relative overflow-hidden bg-navy text-white"><div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(111,213,174,.16)_1px,transparent_1px),linear-gradient(90deg,rgba(111,213,174,.16)_1px,transparent_1px)] [background-size:52px_52px]" /><div className="shell relative grid min-h-[680px] items-center gap-10 py-20 lg:grid-cols-[1.05fr_.95fr]"><div className="relative z-10"><Eyebrow>Diagnóstico e soluções laboratoriais</Eyebrow><h1 className="display mt-6 max-w-3xl text-5xl sm:text-6xl lg:text-[4.7rem]">Tecnologia e confiança para quem cuida de vidas.</h1><p className="mt-7 max-w-xl text-lg leading-8 text-emerald-50/80">Desde 1997, a Labtech atende o mercado B2B de diagnóstico, apoiando laboratórios, hospitais, clínicas e instituições na busca por soluções para suas rotinas.</p><div className="mt-9 flex flex-wrap gap-3"><Link href="/catalogo" className="button button-accent">Conhecer soluções <ArrowIcon className="size-5" /></Link><Link href="/orcamento" className="button border border-white/25 text-white hover:bg-white/10">Solicitar orçamento</Link></div></div><div className="relative mx-auto w-full max-w-lg"><div className="absolute -inset-12 rounded-full border border-emerald-300/15" /><div className="absolute -inset-24 rounded-full border border-emerald-300/10" /><div className="relative aspect-square overflow-hidden rounded-full border border-white/10 bg-[#052A21] shadow-2xl"><Image src="/images/hero-lab.svg" alt="Ilustração abstrata de ambiente laboratorial" fill priority className="object-cover" /></div><div className="absolute -bottom-4 -left-5 rounded-2xl border border-white/10 bg-[#052A21]/95 p-4 shadow-xl backdrop-blur"><p className="text-xs uppercase tracking-widest text-emerald-300">Atuação verificada</p><p className="mt-1 text-sm font-semibold">No mercado desde 1997</p></div></div></div></section>
-  <section className="shell py-24"><SectionHeading eyebrow="Soluções por categoria" title="Encontre o ponto de partida para sua necessidade" description="Navegue pelas categorias iniciais do catálogo e organize os itens para uma solicitação de orçamento." /><div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{categories.map((category, index) => <Link href={`/catalogo?categoria=${category.slug}`} key={category.slug} className="group rounded-3xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:border-emerald-600 hover:shadow-xl"><span className="grid size-12 place-items-center rounded-2xl bg-emerald-50 text-teal-700"><FlaskIcon className="size-6" /></span><p className="mt-8 text-xs font-bold text-slate-400">0{index + 1}</p><h2 className="mt-2 text-xl font-semibold">{category.name}</h2><p className="mt-3 text-sm leading-6 text-slate-500">{category.description}</p><ArrowIcon className="mt-6 size-5 transition group-hover:translate-x-1 group-hover:text-teal-700" /></Link>)}</div></section>
-  <section className="bg-[#EEF6F1] py-24"><div className="shell"><div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end"><SectionHeading eyebrow="Catálogo" title="Soluções em destaque" /><Link href="/catalogo" className="button button-outline">Ver catálogo completo <ArrowIcon className="size-4" /></Link></div><div className="mt-12 grid gap-6 md:grid-cols-3">{featured.map((product) => <ProductCard product={product} key={product.slug} />)}</div></div></section>
-  <section className="shell grid items-center gap-14 py-24 lg:grid-cols-2"><div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-navy"><Image src="/images/processo.svg" alt="Ilustração de um fluxo organizado para orçamento" fill className="object-cover" /></div><div><SectionHeading eyebrow="Atendimento B2B" title="Da necessidade ao orçamento, com clareza" description="Selecione produtos, informe os dados da instituição e revise tudo antes de validar a solicitação." /><ol className="mt-8 space-y-6">{[["01","Explore as categorias","Localize itens relacionados à sua rotina."],["02","Monte o orçamento","Defina quantidades e inclua observações por produto."],["03","Contextualize a instituição","Informe os dados necessários para a consulta comercial."]].map(([number,title,text]) => <li className="flex gap-4" key={number}><span className="grid size-10 shrink-0 place-items-center rounded-full bg-navy text-xs font-bold text-white">{number}</span><div><h3 className="font-semibold">{title}</h3><p className="mt-1 text-sm leading-6 text-slate-500">{text}</p></div></li>)}</ol></div></section>
-  <section className="bg-navy py-24 text-white"><div className="shell grid gap-12 lg:grid-cols-2"><SectionHeading light eyebrow="Desde 1997" title="Experiência construída no mercado de diagnóstico." description="A Labtech atua no relacionamento B2B e na apresentação de soluções para necessidades laboratoriais. Informações técnicas e comerciais são confirmadas no contexto de cada consulta." /><div className="grid gap-4 sm:grid-cols-2">{["Atendimento a instituições","Orçamento organizado por produto","Comunicação clara e acessível","Informações técnicas sem suposições"].map((item) => <div key={item} className="rounded-2xl border border-white/10 p-5"><CheckIcon className="size-5 text-mint" /><p className="mt-4 text-sm font-semibold">{item}</p></div>)}</div></div></section><Callout title="Encontre soluções para a sua rotina." text="Explore o catálogo ou inicie uma solicitação de orçamento para sua instituição." /></>;
+
+  return (
+    <>
+      <section className="hero-home">
+        <div className="shell grid min-h-[570px] items-stretch lg:grid-cols-[.95fr_1.05fr]">
+          <div className="relative z-10 flex flex-col justify-center py-16 pr-0 lg:py-20 lg:pr-14">
+            <div className="hero-kicker"><span /> Desde 1997 · atendimento B2B</div>
+            <h1 className="mt-6 max-w-[680px] text-[2.7rem] font-extrabold leading-[1.06] tracking-[-.05em] text-ink sm:text-5xl lg:text-[3.65rem]">
+              Soluções laboratoriais e hospitalares com <span className="text-teal-800">confiança, agilidade e suporte.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+              Produtos, equipamentos, reagentes e consumíveis para laboratórios, hospitais, clínicas e centros de pesquisa — com atendimento consultivo em cada etapa.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/catalogo" className="button button-primary">Ver catálogo <ArrowIcon className="size-4.5" /></Link>
+              <Link href="/orcamento" className="button button-outline bg-white">Solicitar orçamento</Link>
+            </div>
+            <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-xs font-bold text-slate-600">
+              <span className="inline-flex items-center gap-2"><CheckIcon className="size-4 text-teal-700" />Seleção por necessidade</span>
+              <span className="inline-flex items-center gap-2"><CheckIcon className="size-4 text-teal-700" />Dados técnicos confirmados</span>
+            </div>
+          </div>
+          <div className="relative min-h-[420px] overflow-hidden lg:min-h-[570px]">
+            <Image
+              src="/images/hero-lab-v4.webp"
+              alt="Profissional de laboratório utilizando uma micropipeta em uma bancada organizada"
+              fill
+              priority
+              quality={90}
+              sizes="(max-width: 1024px) 100vw, 55vw"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,#f8fbf9_0%,rgba(248,251,249,.68)_12%,transparent_42%)] max-lg:hidden" />
+            <div className="absolute bottom-7 left-7 max-w-[245px] rounded-2xl border border-white/70 bg-white/92 p-4 shadow-xl backdrop-blur-md">
+              <p className="text-[.65rem] font-extrabold uppercase tracking-[.18em] text-teal-800">Atendimento consultivo</p>
+              <p className="mt-1.5 text-sm font-bold leading-5 text-ink">Da escolha da linha ao orçamento institucional.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="shell relative z-10 -mt-7" aria-label="Diferenciais de atendimento">
+        <div className="grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(7,43,33,.12)] sm:grid-cols-2 lg:grid-cols-4">
+          {trustPoints.map(({ title, text, icon: Icon }) => (
+            <article key={title} className="flex gap-3.5 border-b border-slate-200 p-5 last:border-0 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:border-r lg:last:border-r-0">
+              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-teal-800"><Icon className="size-5" /></span>
+              <div><h2 className="text-sm font-extrabold text-ink">{title}</h2><p className="mt-1 text-[.72rem] leading-5 text-slate-500">{text}</p></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="shell py-20">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading eyebrow="Encontre o que você precisa" title="Um catálogo organizado pela sua rotina" description="Pesquise diretamente ou comece pela categoria mais próxima da sua necessidade." />
+          <form action="/catalogo" className="flex w-full max-w-xl overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm" role="search">
+            <label htmlFor="home-search" className="sr-only">Buscar produtos no catálogo</label>
+            <SearchIcon className="ml-4 size-5 shrink-0 self-center text-slate-400" />
+            <input id="home-search" name="q" type="search" className="min-w-0 flex-1 px-3 py-3.5 text-sm outline-none placeholder:text-slate-400" placeholder="Busque produto, categoria ou aplicação" />
+            <button type="submit" className="grid w-14 place-items-center bg-navy text-white transition hover:bg-deep" aria-label="Buscar no catálogo"><ArrowIcon className="size-5" /></button>
+          </form>
+        </div>
+        <div className="mt-9 grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-200 bg-white sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          {categories.slice(0, 10).map((category) => (
+            <Link href={`/catalogo?categoria=${category.slug}`} key={category.slug} className="category-tile group">
+              <span className="grid size-11 place-items-center rounded-xl bg-emerald-50 text-teal-800 transition group-hover:bg-navy group-hover:text-white"><CategoryIcon slug={category.slug} className="size-5.5" /></span>
+              <span className="mt-4 text-center text-xs font-extrabold leading-4 text-slate-700 group-hover:text-teal-800">{category.shortName}</span>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-5 flex justify-center"><Link href="/catalogo" className="button button-outline">Ver todas as categorias <ArrowIcon className="size-4" /></Link></div>
+      </section>
+
+      <section className="bg-navy text-white">
+        <div className="shell grid grid-cols-2 py-8 lg:grid-cols-4">
+          {stats.map((stat) => (
+            <div key={stat.value} className="border-white/10 px-4 py-4 text-center even:border-l lg:border-l lg:first:border-l-0">
+              <p className="text-2xl font-extrabold tracking-[-.04em] text-emerald-200 sm:text-3xl">{stat.value}</p>
+              <p className="mt-1 text-[.68rem] font-semibold text-emerald-50/65 sm:text-xs">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-mist py-20">
+        <div className="shell">
+          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+            <SectionHeading eyebrow="Seleção inicial" title="Linhas em destaque" description="Pontos de partida para montar uma consulta com produtos, quantidades e observações." />
+            <Link href="/catalogo" className="button button-outline bg-white">Catálogo completo <ArrowIcon className="size-4" /></Link>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">{featured.map((product) => <ProductCard product={product} key={product.slug} />)}</div>
+        </div>
+      </section>
+
+      <section className="shell grid items-center gap-14 py-24 lg:grid-cols-[.92fr_1.08fr]">
+        <div className="rounded-[2rem] bg-deep p-7 text-white sm:p-10">
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              [BoxIcon, "Produto e quantidade"],
+              [SearchIcon, "Aplicação e contexto"],
+              [ShieldIcon, "Documentação aplicável"],
+              [SupportIcon, "Retorno consultivo"],
+            ].map(([Icon, label]) => {
+              const ItemIcon = Icon as typeof BoxIcon;
+              return <div key={label as string} className="rounded-2xl border border-white/10 bg-white/[.04] p-5"><ItemIcon className="size-6 text-emerald-200" /><p className="mt-8 text-sm font-bold">{label as string}</p></div>;
+            })}
+          </div>
+          <p className="mt-5 text-xs leading-5 text-emerald-50/55">Cada item permanece sujeito à confirmação de disponibilidade, configuração e condição comercial.</p>
+        </div>
+        <div>
+          <SectionHeading eyebrow="Compra técnica, decisão segura" title="A informação certa vem antes do produto" description="Em produtos laboratoriais e hospitalares, a finalidade indicada pelo fabricante orienta a escolha. Por isso, organizamos a consulta sem transformar características técnicas em promessas genéricas." />
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+            {[
+              "Finalidade de uso e compatibilidade",
+              "Apresentação, material e capacidade",
+              "Regularização aplicável por produto",
+              "Disponibilidade e condição comercial",
+            ].map((item) => <li key={item} className="flex items-start gap-3 text-sm font-bold leading-6 text-slate-700"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-teal-800"><CheckIcon className="size-3" /></span>{item}</li>)}
+          </ul>
+          <div className="mt-8 flex flex-wrap gap-3"><Link href="/orcamento" className="button button-primary">Montar orçamento</Link><Link href="/contato" className="button button-outline">Falar com a equipe</Link></div>
+        </div>
+      </section>
+
+      <Callout title="Sua rotina precisa de uma solução mais precisa?" text="Explore as categorias ou organize uma solicitação para a equipe comercial da Labtech." />
+    </>
+  );
 }

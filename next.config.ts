@@ -31,6 +31,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  images: { qualities: [75, 84, 90] },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

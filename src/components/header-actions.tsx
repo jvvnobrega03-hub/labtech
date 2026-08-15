@@ -19,15 +19,15 @@ export function HeaderActions({ mobileBrand }: { mobileBrand: ReactNode }) {
       <button
         type="button"
         onClick={open}
-        className="flex h-11 items-center gap-2 rounded-full border border-white/15 px-3 text-white hover:bg-white/10"
+        className="flex h-11 items-center gap-2 rounded-xl bg-navy px-3.5 text-white shadow-sm transition hover:bg-deep"
         aria-label={`Abrir orçamento com ${itemCount} itens`}
       >
         <BagIcon className="size-5" />
-        <span className="hidden text-sm font-bold sm:inline">Orçamento ({itemCount})</span>
+        <span className="hidden text-xs font-extrabold sm:inline">Orçamento ({itemCount})</span>
       </button>
       <button
         type="button"
-        className="grid size-11 place-items-center text-white lg:hidden"
+        className="grid size-11 place-items-center text-ink xl:hidden"
         onClick={() => setMenuOpen(true)}
         aria-label="Abrir menu"
         aria-expanded={menuOpen}
@@ -39,7 +39,7 @@ export function HeaderActions({ mobileBrand }: { mobileBrand: ReactNode }) {
         <div
           ref={dialogRef as React.RefObject<HTMLDivElement | null>}
           id="menu-movel"
-          className="fixed inset-0 z-50 min-h-dvh bg-navy p-6 lg:hidden"
+          className="fixed inset-0 z-50 min-h-dvh bg-navy p-6 xl:hidden"
           role="dialog"
           aria-modal="true"
           aria-labelledby="menu-movel-titulo"
