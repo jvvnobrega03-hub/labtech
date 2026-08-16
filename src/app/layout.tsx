@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { QuoteDrawer } from "@/components/quote-drawer";
 import { QuoteProvider } from "@/components/quote-context";
+import { MotionSystem } from "@/components/motion-system";
 import { Footer, Header } from "@/components/site-shell";
 import { absoluteSiteUrl, publicSiteUrl, siteConfig } from "@/lib/config";
 import "./globals.css";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="conteudo" className="min-h-[60vh]">{children}</main>
           <Footer />
           <QuoteDrawer />
+          <MotionSystem />
         </QuoteProvider>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }} />
       </body>
