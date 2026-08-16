@@ -23,6 +23,9 @@
 /.open-next/
 /.wrangler/
 /outputs/
+/tools/blender/output/
+__pycache__/
+*.py[cod]
 
 # misc
 .DS_Store
