@@ -46,6 +46,23 @@ button { cursor: pointer; }
   isolation: isolate;
   perspective: 1400px;
 }
+.cinematic-hero-transition {
+  --hero-transition-height: clamp(8rem, 14vw, 11rem);
+  position: relative;
+  z-index: 1;
+  height: calc(var(--hero-transition-height) + 1px);
+  margin-top: -1px;
+  margin-bottom: calc(var(--hero-transition-height) * -1);
+  background: linear-gradient(
+    180deg,
+    #02070b 0%,
+    #071018 22%,
+    var(--deep) 52%,
+    var(--mist) 88%,
+    var(--paper) 100%
+  );
+  pointer-events: none;
+}
 .cinematic-hero__visual { position: absolute; z-index: -7; inset: -2%; overflow: hidden; background: var(--hero-background); transform-origin: 64% 50%; transform-style: preserve-3d; will-change: transform, opacity; }
 .cinematic-hero__video { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 64% center; will-change: opacity, transform; }
 .cinematic-hero__video--intro { z-index: 2; opacity: 1; }
@@ -175,6 +192,7 @@ textarea.input { min-height: 140px; resize: vertical; }
   .cinematic-hero__scroll { right: 1.25rem; }
 }
 @media (max-width: 767px) {
+  .cinematic-hero-transition { --hero-transition-height: clamp(6rem, 24vw, 8rem); }
   .cinematic-hero__visual { inset: -1%; background-position: 62% center; transform-origin: 62% 48%; }
   .cinematic-hero__video { object-position: 62% center; }
   .cinematic-hero__fallback { background-position: 62% center; }

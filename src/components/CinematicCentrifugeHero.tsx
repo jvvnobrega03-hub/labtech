@@ -224,7 +224,8 @@ export function CinematicCentrifugeHero() {
   }, []);
 
   return (
-    <section ref={rootRef} className="cinematic-hero" aria-label="Tecnologia laboratorial de alta precisão">
+    <>
+      <section ref={rootRef} className="cinematic-hero" aria-label="Tecnologia laboratorial de alta precisão">
       <div ref={visualRef} className="cinematic-hero__visual" aria-hidden="true">
         <div className="cinematic-hero__fallback" />
         <video ref={introVideoRef} className="cinematic-hero__video cinematic-hero__video--intro" autoPlay muted playsInline preload="auto" poster={POSTER_SRC} aria-hidden="true" tabIndex={-1}>
@@ -275,7 +276,9 @@ export function CinematicCentrifugeHero() {
           <div className="cinematic-loader__progress" aria-hidden="true"><span ref={progressRef} /></div>
         </div>
       )}
-    </section>
+      </section>
+      <div className="cinematic-hero-transition" aria-hidden="true" />
+    </>
   );
 }
 
