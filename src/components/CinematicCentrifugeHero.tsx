@@ -3,18 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
-const INTRO_VIDEO_SRC = "/videos/centrifuge-intro.mp4";
-const ROBOT_LOOP_MP4_SRC = "/videos/centrifuge-robot-loop.mp4";
-const ROBOT_LOOP_WEBM_SRC = "/videos/centrifuge-robot-loop.webm";
-const POSTER_SRC = "/images/centrifuge-poster.webp";
-const INTRO_FALLBACK_MS = 9_000;
-const CROSSFADE_LEAD_SECONDS = 0.48;
+const INTRO_VIDEO_SRC = "/videos/centrifuge-film-intro.mp4";
+const INTRO_VIDEO_WEBM_SRC = "/videos/centrifuge-film-intro.webm";
+const SPIN_LOOP_MP4_SRC = "/videos/centrifuge-spin-loop.mp4";
+const SPIN_LOOP_WEBM_SRC = "/videos/centrifuge-spin-loop.webm";
+const POSTER_SRC = "/images/centrifuge-film-poster.webp";
+const INTRO_FALLBACK_MS = 12_000;
+const CROSSFADE_LEAD_SECONDS = 0.06;
 
 export function CinematicCentrifugeHero() {
   const rootRef = useRef<HTMLElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
   const introVideoRef = useRef<HTMLVideoElement>(null);
-  const robotVideoRef = useRef<HTMLVideoElement>(null);
+  const loopVideoRef = useRef<HTMLVideoElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
   const loaderInterfaceRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
@@ -26,16 +27,16 @@ export function CinematicCentrifugeHero() {
   const trustRef = useRef<HTMLDivElement>(null);
   const transitionStartedRef = useRef(false);
   const transitionRequestedRef = useRef(false);
-  const robotReadyRef = useRef(false);
-  const robotFailedRef = useRef(false);
+  const loopReadyRef = useRef(false);
+  const loopFailedRef = useRef(false);
   const [introFinished, setIntroFinished] = useState(false);
 
   useEffect(() => {
     const root = rootRef.current;
     const visual = visualRef.current;
     const introVideo = introVideoRef.current;
-    const robotVideo = robotVideoRef.current;
-    if (!root || !visual || !introVideo || !robotVideo) return;
+    const loopVideo = loopVideoRef.current;
+    if (!root || !visual || !introVideo || !loopVideo) return;
 
     const body = document.body;
     const previousOverflow = body.style.overflow;
@@ -55,8 +56,8 @@ export function CinematicCentrifugeHero() {
 
     transitionStartedRef.current = false;
     transitionRequestedRef.current = false;
-    robotReadyRef.current = robotVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA;
-    robotFailedRef.current = false;
+    loopReadyRef.current = loopVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA;
+    loopFailedRef.current = false;
 
     body.style.overflow = "hidden";
     body.style.overscrollBehavior = "none";
@@ -74,25 +75,25 @@ export function CinematicCentrifugeHero() {
     };
 
     const attemptPlayback = () => {
-      const target = transitionRequestedRef.current ? robotVideo : introVideo;
+      const target = transitionRequestedRef.current ? loopVideo : introVideo;
       if (target.error || !target.paused) return;
       target.muted = true;
       void target.play().catch(() => { /* Um gesto posterior fará uma nova tentativa. */ });
     };
 
     const context = gsap.context(() => {
-      const startRobotLoop = () => {
-        if (robotFailedRef.current) return;
-        robotVideo.muted = true;
-        try { robotVideo.currentTime = 0; } catch { /* Usa o primeiro frame decodificado. */ }
-        void robotVideo.play().catch(() => { /* O poster permanece funcional. */ });
+      const startSpinLoop = () => {
+        if (loopFailedRef.current) return;
+        loopVideo.muted = true;
+        try { loopVideo.currentTime = 0; } catch { /* Usa o primeiro frame decodificado. */ }
+        void loopVideo.play().catch(() => { /* O poster permanece funcional. */ });
       };
 
       const beginTransition = (force = false) => {
         transitionRequestedRef.current = true;
-        startRobotLoop();
+        startSpinLoop();
         if (transitionStartedRef.current) return;
-        if (!force && !robotReadyRef.current && !robotFailedRef.current) {
+        if (!force && !loopReadyRef.current && !loopFailedRef.current) {
           if (forcedTransitionTimer === undefined) forcedTransitionTimer = window.setTimeout(() => beginTransition(true), 650);
           return;
         }
@@ -111,7 +112,7 @@ export function CinematicCentrifugeHero() {
         })
           .to(loaderInterfaceRef.current, { autoAlpha: 0, y: -12, duration: 0.3, ease: "power2.out" }, 0)
           .to(flashRef.current, { opacity: 0.4, duration: 0.18, ease: "power2.out" }, 0.06)
-          .to(robotVideo, { autoAlpha: robotFailedRef.current ? 0 : 1, duration: 0.46, ease: "power2.inOut" }, 0.1)
+          .to(loopVideo, { autoAlpha: loopFailedRef.current ? 0 : 1, duration: 0.46, ease: "power2.inOut" }, 0.1)
           .to(introVideo, { autoAlpha: 0, scale: 1.012, duration: 0.48, ease: "power2.inOut" }, 0.12)
           .to(loaderRef.current, { autoAlpha: 0, pointerEvents: "none", duration: 0.46, ease: "power2.inOut" }, 0.24)
           .to(flashRef.current, { opacity: 0, duration: 0.58, ease: "power2.out" }, 0.3)
@@ -136,21 +137,21 @@ export function CinematicCentrifugeHero() {
         animationFrame = window.requestAnimationFrame(watchIntroFrames);
       };
 
-      const handleRobotReady = () => {
-        robotReadyRef.current = true;
+      const handleLoopReady = () => {
+        loopReadyRef.current = true;
         if (transitionRequestedRef.current) beginTransition();
       };
-      const handleRobotError = () => {
-        robotFailedRef.current = true;
-        gsap.set(robotVideo, { autoAlpha: 0 });
+      const handleLoopError = () => {
+        loopFailedRef.current = true;
+        gsap.set(loopVideo, { autoAlpha: 0 });
         if (transitionRequestedRef.current) beginTransition(true);
       };
       const handleIntroError = () => beginTransition(true);
 
       if (reduceMotion.matches) {
         introVideo.pause();
-        robotVideo.pause();
-        gsap.set([introVideo, robotVideo], { display: "none" });
+        loopVideo.pause();
+        gsap.set([introVideo, loopVideo], { display: "none" });
         gsap.set(visual, { autoAlpha: 1, scale: 1, clearProps: "transform" });
         gsap.set(revealTargets, { autoAlpha: 1, y: 0, clearProps: "transform" });
         gsap.set(loaderRef.current, { display: "none" });
@@ -161,7 +162,7 @@ export function CinematicCentrifugeHero() {
 
       gsap.set(visual, { autoAlpha: 1, scale: 1.012 });
       gsap.set(introVideo, { autoAlpha: 1 });
-      gsap.set(robotVideo, { autoAlpha: 0 });
+      gsap.set(loopVideo, { autoAlpha: 0 });
       gsap.set(revealTargets, { autoAlpha: 0, y: 36 });
       gsap.fromTo(loaderInterfaceRef.current, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.82, delay: 0.15, ease: "power3.out" });
 
@@ -171,9 +172,9 @@ export function CinematicCentrifugeHero() {
       introVideo.addEventListener("timeupdate", updateIntro);
       introVideo.addEventListener("ended", handleIntroError);
       introVideo.addEventListener("error", handleIntroError);
-      robotVideo.addEventListener("loadeddata", handleRobotReady);
-      robotVideo.addEventListener("canplay", handleRobotReady);
-      robotVideo.addEventListener("error", handleRobotError);
+      loopVideo.addEventListener("loadeddata", handleLoopReady);
+      loopVideo.addEventListener("canplay", handleLoopReady);
+      loopVideo.addEventListener("error", handleLoopError);
       root.addEventListener("pointerdown", attemptPlayback, { passive: true });
       root.addEventListener("keydown", attemptPlayback);
       watchIntroFrames();
@@ -204,9 +205,9 @@ export function CinematicCentrifugeHero() {
         introVideo.removeEventListener("timeupdate", updateIntro);
         introVideo.removeEventListener("ended", handleIntroError);
         introVideo.removeEventListener("error", handleIntroError);
-        robotVideo.removeEventListener("loadeddata", handleRobotReady);
-        robotVideo.removeEventListener("canplay", handleRobotReady);
-        robotVideo.removeEventListener("error", handleRobotError);
+        loopVideo.removeEventListener("loadeddata", handleLoopReady);
+        loopVideo.removeEventListener("canplay", handleLoopReady);
+        loopVideo.removeEventListener("error", handleLoopError);
         root.removeEventListener("pointerdown", attemptPlayback);
         root.removeEventListener("keydown", attemptPlayback);
       };
@@ -227,11 +228,12 @@ export function CinematicCentrifugeHero() {
       <div ref={visualRef} className="cinematic-hero__visual" aria-hidden="true">
         <div className="cinematic-hero__fallback" />
         <video ref={introVideoRef} className="cinematic-hero__video cinematic-hero__video--intro" autoPlay muted playsInline preload="auto" poster={POSTER_SRC} aria-hidden="true" tabIndex={-1}>
+          <source src={INTRO_VIDEO_WEBM_SRC} type="video/webm" />
           <source src={INTRO_VIDEO_SRC} type="video/mp4" />
         </video>
-        <video ref={robotVideoRef} className="cinematic-hero__video cinematic-hero__video--robot" muted loop playsInline preload="auto" poster={POSTER_SRC} aria-hidden="true" tabIndex={-1}>
-          <source src={ROBOT_LOOP_WEBM_SRC} type="video/webm" />
-          <source src={ROBOT_LOOP_MP4_SRC} type="video/mp4" />
+        <video ref={loopVideoRef} className="cinematic-hero__video cinematic-hero__video--loop" muted loop playsInline preload="auto" poster={POSTER_SRC} aria-hidden="true" tabIndex={-1}>
+          <source src={SPIN_LOOP_WEBM_SRC} type="video/webm" />
+          <source src={SPIN_LOOP_MP4_SRC} type="video/mp4" />
         </video>
       </div>
 
