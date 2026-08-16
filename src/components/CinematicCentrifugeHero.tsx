@@ -228,11 +228,11 @@ export function CinematicCentrifugeHero() {
       <section ref={rootRef} className="cinematic-hero" aria-label="Tecnologia laboratorial de alta precisão">
       <div ref={visualRef} className="cinematic-hero__visual" aria-hidden="true">
         <div className="cinematic-hero__fallback" />
-        <video ref={introVideoRef} className="cinematic-hero__video cinematic-hero__video--intro" autoPlay muted playsInline preload="auto" poster={POSTER_SRC} aria-hidden="true" tabIndex={-1}>
+        <video ref={introVideoRef} className="cinematic-hero__video cinematic-hero__video--intro" autoPlay muted playsInline preload="auto" poster={POSTER_SRC} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback" draggable={false} aria-hidden="true" tabIndex={-1}>
           <source src={INTRO_VIDEO_WEBM_SRC} type="video/webm" />
           <source src={INTRO_VIDEO_SRC} type="video/mp4" />
         </video>
-        <video ref={loopVideoRef} className="cinematic-hero__video cinematic-hero__video--loop" muted loop playsInline preload="auto" poster={POSTER_SRC} aria-hidden="true" tabIndex={-1}>
+        <video ref={loopVideoRef} className="cinematic-hero__video cinematic-hero__video--loop" muted loop playsInline preload="auto" poster={POSTER_SRC} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback" draggable={false} aria-hidden="true" tabIndex={-1}>
           <source src={SPIN_LOOP_WEBM_SRC} type="video/webm" />
           <source src={SPIN_LOOP_MP4_SRC} type="video/mp4" />
         </video>
