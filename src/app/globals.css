@@ -202,6 +202,90 @@ body.cinematic-intro-active { touch-action: none; }
 .product-card:hover { translate: 0 -4px; box-shadow: 0 18px 44px rgba(2,83,111,.13); }
 .product-visual { position: relative; display: block; aspect-ratio: 1.45; overflow: hidden; background: #EDF9FC; }
 
+/* Institutional pages: shared clinical white and solid-blue language. */
+.standard-page { min-height: 100%; background: #FFFFFF; color: #102833; }
+.standard-page .page-hero { border-bottom: 1px solid rgba(39,199,255,.14); background: #F1FAFD; }
+.standard-page .page-hero:before { opacity: .18; background-image: linear-gradient(rgba(39,199,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(39,199,255,.14) 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(90deg, black, transparent 86%); animation: institutional-grid-drift 26s linear infinite; }
+.standard-page .page-hero:after { width: 480px; height: 480px; top: -250px; right: -140px; border-color: rgba(39,199,255,.14); background: rgba(116,220,255,.04); box-shadow: 0 0 0 72px rgba(39,199,255,.025), 0 0 0 148px rgba(39,199,255,.014); animation: institutional-orbit 22s ease-in-out infinite alternate; }
+.standard-page .page-hero .eyebrow { color: #087DA8; }
+.standard-page .page-hero .display { color: #102833; }
+.standard-page .page-hero .text-slate-300 { color: #607982; }
+.standard-page__intro { position: relative; }
+.standard-page__media { border: 1px solid rgba(39,199,255,.16); box-shadow: 0 24px 62px rgba(2,83,111,.11); }
+.standard-page__band { border-block: 1px solid rgba(39,199,255,.11); background: #F4FBFD; }
+.standard-page__card { border: 1px solid rgba(39,199,255,.13); background: #FFFFFF; box-shadow: 0 18px 46px rgba(2,83,111,.075); transition: border-color .28s ease, background-color .28s ease, box-shadow .28s ease, transform .28s ease; }
+.standard-page__value-grid { border-color: rgba(39,199,255,.14); background: #D8EEF5; box-shadow: 0 18px 46px rgba(2,83,111,.07); }
+.standard-page__value-card { background: #FFFFFF; transition: background-color .28s ease; }
+.standard-page__prompt { border: 1px solid rgba(39,199,255,.14); background: #EDF9FC; }
+.standard-page .button-primary { background: #0A93BC; color: #FFFFFF; }
+.standard-page .button-primary:hover { background: #087A9F; }
+.standard-page .orb { border-color: rgba(116,220,255,.2); box-shadow: 0 0 0 70px rgba(116,220,255,.035), 0 0 0 140px rgba(116,220,255,.02); }
+
+/* Contact: full dark clinical environment with electric-blue accents. */
+body:has(#conteudo > .contact-dark),
+#conteudo:has(> .contact-dark) { background: #02070B; }
+.contact-dark { position: relative; min-height: 100%; overflow: hidden; isolation: isolate; background: #02070B; color: rgba(255,255,255,.94); }
+.contact-dark:before { content: ""; position: absolute; z-index: -1; inset: 0; opacity: .14; background-image: linear-gradient(rgba(116,220,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(116,220,255,.1) 1px, transparent 1px); background-size: 92px 92px; mask-image: linear-gradient(to bottom, black, transparent 92%); animation: contact-grid-drift 30s linear infinite; pointer-events: none; }
+.contact-dark .page-hero { border-bottom: 1px solid rgba(116,220,255,.13); background: #02070B; }
+.contact-dark .page-hero:before { opacity: .2; background-image: linear-gradient(rgba(116,220,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(116,220,255,.12) 1px, transparent 1px); background-size: 72px 72px; mask-image: linear-gradient(90deg, black, transparent 90%); animation: contact-grid-drift 28s linear infinite; }
+.contact-dark .page-hero:after { top: -230px; right: -140px; border-color: rgba(116,220,255,.24); background: rgba(39,199,255,.035); box-shadow: inset 0 0 90px rgba(39,199,255,.04), 0 0 0 70px rgba(39,199,255,.045), 0 0 0 150px rgba(39,199,255,.025); animation: institutional-orbit 20s ease-in-out infinite alternate-reverse; }
+.contact-dark .page-hero .eyebrow,
+.contact-dark .eyebrow { color: #74DCFF; }
+.contact-dark .page-hero .display,
+.contact-dark__intro .display { color: #FFFFFF; }
+.contact-dark .page-hero .text-slate-300 { color: rgba(215,244,255,.66); }
+.contact-dark__body { position: relative; z-index: 1; }
+.contact-dark__intro > .text-slate-600 { color: rgba(215,244,255,.62); }
+.contact-dark__channels a { color: #74DCFF; transition: color .22s ease, transform .22s ease; }
+.contact-dark__channels a:hover { color: #FFFFFF; transform: translateX(3px); }
+.contact-dark__notice { border-color: rgba(116,220,255,.16); background: #071822; color: rgba(215,244,255,.62); box-shadow: inset 0 1px rgba(255,255,255,.025); }
+.contact-dark__notice .text-ink { color: #FFFFFF; }
+.contact-dark .contact-form { border-color: rgba(116,220,255,.18); background: #071822; color: rgba(255,255,255,.9); box-shadow: 0 30px 80px rgba(0,0,0,.3), inset 0 1px rgba(255,255,255,.035); }
+.contact-dark .contact-form label { color: rgba(237,250,255,.88); }
+.contact-dark .contact-form .input { border-color: rgba(116,220,255,.18); background: #020B10; color: #FFFFFF; caret-color: #74DCFF; }
+.contact-dark .contact-form .input::placeholder { color: rgba(190,221,232,.42); }
+.contact-dark .contact-form .input:hover { border-color: rgba(116,220,255,.3); }
+.contact-dark .contact-form .input:focus { border-color: #27C7FF; box-shadow: 0 0 0 3px rgba(39,199,255,.12), 0 0 26px rgba(39,199,255,.06); }
+.contact-dark .contact-form .text-red-700 { color: #FFB5B5; }
+.contact-dark .contact-form__consent { color: rgba(215,244,255,.62); }
+.contact-dark .contact-form__consent a { color: #74DCFF; }
+.contact-dark .contact-form__demo-note { color: rgba(190,221,232,.45); }
+.contact-dark .contact-form__error { color: #FFB5B5; }
+.contact-dark .contact-form .button-primary { background: #27C7FF; color: #02070B; box-shadow: 0 14px 34px rgba(39,199,255,.16); }
+.contact-dark .contact-form .button-primary:hover { background: #74DCFF; }
+.contact-dark .contact-form--success .text-slate-600 { color: rgba(215,244,255,.62); }
+.contact-dark .contact-form__success-icon { background: rgba(39,199,255,.1); color: #74DCFF; box-shadow: inset 0 0 0 1px rgba(116,220,255,.2); }
+.contact-dark .contact-form .button-outline { border-color: rgba(116,220,255,.22); background: #020B10; color: #FFFFFF; }
+
+body:has(#conteudo > .contact-dark) .site-header { box-shadow: 0 12px 34px rgba(0,0,0,.28); }
+body:has(#conteudo > .contact-dark) .site-header__utility { background: #02070B; }
+body:has(#conteudo > .contact-dark) .site-header__bar { border-color: rgba(116,220,255,.12); background: rgba(7,16,24,.98); backdrop-filter: blur(18px); }
+body:has(#conteudo > .contact-dark) .brand-monogram { background: rgba(39,199,255,.1); color: #DFF8FF; box-shadow: inset 0 0 0 1px rgba(116,220,255,.34); }
+body:has(#conteudo > .contact-dark) .brand-name { color: #FFFFFF; }
+body:has(#conteudo > .contact-dark) .brand-tagline { color: #74DCFF; }
+body:has(#conteudo > .contact-dark) .site-header__nav-link { color: rgba(237,250,255,.72); }
+body:has(#conteudo > .contact-dark) .site-header__nav-link:hover { color: #FFFFFF; }
+body:has(#conteudo > .contact-dark) .site-header__search-input { border-color: rgba(116,220,255,.16); background: #020B10; color: #FFFFFF; }
+body:has(#conteudo > .contact-dark) .site-header__search-input::placeholder { color: rgba(190,221,232,.42); }
+body:has(#conteudo > .contact-dark) .site-header__search-input:focus { border-color: rgba(116,220,255,.54); background: #02070B; }
+body:has(#conteudo > .contact-dark) .site-header__search-button { color: #74DCFF; }
+body:has(#conteudo > .contact-dark) .site-header__search-button:hover { background: rgba(116,220,255,.08); }
+body:has(#conteudo > .contact-dark) .header-quote-button { background: #27C7FF; color: #02070B; box-shadow: 0 10px 28px rgba(39,199,255,.14); }
+body:has(#conteudo > .contact-dark) .header-quote-button:hover { background: #74DCFF; }
+body:has(#conteudo > .contact-dark) .header-menu-button { color: #FFFFFF; }
+
+@keyframes institutional-grid-drift { to { background-position: 64px 64px, -64px 64px; } }
+@keyframes contact-grid-drift { to { background-position: 92px 92px, -92px 92px; } }
+@keyframes institutional-orbit {
+  from { opacity: .52; transform: translate3d(-2%, -1%, 0) scale(.97); }
+  to { opacity: .82; transform: translate3d(4%, 4%, 0) scale(1.06); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .standard-page__card:hover { border-color: rgba(39,199,255,.34); background: #F8FCFE; box-shadow: 0 24px 58px rgba(2,83,111,.11); transform: translateY(-3px); }
+  .standard-page__value-card:hover { background: #F2FBFE; }
+}
+
 /* Home: base clínica branca com profundidade tecnológica em azuis. */
 #conteudo:has(> .cinematic-hero) { background: #FFFFFF; }
 #conteudo:has(> .cinematic-hero) :focus-visible { outline-color: #74dcff; }
@@ -758,6 +842,11 @@ textarea.input { min-height: 140px; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *:before, *:after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .standard-page .page-hero:before,
+  .standard-page .page-hero:after,
+  .contact-dark:before,
+  .contact-dark .page-hero:before,
+  .contact-dark .page-hero:after { animation: none !important; }
   .home-trust__grid,
   .home-catalog:before,
   .home-catalog:after,
