@@ -44,7 +44,7 @@ export default function Home() {
       <CinematicCentrifugeHero />
 
       <section className="home-trust shell relative z-10 -mt-7" aria-label="Diferenciais de atendimento">
-        <div className="home-trust__grid grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(8,72,124,.12)] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="home-trust__grid grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(2,83,111,.12)] sm:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map(({ title, text, icon: Icon }) => (
             <article key={title} className="home-trust__item flex gap-3.5 border-b border-slate-200 p-5 last:border-0 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:border-r lg:last:border-r-0">
               <span className="home-trust__icon grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-teal-800"><Icon className="size-5" /></span>
