@@ -435,10 +435,10 @@ body:has(#conteudo > .contact-dark) .header-menu-button { color: #FFFFFF; }
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  background-color: #F8FCFE;
+  background-color: #F2FAFD;
   background-image:
-    linear-gradient(rgba(39,199,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(39,199,255,.035) 1px, transparent 1px);
+    linear-gradient(rgba(39,199,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(39,199,255,.06) 1px, transparent 1px);
   background-position: 0 0, 0 0;
   background-size: 82px 82px, 82px 82px;
   animation: home-grid-drift 28s linear infinite;
@@ -452,15 +452,15 @@ body:has(#conteudo > .contact-dark) .header-menu-button { color: #FFFFFF; }
   right: -14%;
   width: clamp(340px, 49vw, 660px);
   aspect-ratio: 1;
-  border: 1px solid rgba(39,199,255,.13);
+  border: 1px solid rgba(39,199,255,.2);
   border-radius: 50%;
-  background: rgba(116,220,255,.055);
+  background: rgba(116,220,255,.09);
   box-shadow:
-    inset 0 0 88px rgba(116,220,255,.045),
-    0 0 0 76px rgba(39,199,255,.03),
-    0 0 0 154px rgba(39,199,255,.018);
-  opacity: .48;
-  animation: home-orbital-float 21s ease-in-out infinite alternate;
+    inset 0 0 88px rgba(116,220,255,.07),
+    0 0 0 76px rgba(39,199,255,.045),
+    0 0 0 154px rgba(39,199,255,.026);
+  opacity: .9;
+  animation: home-catalog-orbital-float 21s ease-in-out infinite alternate;
   pointer-events: none;
 }
 .home-catalog .eyebrow,
@@ -536,6 +536,11 @@ body:has(#conteudo > .contact-dark) .header-menu-button { color: #FFFFFF; }
 @keyframes home-grid-drift {
   from { background-position: 0 0, 0 0, center, center; }
   to { background-position: 68px 68px, -68px 68px, center, center; }
+}
+@keyframes home-catalog-orbital-float {
+  0% { opacity: .86; transform: translate3d(-2%, -2%, 0) scale(.97) rotate(-2deg); }
+  50% { opacity: 1; transform: translate3d(2%, 1%, 0) scale(1.025) rotate(1deg); }
+  100% { opacity: .92; transform: translate3d(5%, 4%, 0) scale(1.06) rotate(4deg); }
 }
 @keyframes home-orbital-float {
   0% { opacity: .7; transform: translate3d(-2%, -2%, 0) scale(.96) rotate(-3deg); }
