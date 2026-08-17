@@ -35,7 +35,7 @@ export function Header() {
       <div className="site-header__bar border-b border-slate-200 bg-white/95 backdrop-blur-xl">
         <div className="shell flex h-[76px] items-center gap-6">
           <Brand />
-          <nav className="ml-auto hidden items-center gap-5 xl:flex" aria-label="Navegação principal">
+          <nav className="ml-auto hidden items-center gap-5 2xl:flex" aria-label="Navegação principal">
             {siteConfig.navigation.slice(0, 5).map((item) => (
               <Link key={item.href} href={item.href} className="site-header__nav-link text-[.78rem] font-bold text-slate-700 transition hover:text-teal-800">
                 {item.label}
@@ -47,7 +47,7 @@ export function Header() {
             <input id="header-search" name="q" type="search" className="site-header__search-input h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-4 pr-11 text-xs text-ink placeholder:text-slate-400 focus:border-teal-700 focus:bg-white focus:outline-none" placeholder="Produto, categoria ou aplicação" />
             <button type="submit" className="site-header__search-button absolute right-1 top-1 grid size-9 place-items-center rounded-lg text-teal-800 hover:bg-emerald-50" aria-label="Buscar"><SearchIcon className="size-4.5" /></button>
           </form>
-          <HeaderActions mobileBrand={<Brand variant="light" />} />
+          <HeaderActions />
         </div>
       </div>
     </AdaptiveHeader>

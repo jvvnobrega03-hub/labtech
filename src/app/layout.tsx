@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { AuroraNavigationShell } from "@/components/aurora-navigation";
 import { QuoteDrawer } from "@/components/quote-drawer";
 import { QuoteProvider } from "@/components/quote-context";
 import { MotionSystem } from "@/components/motion-system";
@@ -51,13 +52,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={manrope.variable} data-scroll-behavior="smooth">
       <body>
-        <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
         <QuoteProvider>
-          <Header />
-          <main id="conteudo" className="min-h-[60vh]">{children}</main>
-          <Footer />
-          <QuoteDrawer />
-          <MotionSystem />
+          <AuroraNavigationShell>
+            <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
+            <Header />
+            <main id="conteudo" className="min-h-[60vh]">{children}</main>
+            <Footer />
+            <QuoteDrawer />
+            <MotionSystem />
+          </AuroraNavigationShell>
         </QuoteProvider>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }} />
       </body>

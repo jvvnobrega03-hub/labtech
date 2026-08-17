@@ -310,6 +310,321 @@ textarea.input { min-height: 140px; resize: vertical; }
 .skip-link:focus { top: 1rem; }
 .prose-lab h2 { margin-top: 2.5rem; font-family: var(--font-serif); font-size: 2rem; }
 .prose-lab p, .prose-lab li { margin-top: 1rem; line-height: 1.8; color: #526159; }
+
+/* Aurora navigation: the full effect is isolated inside its namespaced container. */
+.aurora-navigation-menus-17 {
+  position: relative;
+  min-height: 100svh;
+  overflow-x: clip;
+  isolation: isolate;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__surface {
+  position: relative;
+  top: 0;
+  min-height: 100svh;
+  opacity: 1;
+  will-change: top, opacity;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu,
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu * {
+  box-sizing: border-box;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu {
+  position: fixed;
+  z-index: 100000;
+  inset: 0;
+  display: flex;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100svh;
+  gap: 1.5rem;
+  overflow: hidden;
+  padding: 1.5rem;
+  pointer-events: none;
+  color: rgba(255,255,255,.94);
+  background:
+    radial-gradient(circle at 12% 86%, rgba(21,112,78,.23), transparent 34%),
+    radial-gradient(circle at 86% 8%, rgba(39,199,255,.12), transparent 28%),
+    linear-gradient(135deg, #02070b, #071018 56%, #03100f);
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .06;
+  background-image:
+    linear-gradient(rgba(116,220,255,.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(116,220,255,.18) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: linear-gradient(90deg, black, transparent 82%);
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-nav {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.75rem;
+  pointer-events: none;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-caption {
+  margin: 0;
+  color: rgba(190,236,255,.46);
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-close {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  border: 1px solid rgba(116,220,255,.16);
+  border-radius: 999px;
+  padding: 0 1rem;
+  pointer-events: auto;
+  color: rgba(255,255,255,.82);
+  background: rgba(255,255,255,.045);
+  font: inherit;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+  transition: color .25s ease, border-color .25s ease, background-color .25s ease;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-close svg {
+  width: 1rem;
+  height: 1rem;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-close:hover {
+  border-color: rgba(116,220,255,.48);
+  color: #fff;
+  background: rgba(116,220,255,.09);
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-close:focus-visible,
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu a:focus-visible {
+  outline: 2px solid #74dcff;
+  outline-offset: 4px;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-image {
+  position: relative;
+  flex: 3;
+  overflow: hidden;
+  border: 1px solid rgba(116,220,255,.1);
+  border-radius: 1rem;
+  background: #02070b;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__image-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 64% center;
+  transform: translate(-50%, -50%);
+  will-change: top, transform;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__image-layer--1 { opacity: .9; }
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__image-layer--2 { opacity: .7; }
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__image-layer--3 { opacity: .5; }
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__image-layer--4 { opacity: .3; }
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__image-shade {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(2,7,11,.24), transparent 38%, rgba(2,7,11,.72)),
+    radial-gradient(circle at 68% 48%, transparent 24%, rgba(2,7,11,.2) 70%);
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__image-label {
+  position: absolute;
+  z-index: 3;
+  left: 1.4rem;
+  bottom: 1.3rem;
+  margin: 0;
+  color: rgba(210,242,250,.62);
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-items {
+  position: relative;
+  z-index: 3;
+  top: 0;
+  display: flex;
+  min-width: 20rem;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3.25rem 2.5rem 2.25rem;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-logo {
+  display: block;
+  width: max-content;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-logo-inner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  font-size: .85rem;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-logo-mark {
+  display: grid;
+  width: 2.7rem;
+  height: 2.7rem;
+  place-items: center;
+  border: 1px solid rgba(116,220,255,.4);
+  border-radius: .7rem;
+  color: #dff8ff;
+  background: rgba(116,220,255,.1);
+  font-size: 1rem;
+  letter-spacing: -.08em;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-links {
+  display: grid;
+  gap: .1rem;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link-mask,
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-sub-mask {
+  overflow: hidden;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.65rem, 2.35vw, 2.55rem);
+  font-weight: 750;
+  line-height: 1.14;
+  letter-spacing: -.05em;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link > span {
+  color: rgba(116,220,255,.36);
+  font-size: .5rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link a {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: color .25s ease;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link a:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: .03em;
+  left: 0;
+  height: 1px;
+  background: #74dcff;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link a:hover { color: #a9edff; }
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link a:hover:after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-footer {
+  display: flex;
+  width: 100%;
+  gap: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(116,220,255,.1);
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-sub-column {
+  display: grid;
+  flex: 1;
+  align-content: end;
+  gap: .36rem;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-sub-mask p {
+  position: relative;
+  margin: 0;
+  color: rgba(214,231,236,.46);
+  font-size: .55rem;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-sub-mask a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-sub-mask a:hover { color: #a9edff; }
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-open {
+  border: 1px solid rgba(21,112,78,.14);
+  background: rgba(255,255,255,.05);
+  transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+}
+.aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-open:hover {
+  border-color: rgba(39,199,255,.34);
+  background: rgba(116,220,255,.1);
+}
+.aurora-navigation-menus-17:has(#conteudo > .cinematic-hero) .site-header:not(.site-header--solid) .aurora-navigation-menus-17__menu-open,
+.aurora-navigation-menus-17:has(#conteudo > .cinematic-hero) .site-header--solid .aurora-navigation-menus-17__menu-open {
+  border-color: rgba(116,220,255,.18);
+}
+
+@media (max-width: 75rem) {
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-items {
+    min-width: 19rem;
+    padding-inline: 1.75rem;
+  }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link { font-size: clamp(1.55rem, 2.5vw, 2.1rem); }
+}
+@media (max-width: 56.25rem) {
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu { padding: 0; }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-image { display: none; }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-items {
+    width: 100%;
+    min-width: 0;
+    padding: max(4.75rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
+  }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-nav {
+    padding: max(1.1rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) 1rem max(1.25rem, env(safe-area-inset-left));
+  }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-links { gap: .18rem; }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+}
+@media (max-width: 31.25rem) {
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-caption { display: none; }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-nav { justify-content: flex-end; }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-items { padding-top: max(4.4rem, env(safe-area-inset-top)); }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-logo-inner { font-size: .74rem; }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-logo-mark { width: 2.35rem; height: 2.35rem; }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-link { font-size: clamp(1.45rem, 7.8vw, 2rem); }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-footer { gap: .8rem; }
+  .aurora-navigation-menus-17 .aurora-navigation-menus-17__menu-sub-mask p { font-size: .48rem; letter-spacing: .05em; }
+}
 @media (max-width: 1023px) {
   .cinematic-hero__content.shell { width: min(1200px, calc(100% - 54px)); }
   .cinematic-hero__copy { width: 64vw; }

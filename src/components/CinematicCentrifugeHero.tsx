@@ -47,7 +47,7 @@ export function CinematicCentrifugeHero() {
     const saveData = Boolean(connection?.saveData);
     const revealTargets = [eyebrowRef.current, headingRef.current, descriptionRef.current, ctasRef.current, trustRef.current].filter(Boolean) as HTMLElement[];
     const temporarilyInert = Array.from(document.querySelectorAll<HTMLElement>(
-      "body > .skip-link, body > header, body > footer, #conteudo > :not(.cinematic-hero)",
+      ".aurora-navigation-menus-17__surface > .skip-link, .aurora-navigation-menus-17__surface > header, .aurora-navigation-menus-17__surface > footer, #conteudo > :not(.cinematic-hero)",
     )).filter((element) => !element.inert);
 
     let scrollLocked = true;
