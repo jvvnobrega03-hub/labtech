@@ -45,7 +45,9 @@ export default function Home() {
         ? "/images/linha-coleta-acondicionamento.webp"
         : product.slug === "reagentes-kits-e-controles"
           ? "/images/reagentes-kits-controles.webp"
-          : product.image,
+          : product.slug === "equipamentos-de-bancada"
+            ? "/images/equipamentos-laboratoriais.webp"
+            : product.image,
     }));
 
   return (
