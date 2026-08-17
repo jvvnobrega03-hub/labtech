@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Callout, PageHero, SectionHeading } from "@/components/ui";
+import Link from "next/link";
+import { Callout, SectionHeading } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata("Quem somos", "Conheça a Labtech, empresa que atua desde 1997 com produtos para laboratórios, hospitais, clínicas e centros de pesquisa.", "/quem-somos");
@@ -13,8 +14,44 @@ export default function AboutPage() {
 
   return (
     <div className="standard-page standard-page--about">
-      <PageHero eyebrow="Quem somos" title="Desde 1997, confiança para rotinas laboratoriais e hospitalares." description="A Labtech atua no relacionamento B2B com laboratórios, hospitais, clínicas e centros de pesquisa que buscam produtos e soluções para suas rotinas." />
-      <section className="standard-page__intro shell grid items-center gap-14 py-24 lg:grid-cols-2">
+      <link rel="preload" as="image" href="/images/about-puppy-hero-poster.webp" fetchPriority="high" />
+      <section className="about-video-hero" aria-labelledby="about-hero-title">
+        <video
+          className="about-video-hero__video"
+          autoPlay
+          muted
+          playsInline
+          preload="metadata"
+          poster="/images/about-puppy-hero-poster.webp"
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload noplaybackrate noremoteplayback"
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source media="(max-width: 767px)" src="/videos/about-puppy-hero-mobile.mp4" type="video/mp4" />
+          <source src="/videos/about-puppy-hero.mp4" type="video/mp4" />
+        </video>
+        <div className="about-video-hero__scrim" aria-hidden="true" />
+        <div className="about-video-hero__grid" aria-hidden="true" />
+        <div className="about-video-hero__content shell">
+          <div className="about-video-hero__copy">
+            <p className="about-video-hero__eyebrow"><span aria-hidden="true" /> Quem somos</p>
+            <h1 id="about-hero-title" className="about-video-hero__title">Desde 1997, confiança para rotinas laboratoriais e hospitalares.</h1>
+            <p className="about-video-hero__description">A Labtech atua no relacionamento B2B com laboratórios, hospitais, clínicas e centros de pesquisa que buscam produtos e soluções para suas rotinas.</p>
+            <div className="about-video-hero__actions">
+              <a href="#nossa-atuacao" className="about-video-hero__button about-video-hero__button--primary">Conhecer nossa atuação <span aria-hidden="true">→</span></a>
+              <Link href="/catalogo" className="about-video-hero__button about-video-hero__button--secondary">Explorar catálogo</Link>
+            </div>
+            <div className="about-video-hero__proof" aria-label="Diferenciais da Labtech">
+              <span>Desde 1997</span>
+              <span>Atendimento B2B</span>
+              <span>Saúde e diagnóstico</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="nossa-atuacao" className="standard-page__intro shell scroll-mt-28 grid items-center gap-14 py-24 lg:grid-cols-2">
         <div>
           <SectionHeading eyebrow="Nossa atuação" title="Experiência para compreender necessidades técnicas" description="A atuação desde 1997 orienta uma abordagem baseada em escuta, organização da demanda e comunicação responsável entre a instituição e a solução consultada." />
           <p className="mt-6 leading-8 text-slate-600">O catálogo digital apoia a etapa inicial do atendimento. A definição de produtos, condições e características depende da confirmação técnica e comercial aplicável a cada solicitação.</p>
