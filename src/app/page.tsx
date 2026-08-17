@@ -39,9 +39,14 @@ const stats = [
 export default function Home() {
   const featured = products
     .filter((product) => product.featured)
-    .map((product) => product.slug === "linha-de-coleta-e-acondicionamento"
-      ? { ...product, image: "/images/linha-coleta-acondicionamento.webp" }
-      : product);
+    .map((product) => ({
+      ...product,
+      image: product.slug === "linha-de-coleta-e-acondicionamento"
+        ? "/images/linha-coleta-acondicionamento.webp"
+        : product.slug === "reagentes-kits-e-controles"
+          ? "/images/reagentes-kits-controles.webp"
+          : product.image,
+    }));
 
   return (
     <>
