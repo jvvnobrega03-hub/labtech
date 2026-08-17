@@ -37,7 +37,11 @@ const stats = [
 ];
 
 export default function Home() {
-  const featured = products.filter((product) => product.featured);
+  const featured = products
+    .filter((product) => product.featured)
+    .map((product) => product.slug === "linha-de-coleta-e-acondicionamento"
+      ? { ...product, image: "/images/linha-coleta-acondicionamento.webp" }
+      : product);
 
   return (
     <>
