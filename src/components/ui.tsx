@@ -10,7 +10,7 @@ export function PageHero({ eyebrow, title, description }: { eyebrow: string; tit
     <section className="page-hero">
       <div className="shell relative z-10">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="display mt-5 max-w-4xl text-5xl text-white md:text-7xl">{title}</h1>
+        <h1 className="page-hero__title display text-white">{title}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">{description}</p>
       </div>
     </section>
