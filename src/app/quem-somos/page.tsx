@@ -75,7 +75,7 @@ export default function AboutPage() {
             <h1 id="about-hero-title" className="about-video-hero__title">Há quase 30 anos, soluções diagnósticas com qualidade, agilidade e confiança.</h1>
             <p className="about-video-hero__description">Atendemos laboratórios, hospitais, clínicas e centros de pesquisa com um portfólio completo de produtos, serviços e soluções para a área diagnóstica, sempre com foco em excelência, inovação e atendimento especializado.</p>
             <div className="about-video-hero__actions">
-              <Link href="/contato" className="about-video-hero__button about-video-hero__button--primary text-center leading-5">Fale com nossa equipe e descubra a solução ideal para o seu laboratório. <span aria-hidden="true">→</span></Link>
+              <Link href="/contato" className="about-video-hero__button about-video-hero__button--primary text-center leading-5">Fale com nossa e tenha a solução ideal <span aria-hidden="true">→</span></Link>
               <Link href="/catalogo" className="about-video-hero__button about-video-hero__button--secondary">Explorar catálogo</Link>
             </div>
             <div className="about-video-hero__proof" aria-label="Diferenciais da Labtech">
