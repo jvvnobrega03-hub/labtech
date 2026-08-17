@@ -6,7 +6,7 @@ Trabalhe exclusivamente na página principal da Labtech e nos componentes compar
 
 ## Objetivo
 
-Elevar o acabamento da Home para que todas as seções tenham a mesma percepção de precisão, tecnologia e confiança criada pela Hero cinematográfica, sem transformar a interface em um site genérico, futurista em excesso ou promocional demais.
+Elevar o acabamento da Home para que todas as seções continuem o universo visual da Hero cinematográfica, com a mesma percepção de precisão, tecnologia e confiança, sem transformar a interface em um site genérico, futurista em excesso ou promocional demais.
 
 ## Implementação obrigatória
 
@@ -18,7 +18,9 @@ Elevar o acabamento da Home para que todas as seções tenham a mesma percepçã
 
 2. Refinar as seções da Home:
    - criar continuidade de cor, profundidade e espaçamento;
-   - manter fundos claros para leitura e usar verde profundo apenas como contraste estratégico;
+   - usar fundos profundos derivados da Hero, combinando azul clínico, ciano e verde institucional;
+   - criar degradês controlados entre todas as áreas, sem cortes bruscos ou blocos desconectados;
+   - preservar contraste forte para títulos, textos, formulários, cards e CTAs;
    - padronizar bordas, sombras, raios e microinterações;
    - evitar excesso de vidro, neon, grid técnico ou decoração.
 
@@ -53,4 +55,3 @@ Elevar o acabamento da Home para que todas as seções tenham a mesma percepçã
 ## Validação
 
 Antes de concluir, execute geração de tipos, TypeScript, lint, testes e build de produção. Verifique o servidor local, a semântica da Home, a ausência de regressões nas rotas e a preservação dos fallbacks do vídeo.
-
