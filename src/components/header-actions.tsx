@@ -11,7 +11,7 @@ export function HeaderActions(props: { mobileBrand?: ReactNode } = {}) {
   const { itemCount, open } = useQuote();
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="site-header__actions flex shrink-0 items-center gap-2">
       <button
         type="button"
         onClick={open}
