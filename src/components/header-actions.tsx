@@ -19,7 +19,7 @@ export function HeaderActions({ mobileBrand }: { mobileBrand: ReactNode }) {
       <button
         type="button"
         onClick={open}
-        className="flex h-11 items-center gap-2 rounded-xl bg-navy px-3.5 text-white shadow-sm transition hover:bg-deep"
+        className="header-quote-button flex h-11 items-center gap-2 rounded-xl bg-navy px-3.5 text-white shadow-sm transition hover:bg-deep"
         aria-label={`Abrir orçamento com ${itemCount} itens`}
       >
         <BagIcon className="size-5" />
@@ -27,7 +27,7 @@ export function HeaderActions({ mobileBrand }: { mobileBrand: ReactNode }) {
       </button>
       <button
         type="button"
-        className="grid size-11 place-items-center text-ink xl:hidden"
+        className="header-menu-button grid size-11 place-items-center text-ink xl:hidden"
         onClick={() => setMenuOpen(true)}
         aria-label="Abrir menu"
         aria-expanded={menuOpen}

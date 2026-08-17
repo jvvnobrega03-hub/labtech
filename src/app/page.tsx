@@ -30,10 +30,10 @@ const trustPoints = [
 ];
 
 const stats = [
-  { value: "1997", label: "início da nossa história" },
-  { value: "10+", label: "frentes de produtos" },
-  { value: "B2B", label: "atendimento institucional" },
-  { value: "Brasil", label: "cobertura de atendimento" },
+  { eyebrow: "Experiência", value: "1997", label: "início da nossa história" },
+  { eyebrow: "Portfólio", value: "10+", label: "frentes de produtos" },
+  { eyebrow: "Modelo", value: "B2B", label: "atendimento institucional" },
+  { eyebrow: "Alcance", value: "Brasil", label: "cobertura de atendimento" },
 ];
 
 export default function Home() {
@@ -43,30 +43,31 @@ export default function Home() {
     <>
       <CinematicCentrifugeHero />
 
-      <section className="shell relative z-10 -mt-7" aria-label="Diferenciais de atendimento">
-        <div className="grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(7,43,33,.12)] sm:grid-cols-2 lg:grid-cols-4">
+      <section className="home-trust shell relative z-10 -mt-7" aria-label="Diferenciais de atendimento">
+        <div className="home-trust__grid grid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(7,43,33,.12)] sm:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map(({ title, text, icon: Icon }) => (
-            <article key={title} className="flex gap-3.5 border-b border-slate-200 p-5 last:border-0 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:border-r lg:last:border-r-0">
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-teal-800"><Icon className="size-5" /></span>
+            <article key={title} className="home-trust__item flex gap-3.5 border-b border-slate-200 p-5 last:border-0 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:border-r lg:last:border-r-0">
+              <span className="home-trust__icon grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-teal-800"><Icon className="size-5" /></span>
               <div><h2 className="text-sm font-extrabold text-ink">{title}</h2><p className="mt-1 text-[.72rem] leading-5 text-slate-500">{text}</p></div>
             </article>
           ))}
         </div>
       </section>
 
-      <section id="produtos" className="shell scroll-mt-28 py-20">
+      <section id="produtos" className="home-catalog shell scroll-mt-28 py-20">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading eyebrow="Encontre o que você precisa" title="Um catálogo organizado pela sua rotina" description="Pesquise diretamente ou comece pela categoria mais próxima da sua necessidade." />
-          <form action="/catalogo" className="flex w-full max-w-xl overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm" role="search">
+          <form action="/catalogo" className="home-catalog__search flex w-full max-w-xl overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm" role="search">
             <label htmlFor="home-search" className="sr-only">Buscar produtos no catálogo</label>
             <SearchIcon className="ml-4 size-5 shrink-0 self-center text-slate-400" />
             <input id="home-search" name="q" type="search" className="min-w-0 flex-1 px-3 py-3.5 text-sm outline-none placeholder:text-slate-400" placeholder="Busque produto, categoria ou aplicação" />
             <button type="submit" className="grid w-14 place-items-center bg-navy text-white transition hover:bg-deep" aria-label="Buscar no catálogo"><ArrowIcon className="size-5" /></button>
           </form>
         </div>
-        <div className="mt-9 grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-200 bg-white sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {categories.slice(0, 10).map((category) => (
+        <div className="home-category-grid mt-9 grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-200 bg-white sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          {categories.slice(0, 10).map((category, index) => (
             <Link href={`/catalogo?categoria=${category.slug}`} key={category.slug} className="category-tile group">
+              <span className="home-category-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <span className="grid size-11 place-items-center rounded-xl bg-emerald-50 text-teal-800 transition group-hover:bg-navy group-hover:text-white"><CategoryIcon slug={category.slug} className="size-5.5" /></span>
               <span className="mt-4 text-center text-xs font-extrabold leading-4 text-slate-700 group-hover:text-teal-800">{category.shortName}</span>
             </Link>
@@ -75,10 +76,11 @@ export default function Home() {
         <div className="mt-5 flex justify-center"><Link href="/catalogo" className="button button-outline">Ver todas as categorias <ArrowIcon className="size-4" /></Link></div>
       </section>
 
-      <section className="bg-navy text-white">
-        <div className="shell grid grid-cols-2 py-8 lg:grid-cols-4">
+      <section className="home-proof bg-navy text-white" aria-label="Indicadores institucionais">
+        <div className="shell relative z-10 grid grid-cols-2 py-8 lg:grid-cols-4">
           {stats.map((stat) => (
-            <div key={stat.value} className="border-white/10 px-4 py-4 text-center even:border-l lg:border-l lg:first:border-l-0">
+            <div key={stat.value} className="home-proof__item border-white/10 px-4 py-4 text-center even:border-l lg:border-l lg:first:border-l-0">
+              <p className="home-proof__eyebrow">{stat.eyebrow}</p>
               <p className="text-2xl font-extrabold tracking-[-.04em] text-emerald-200 sm:text-3xl">{stat.value}</p>
               <p className="mt-1 text-[.68rem] font-semibold text-emerald-50/65 sm:text-xs">{stat.label}</p>
             </div>
@@ -86,27 +88,29 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-mist py-20">
+      <section className="home-featured bg-mist py-20">
         <div className="shell">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading eyebrow="Seleção inicial" title="Linhas em destaque" description="Pontos de partida para montar uma consulta com produtos, quantidades e observações." />
             <Link href="/catalogo" className="button button-outline bg-white">Catálogo completo <ArrowIcon className="size-4" /></Link>
           </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">{featured.map((product) => <ProductCard product={product} key={product.slug} />)}</div>
+          <div className="home-featured__grid mt-10 grid gap-6 md:grid-cols-3">{featured.map((product) => <ProductCard product={product} key={product.slug} />)}</div>
         </div>
       </section>
 
-      <section className="shell grid items-center gap-14 py-24 lg:grid-cols-[.92fr_1.08fr]">
-        <div className="rounded-[2rem] bg-deep p-7 text-white sm:p-10">
+      <section className="home-guidance shell grid items-center gap-14 py-24 lg:grid-cols-[.92fr_1.08fr]">
+        <div className="home-guidance__panel rounded-[2rem] bg-deep p-7 text-white sm:p-10">
+          <p className="text-[.64rem] font-extrabold uppercase tracking-[.2em] text-emerald-200/80">Consulta organizada</p>
+          <p className="mt-3 max-w-md text-2xl font-extrabold leading-tight tracking-[-.035em]">Da necessidade técnica ao orçamento, sem perder o contexto.</p>
           <div className="grid grid-cols-2 gap-3">
             {[
               [BoxIcon, "Produto e quantidade"],
               [SearchIcon, "Aplicação e contexto"],
               [ShieldIcon, "Documentação aplicável"],
               [SupportIcon, "Retorno consultivo"],
-            ].map(([Icon, label]) => {
+            ].map(([Icon, label], index) => {
               const ItemIcon = Icon as typeof BoxIcon;
-              return <div key={label as string} className="rounded-2xl border border-white/10 bg-white/[.04] p-5"><ItemIcon className="size-6 text-emerald-200" /><p className="mt-8 text-sm font-bold">{label as string}</p></div>;
+              return <div key={label as string} className="home-guidance__item rounded-2xl border border-white/10 bg-white/[.04] p-5"><div className="flex items-center justify-between"><ItemIcon className="size-6 text-emerald-200" /><span aria-hidden="true">0{index + 1}</span></div><p className="mt-8 text-sm font-bold">{label as string}</p></div>;
             })}
           </div>
           <p className="mt-5 text-xs leading-5 text-emerald-50/55">Cada item permanece sujeito à confirmação de disponibilidade, configuração e condição comercial.</p>
@@ -125,7 +129,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div id="contato" className="scroll-mt-28">
+      <div id="contato" className="home-contact scroll-mt-28">
         <Callout title="Sua rotina precisa de uma solução mais precisa?" text="Explore as categorias ou organize uma solicitação para a equipe comercial da Labtech." href="/contato" label="Falar com especialista" />
       </div>
     </>

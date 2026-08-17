@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdaptiveHeader } from "@/components/adaptive-header";
 import { HeaderActions } from "@/components/header-actions";
 import { MailIcon, PhoneIcon, SearchIcon } from "@/components/icons";
 import { categories } from "@/data/products";
@@ -11,8 +12,8 @@ export function Brand({ variant = "dark" }: { variant?: "dark" | "light" }) {
     <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Labtech — início">
       <span className={`brand-monogram ${light ? "brand-monogram-light" : ""}`} aria-hidden="true">LT</span>
       <span className="leading-none">
-        <span className={`block text-[1.05rem] font-extrabold tracking-[-.045em] ${light ? "text-white" : "text-ink"}`}>LABTECH</span>
-        <span className={`mt-1 block text-[.48rem] font-bold uppercase tracking-[.2em] ${light ? "text-emerald-200" : "text-teal-700"}`}>Produtos laboratoriais</span>
+        <span className={`brand-name block text-[1.05rem] font-extrabold tracking-[-.045em] ${light ? "text-white" : "text-ink"}`}>LABTECH</span>
+        <span className={`brand-tagline mt-1 block text-[.48rem] font-bold uppercase tracking-[.2em] ${light ? "text-emerald-200" : "text-teal-700"}`}>Produtos laboratoriais</span>
       </span>
     </Link>
   );
@@ -20,8 +21,8 @@ export function Brand({ variant = "dark" }: { variant?: "dark" | "light" }) {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 shadow-[0_10px_30px_rgba(7,43,33,.08)]">
-      <div className="hidden bg-deep text-white sm:block">
+    <AdaptiveHeader>
+      <div className="site-header__utility hidden bg-deep text-white sm:block">
         <div className="shell flex h-9 items-center justify-between text-[.68rem]">
           <p className="font-semibold text-emerald-50/75">Desde 1997 oferecendo soluções para o mercado diagnóstico.</p>
           <div className="flex items-center gap-5 text-emerald-50/80">
@@ -31,25 +32,25 @@ export function Header() {
           </div>
         </div>
       </div>
-      <div className="border-b border-slate-200 bg-white/95 backdrop-blur-xl">
+      <div className="site-header__bar border-b border-slate-200 bg-white/95 backdrop-blur-xl">
         <div className="shell flex h-[76px] items-center gap-6">
           <Brand />
           <nav className="ml-auto hidden items-center gap-5 xl:flex" aria-label="Navegação principal">
             {siteConfig.navigation.slice(0, 5).map((item) => (
-              <Link key={item.href} href={item.href} className="text-[.78rem] font-bold text-slate-700 transition hover:text-teal-800">
+              <Link key={item.href} href={item.href} className="site-header__nav-link text-[.78rem] font-bold text-slate-700 transition hover:text-teal-800">
                 {item.label}
               </Link>
             ))}
           </nav>
-          <form action="/catalogo" className="relative ml-auto hidden w-full max-w-[285px] lg:block xl:ml-2" role="search">
+          <form action="/catalogo" className="site-header__search relative ml-auto hidden w-full max-w-[285px] lg:block xl:ml-2" role="search">
             <label htmlFor="header-search" className="sr-only">Buscar no catálogo</label>
-            <input id="header-search" name="q" type="search" className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-4 pr-11 text-xs text-ink placeholder:text-slate-400 focus:border-teal-700 focus:bg-white focus:outline-none" placeholder="Produto, categoria ou aplicação" />
-            <button type="submit" className="absolute right-1 top-1 grid size-9 place-items-center rounded-lg text-teal-800 hover:bg-emerald-50" aria-label="Buscar"><SearchIcon className="size-4.5" /></button>
+            <input id="header-search" name="q" type="search" className="site-header__search-input h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-4 pr-11 text-xs text-ink placeholder:text-slate-400 focus:border-teal-700 focus:bg-white focus:outline-none" placeholder="Produto, categoria ou aplicação" />
+            <button type="submit" className="site-header__search-button absolute right-1 top-1 grid size-9 place-items-center rounded-lg text-teal-800 hover:bg-emerald-50" aria-label="Buscar"><SearchIcon className="size-4.5" /></button>
           </form>
           <HeaderActions mobileBrand={<Brand variant="light" />} />
         </div>
       </div>
-    </header>
+    </AdaptiveHeader>
   );
 }
 

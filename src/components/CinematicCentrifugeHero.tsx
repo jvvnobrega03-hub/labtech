@@ -43,6 +43,8 @@ export function CinematicCentrifugeHero() {
     const previousOverscroll = body.style.overscrollBehavior;
     const preservedScrollY = window.scrollY;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    const saveData = Boolean(connection?.saveData);
     const revealTargets = [eyebrowRef.current, headingRef.current, descriptionRef.current, ctasRef.current, trustRef.current].filter(Boolean) as HTMLElement[];
     const temporarilyInert = Array.from(document.querySelectorAll<HTMLElement>(
       "body > .skip-link, body > header, body > footer, #conteudo > :not(.cinematic-hero)",
@@ -51,6 +53,7 @@ export function CinematicCentrifugeHero() {
     let scrollLocked = true;
     let fallbackTimer: number | undefined;
     let forcedTransitionTimer: number | undefined;
+    let loopPreparationTimer: number | undefined;
     let animationFrame: number | undefined;
     let media: ReturnType<typeof gsap.matchMedia> | undefined;
 
@@ -147,8 +150,15 @@ export function CinematicCentrifugeHero() {
         if (transitionRequestedRef.current) beginTransition(true);
       };
       const handleIntroError = () => beginTransition(true);
+      const prepareLoop = () => {
+        if (loopPreparationTimer !== undefined || loopVideo.preload === "auto") return;
+        loopPreparationTimer = window.setTimeout(() => {
+          loopVideo.preload = "auto";
+          loopVideo.load();
+        }, 600);
+      };
 
-      if (reduceMotion.matches) {
+      if (reduceMotion.matches || saveData) {
         introVideo.pause();
         loopVideo.pause();
         gsap.set([introVideo, loopVideo], { display: "none" });
@@ -170,6 +180,7 @@ export function CinematicCentrifugeHero() {
       void introVideo.play().catch(() => { /* A primeira interação tenta novamente. */ });
 
       introVideo.addEventListener("timeupdate", updateIntro);
+      introVideo.addEventListener("playing", prepareLoop, { once: true });
       introVideo.addEventListener("ended", handleIntroError);
       introVideo.addEventListener("error", handleIntroError);
       loopVideo.addEventListener("loadeddata", handleLoopReady);
@@ -203,6 +214,7 @@ export function CinematicCentrifugeHero() {
 
       return () => {
         introVideo.removeEventListener("timeupdate", updateIntro);
+        introVideo.removeEventListener("playing", prepareLoop);
         introVideo.removeEventListener("ended", handleIntroError);
         introVideo.removeEventListener("error", handleIntroError);
         loopVideo.removeEventListener("loadeddata", handleLoopReady);
@@ -216,6 +228,7 @@ export function CinematicCentrifugeHero() {
     return () => {
       if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
       if (forcedTransitionTimer !== undefined) window.clearTimeout(forcedTransitionTimer);
+      if (loopPreparationTimer !== undefined) window.clearTimeout(loopPreparationTimer);
       if (animationFrame !== undefined) window.cancelAnimationFrame(animationFrame);
       media?.revert();
       context.revert();
@@ -232,7 +245,7 @@ export function CinematicCentrifugeHero() {
           <source src={INTRO_VIDEO_WEBM_SRC} type="video/webm" />
           <source src={INTRO_VIDEO_SRC} type="video/mp4" />
         </video>
-        <video ref={loopVideoRef} className="cinematic-hero__video cinematic-hero__video--loop" muted loop playsInline preload="auto" poster={POSTER_SRC} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback" draggable={false} aria-hidden="true" tabIndex={-1}>
+        <video ref={loopVideoRef} className="cinematic-hero__video cinematic-hero__video--loop" muted loop playsInline preload="metadata" poster={POSTER_SRC} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback" draggable={false} aria-hidden="true" tabIndex={-1}>
           <source src={SPIN_LOOP_WEBM_SRC} type="video/webm" />
           <source src={SPIN_LOOP_MP4_SRC} type="video/mp4" />
         </video>
