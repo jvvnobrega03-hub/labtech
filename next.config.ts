@@ -38,9 +38,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: "/categoria-produto/:slug", destination: "/catalogo/:slug", permanent: true },
-      { source: "/categoria-produto/:slug/", destination: "/catalogo/:slug", permanent: true },
-      { source: "/produto/:slug", destination: "/produtos/:slug", permanent: true },
+      // TEMPORÁRIO: manter todas as superfícies do catálogo indisponíveis até a migração externa.
+      { source: "/categoria-produto/:path+", destination: "/catalogo", permanent: false },
+      { source: "/produto/:path+", destination: "/catalogo", permanent: false },
+      { source: "/catalogo/:path+", destination: "/catalogo", permanent: false },
+      { source: "/produtos/:path+", destination: "/catalogo", permanent: false },
       { source: "/nossa-essencia", destination: "/missao-visao-valores", permanent: true },
     ];
   },

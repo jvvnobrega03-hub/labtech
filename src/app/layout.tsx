@@ -66,13 +66,6 @@ const websiteJsonLd = {
   "@type": "WebSite",
   name: companyConfig.name,
   ...(publicSiteUrl ? { url: publicSiteUrl } : {}),
-  ...(publicSiteUrl ? {
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${publicSiteUrl}/catalogo?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
-  } : {}),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
