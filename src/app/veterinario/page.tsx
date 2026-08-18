@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { DeferredVideo } from "@/components/deferred-video";
 import { AnalyticsLink } from "@/components/analytics-link";
 import { ArrowIcon, CheckIcon, FlaskIcon, ShieldIcon, SupportIcon } from "@/components/icons";
 import { Callout, SectionHeading } from "@/components/ui";
@@ -21,15 +20,42 @@ export default function VeterinaryPage() {
 
   return (
     <div className="veterinary-page">
-      <section className="veterinary-hero">
-        <div className="shell grid items-center gap-12 py-20 lg:grid-cols-[1fr_.95fr] lg:py-28">
-          <div>
-            <p className="eyebrow">Diagnóstico veterinário · B2B</p>
-            <h1 className="display mt-5 text-5xl text-white md:text-6xl">Precisão técnica para quem cuida da saúde animal.</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Soluções para laboratórios, clínicas e hospitais veterinários, organizadas para apoiar a consulta técnica e a rotina de diagnóstico animal.</p>
-            <div className="mt-8 flex flex-wrap gap-3"><Link href="/orcamento" className="button button-light">Solicitar orçamento</Link><AnalyticsLink eventName="whatsapp_click" eventData={{ context: "veterinary" }} href={whatsappUrl} target="_blank" rel="noreferrer" className="button button-dark-outline">Falar pelo WhatsApp</AnalyticsLink></div>
+      <link rel="preload" as="image" href="/images/about-puppy-hero-poster.webp" fetchPriority="high" />
+      <section className="veterinary-video-hero" aria-labelledby="veterinary-hero-title">
+        <video
+          className="veterinary-video-hero__video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/about-puppy-hero-poster.webp"
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload noplaybackrate noremoteplayback"
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source media="(max-width: 767px)" src="/videos/about-puppy-hero-mobile.mp4" type="video/mp4" />
+          <source src="/videos/about-puppy-hero.mp4" type="video/mp4" />
+        </video>
+        <div className="veterinary-video-hero__scrim" aria-hidden="true" />
+        <div className="veterinary-video-hero__grid" aria-hidden="true" />
+        <div className="veterinary-video-hero__content shell">
+          <div className="veterinary-video-hero__copy">
+            <p className="veterinary-video-hero__eyebrow"><span aria-hidden="true" /> Diagnóstico veterinário · B2B</p>
+            <h1 id="veterinary-hero-title" className="veterinary-video-hero__title">Precisão técnica para quem cuida da saúde animal.</h1>
+            <p className="veterinary-video-hero__description">Soluções para laboratórios, clínicas e hospitais veterinários, organizadas para apoiar a consulta técnica e a rotina de diagnóstico animal.</p>
+            <div className="veterinary-video-hero__actions">
+              <Link href="/orcamento" className="veterinary-video-hero__button veterinary-video-hero__button--primary">Solicitar orçamento <span aria-hidden="true">→</span></Link>
+              <AnalyticsLink eventName="whatsapp_click" eventData={{ context: "veterinary" }} href={whatsappUrl} target="_blank" rel="noreferrer" className="veterinary-video-hero__button veterinary-video-hero__button--secondary">Falar pelo WhatsApp</AnalyticsLink>
+            </div>
+            <div className="veterinary-video-hero__proof" aria-label="Públicos atendidos">
+              <span>Laboratórios veterinários</span>
+              <span>Clínicas e hospitais</span>
+              <span>Diagnóstico animal</span>
+            </div>
           </div>
-          <DeferredVideo src="/videos/about-puppy-hero.mp4" poster="/images/about-puppy-hero-poster.webp" title="Tecnologia e cuidado no atendimento veterinário" />
         </div>
       </section>
 
