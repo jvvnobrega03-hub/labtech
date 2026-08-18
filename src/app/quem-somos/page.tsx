@@ -50,10 +50,11 @@ export default function AboutPage() {
 
   return (
     <div className="standard-page standard-page--about">
-      <link rel="preload" as="image" href="/images/about-puppy-hero-poster.webp" fetchPriority="high" />
       <section className="veterinary-video-hero institutional-static-hero" aria-labelledby="about-hero-title">
         <div className="veterinary-video-hero__scrim" aria-hidden="true" />
         <div className="veterinary-video-hero__grid" aria-hidden="true" />
+        <div className="institutional-static-hero__ambient" aria-hidden="true" />
+        <div className="institutional-static-hero__orbit" aria-hidden="true" />
         <div className="veterinary-video-hero__content shell">
           <div className="veterinary-video-hero__copy">
             <p className="veterinary-video-hero__eyebrow"><span aria-hidden="true" /> Quem somos</p>

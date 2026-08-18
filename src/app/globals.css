@@ -385,6 +385,15 @@ body.cinematic-intro-active { touch-action: none; }
 .veterinary-video-hero__proof span { display: inline-flex; align-items: center; gap: 1rem; }
 .veterinary-video-hero__proof span:not(:last-child):after { content: ""; width: 1px; height: 12px; background: rgba(116,220,255,.24); }
 
+/* Quem somos: dark technical Hero without photo or video media. */
+.institutional-static-hero { background: radial-gradient(circle at 78% 34%, rgba(39,199,255,.14), rgba(39,199,255,.035) 28%, transparent 55%), linear-gradient(115deg, #02070B 0%, #06141D 56%, #082330 100%); }
+.institutional-static-hero .veterinary-video-hero__scrim { background: linear-gradient(90deg, rgba(2,7,11,.22), rgba(2,7,11,.08) 54%, rgba(2,7,11,.28)); }
+.institutional-static-hero .veterinary-video-hero__grid { opacity: .18; mask-image: linear-gradient(90deg, black, rgba(0,0,0,.76) 66%, transparent); }
+.institutional-static-hero__ambient { position: absolute; z-index: -1; top: 18%; right: 17%; width: clamp(14rem, 26vw, 27rem); aspect-ratio: 1; border-radius: 50%; background: rgba(39,199,255,.1); filter: blur(80px); animation: institutional-ambient 12s ease-in-out infinite alternate; pointer-events: none; }
+.institutional-static-hero__orbit { position: absolute; z-index: -1; top: 50%; right: clamp(-15rem, -8vw, -5rem); width: clamp(26rem, 50vw, 48rem); aspect-ratio: 1; border: 1px solid rgba(116,220,255,.16); border-radius: 50%; box-shadow: 0 0 0 5rem rgba(116,220,255,.025), 0 0 0 10rem rgba(116,220,255,.015); transform: translateY(-50%); animation: institutional-orbit 16s ease-in-out infinite alternate; pointer-events: none; }
+@keyframes institutional-ambient { from { opacity: .72; transform: translate3d(-1rem, -.5rem, 0) scale(.94); } to { opacity: 1; transform: translate3d(1rem, .75rem, 0) scale(1.06); } }
+@keyframes institutional-orbit { from { transform: translateY(-50%) scale(.96); } to { transform: translateY(-48%) scale(1.03); } }
+
 /* Contact: full dark clinical environment with electric-blue accents. */
 body:has(#conteudo > .contact-dark),
 #conteudo:has(> .contact-dark) { background: #02070B; }
@@ -990,6 +999,8 @@ textarea.input { min-height: 140px; resize: vertical; }
   .veterinary-video-hero__copy { width: 100%; }
   .veterinary-video-hero__title { max-width: 670px; font-size: clamp(2.45rem, 6.3vw, 3rem); line-height: 1.02; }
   .veterinary-video-hero__description { max-width: 600px; font-size: .94rem; line-height: 1.62; }
+  .institutional-static-hero { background: radial-gradient(circle at 70% 24%, rgba(39,199,255,.13), transparent 46%), linear-gradient(155deg, #02070B, #071B26); }
+  .institutional-static-hero__orbit { right: -17rem; width: 34rem; opacity: .62; }
   .home-category-grid .category-tile { min-height: 138px; }
   .home-guidance { gap: 2.5rem; }
 }
