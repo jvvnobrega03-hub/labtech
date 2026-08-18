@@ -38,19 +38,10 @@ export function CinematicCentrifugeHero() {
     const loopVideo = loopVideoRef.current;
     if (!root || !visual || !introVideo || !loopVideo) return;
 
-    const body = document.body;
-    const previousOverflow = body.style.overflow;
-    const previousOverscroll = body.style.overscrollBehavior;
-    const preservedScrollY = window.scrollY;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     const saveData = Boolean(connection?.saveData);
     const revealTargets = [eyebrowRef.current, headingRef.current, descriptionRef.current, ctasRef.current, trustRef.current].filter(Boolean) as HTMLElement[];
-    const temporarilyInert = Array.from(document.querySelectorAll<HTMLElement>(
-      ".aurora-navigation-menus-17__surface > .skip-link, .aurora-navigation-menus-17__surface > header, .aurora-navigation-menus-17__surface > footer, #conteudo > :not(.cinematic-hero)",
-    )).filter((element) => !element.inert);
-
-    let scrollLocked = true;
     let fallbackTimer: number | undefined;
     let forcedTransitionTimer: number | undefined;
     let loopPreparationTimer: number | undefined;
@@ -60,21 +51,6 @@ export function CinematicCentrifugeHero() {
     transitionRequestedRef.current = false;
     loopReadyRef.current = loopVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA;
     loopFailedRef.current = false;
-
-    body.style.overflow = "hidden";
-    body.style.overscrollBehavior = "none";
-    body.classList.add("cinematic-intro-active");
-    temporarilyInert.forEach((element) => { element.inert = true; });
-
-    const unlockScroll = () => {
-      if (!scrollLocked) return;
-      scrollLocked = false;
-      body.style.overflow = previousOverflow;
-      body.style.overscrollBehavior = previousOverscroll;
-      body.classList.remove("cinematic-intro-active");
-      temporarilyInert.forEach((element) => { element.inert = false; });
-      if (Math.abs(window.scrollY - preservedScrollY) > 1) window.scrollTo(0, preservedScrollY);
-    };
 
     const attemptPlayback = () => {
       const target = transitionRequestedRef.current ? loopVideo : introVideo;
@@ -108,7 +84,6 @@ export function CinematicCentrifugeHero() {
           defaults: { overwrite: "auto" },
           onComplete: () => {
             introVideo.pause();
-            unlockScroll();
             setIntroFinished(true);
           },
         })
@@ -159,7 +134,6 @@ export function CinematicCentrifugeHero() {
         gsap.set(visual, { autoAlpha: 1, scale: 1, clearProps: "transform" });
         gsap.set(revealTargets, { autoAlpha: 1, y: 0, clearProps: "transform" });
         gsap.set(loaderRef.current, { display: "none" });
-        unlockScroll();
         setIntroFinished(true);
         return;
       }
@@ -224,7 +198,6 @@ export function CinematicCentrifugeHero() {
       if (loopPreparationTimer !== undefined) window.clearTimeout(loopPreparationTimer);
       media?.revert();
       context.revert();
-      unlockScroll();
     };
   }, []);
 
@@ -256,8 +229,8 @@ export function CinematicCentrifugeHero() {
           <h1 ref={headingRef} className="cinematic-hero__title">Precisão que <span>transforma o futuro</span> da saúde.</h1>
           <p ref={descriptionRef} className="cinematic-hero__description">Equipamentos e soluções hospitalares, laboratoriais e clínicas desenvolvidos para profissionais que não abrem mão de precisão, qualidade e confiança.</p>
           <div ref={ctasRef} className="cinematic-hero__actions">
-            <a className="cinematic-button cinematic-button--primary" href="#produtos" tabIndex={introFinished ? undefined : -1}><span>Explorar produtos</span><span className="cinematic-button__arrow" aria-hidden="true">→</span></a>
-            <a className="cinematic-button cinematic-button--secondary" href="#contato" tabIndex={introFinished ? undefined : -1}>Falar com especialista</a>
+            <a className="cinematic-button cinematic-button--primary" href="#produtos"><span>Explorar produtos</span><span className="cinematic-button__arrow" aria-hidden="true">→</span></a>
+            <a className="cinematic-button cinematic-button--secondary" href="#contato">Falar com especialista</a>
           </div>
           <div ref={trustRef} className="cinematic-hero__trust" aria-label="Diferenciais Labtech">
             <div><strong>Precisão</strong><span>Tecnologia confiável</span></div>
