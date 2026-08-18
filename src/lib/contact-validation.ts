@@ -4,7 +4,9 @@ export const MAX_QUOTE_ITEMS = 30;
 export type ContactRequestType = "contato" | "orcamento";
 
 export type NormalizedQuoteItem = {
+  productId: string;
   slug: string;
+  sku: string;
   name: string;
   quantity: number;
   notes: string;
@@ -46,16 +48,18 @@ function normalizeItems(value: unknown): NormalizedQuoteItem[] | null {
   return value.flatMap((entry) => {
     if (!entry || typeof entry !== "object") return [];
     const item = entry as Record<string, unknown>;
-    const slug = clean(item.slug, 120);
+    const productId = clean(item.productId ?? item.slug, 120);
+    const slug = clean(item.slug ?? item.productId, 120);
+    const sku = clean(item.sku, 80);
     const name = clean(item.name, 120);
-    if (!slug || !name) return [];
+    if (!productId || !slug || !name) return [];
 
     const requestedQuantity = Number(item.quantity);
     const quantity = Number.isFinite(requestedQuantity)
       ? Math.min(999, Math.max(1, Math.trunc(requestedQuantity)))
       : 1;
 
-    return [{ slug, name, quantity, notes: clean(item.notes, 500) }];
+    return [{ productId, slug, sku, name, quantity, notes: clean(item.notes, 500) }];
   });
 }
 

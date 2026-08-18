@@ -13,7 +13,7 @@ export default function ContactPage() {
         <div className="contact-dark__intro">
           <p className="eyebrow">Atendimento comercial</p>
           <h2 className="display mt-4 text-4xl">Uma conversa técnica começa pelo contexto.</h2>
-          <p className="mt-5 leading-8 text-slate-600">Use os canais diretos para falar com a equipe. O formulário deste ambiente de teste valida os dados, mas ainda não encaminha nem persiste a mensagem.</p>
+          <p className="mt-5 leading-8 text-slate-600">Use os canais diretos para falar com a equipe. O formulário organiza e valida os dados antes de direcionar você ao canal comercial escolhido.</p>
           <div className="contact-dark__channels mt-7 grid gap-2">
             <a className="font-bold text-teal-700" href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a>
             <a className="font-bold text-teal-700" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>

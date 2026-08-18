@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { MAX_REQUEST_BYTES, validateContactPayload } from "@/lib/contact-validation";
+import { products } from "@/data/products";
 
 type RateLimitState = { count: number; resetAt: number };
 type ErrorResponse = { ok: false; message: string };
@@ -111,6 +112,15 @@ export async function POST(request: Request) {
 
   const result = validateContactPayload(body);
   if (!result.ok) return json({ ok: false, message: result.message }, 400);
+
+  if (result.data.type === "orcamento") {
+    const productIndex = new Map(products.map((product) => [product.slug, product]));
+    const containsUnknownProduct = result.data.items.some((item) => {
+      const product = productIndex.get(item.productId);
+      return !product || product.name !== item.name || (item.sku && product.sku !== item.sku);
+    });
+    if (containsUnknownProduct) return json({ ok: false, message: "A cotação contém um produto inválido." }, 400);
+  }
 
   return json({
     ok: true,

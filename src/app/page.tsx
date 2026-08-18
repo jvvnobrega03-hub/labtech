@@ -5,50 +5,50 @@ import {
   BoxIcon,
   CategoryIcon,
   CheckIcon,
+  FlaskIcon,
+  MicroscopeIcon,
   SearchIcon,
   ShieldIcon,
   SupportIcon,
   TruckIcon,
+  TubesIcon,
 } from "@/components/icons";
 import CinematicCentrifugeHero from "@/components/CinematicCentrifugeHero";
 import { ProductCard } from "@/components/product-card";
 import { Callout, SectionHeading } from "@/components/ui";
 import { categories, products } from "@/data/products";
 import { pageMetadata } from "@/lib/metadata";
+import { companyConfig, companyExperienceLabel } from "@/lib/config";
 
 export const metadata = pageMetadata(
-  "Produtos laboratoriais e hospitalares",
-  "Desde 1997, a Labtech atende laboratórios, hospitais, clínicas e centros de pesquisa com produtos, soluções e atendimento especializado.",
+  "Produtos laboratoriais e hospitalares | Labtech",
+  `${companyExperienceLabel()}, a Labtech atende laboratórios, hospitais, clínicas e centros de pesquisa com produtos, soluções e atendimento especializado.`,
   "/",
 );
 
 const trustPoints = [
-  { title: "Desde 1997", text: "Experiência no mercado diagnóstico", icon: ShieldIcon },
+  { title: companyExperienceLabel(), text: "Experiência no mercado diagnóstico", icon: ShieldIcon },
   { title: "Atendimento nacional", text: "Consultas para instituições em todo o Brasil", icon: TruckIcon },
   { title: "Suporte especializado", text: "Orientação técnica e comercial", icon: SupportIcon },
   { title: "Orçamento organizado", text: "Vários itens em uma única solicitação", icon: BagIcon },
 ];
 
 const stats = [
-  { eyebrow: "Experiência", value: "1997", label: "início da nossa história" },
-  { eyebrow: "Portfólio", value: "10+", label: "frentes de produtos" },
+  { eyebrow: "Experiência", value: String(companyConfig.foundedYear), label: "início da nossa história" },
+  { eyebrow: "Portfólio", value: String(categories.length), label: "categorias organizadas" },
   { eyebrow: "Modelo", value: "B2B", label: "atendimento institucional" },
   { eyebrow: "Alcance", value: "Brasil", label: "cobertura de atendimento" },
 ];
 
+const segments = [
+  { title: "Laboratórios humanos", text: "Produtos e soluções para rotinas pré-analíticas, analíticas e de apoio.", href: "/catalogo?q=diagnóstico", icon: TubesIcon },
+  { title: "Laboratórios veterinários", text: "Atendimento técnico-comercial voltado ao diagnóstico animal.", href: "/veterinario", icon: FlaskIcon },
+  { title: "Hospitais e clínicas", text: "Materiais e linhas de apoio para serviços de saúde e rotinas assistenciais.", href: "/catalogo/materiais-hospitalares", icon: ShieldIcon },
+  { title: "Centros de pesquisa", text: "Soluções para preparo, observação, processamento e organização de amostras.", href: "/catalogo?q=pesquisa", icon: MicroscopeIcon },
+];
+
 export default function Home() {
-  const featured = products
-    .filter((product) => product.featured)
-    .map((product) => ({
-      ...product,
-      image: product.slug === "linha-de-coleta-e-acondicionamento"
-        ? "/images/linha-coleta-acondicionamento.webp"
-        : product.slug === "reagentes-kits-e-controles"
-          ? "/images/reagentes-kits-controles.webp"
-          : product.slug === "equipamentos-de-bancada"
-            ? "/images/equipamentos-laboratoriais.webp"
-            : product.image,
-    }));
+  const featured = products.filter((product) => product.featured);
 
   return (
     <>
@@ -77,7 +77,7 @@ export default function Home() {
         </div>
         <div className="home-category-grid mt-9 grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-200 bg-white sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {categories.slice(0, 10).map((category, index) => (
-            <Link href={`/catalogo?categoria=${category.slug}`} key={category.slug} className="category-tile group">
+            <Link href={`/catalogo/${category.slug}`} key={category.slug} className="category-tile group">
               <span className="home-category-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <span className="grid size-11 place-items-center rounded-xl bg-emerald-50 text-teal-800 transition group-hover:bg-navy group-hover:text-white"><CategoryIcon slug={category.slug} className="size-5.5" /></span>
               <span className="mt-4 text-center text-xs font-extrabold leading-4 text-slate-700 group-hover:text-teal-800">{category.shortName}</span>
@@ -85,6 +85,20 @@ export default function Home() {
           ))}
         </div>
         <div className="mt-5 flex justify-center"><Link href="/catalogo" className="button button-outline">Ver todas as categorias <ArrowIcon className="size-4" /></Link></div>
+      </section>
+
+      <section id="solucoes" className="home-segments shell scroll-mt-28 pb-20">
+        <SectionHeading eyebrow="Segmentos atendidos" title="Soluções para cada tipo de operação" description="Uma navegação orientada ao contexto técnico de laboratórios, instituições de saúde e centros de pesquisa." />
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {segments.map(({ title, text, href, icon: Icon }) => (
+            <article key={title} className="home-segment-card">
+              <span className="home-segment-card__icon" aria-hidden="true"><Icon className="size-6" /></span>
+              <h2 className="mt-6 text-xl font-bold text-ink">{title}</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
+              <Link href={href} className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-teal-800">Ver soluções <ArrowIcon className="size-4" /></Link>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="home-proof bg-navy text-white" aria-label="Indicadores institucionais">
@@ -137,6 +151,26 @@ export default function Home() {
             ].map((item) => <li key={item} className="flex items-start gap-3 text-sm font-bold leading-6 text-slate-700"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-teal-800"><CheckIcon className="size-3" /></span>{item}</li>)}
           </ul>
           <div className="mt-8 flex flex-wrap gap-3"><Link href="/orcamento" className="button button-primary">Montar orçamento</Link><Link href="/contato" className="button button-outline">Falar com a equipe</Link></div>
+        </div>
+      </section>
+
+      <section className="home-veterinary border-y border-sky-100 bg-[#F4FAFC] py-24">
+        <div className="shell grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
+          <div>
+            <SectionHeading eyebrow="Diagnóstico veterinário" title="Tecnologia e cuidado para operações que atendem a saúde animal" description="Uma frente B2B dedicada a laboratórios, clínicas e hospitais veterinários, com organização por aplicação e atendimento especializado." />
+            <div className="mt-8 flex flex-wrap gap-3"><Link href="/veterinario" className="button button-primary">Conhecer a área veterinária</Link><Link href="/orcamento" className="button button-outline bg-white">Solicitar orçamento</Link></div>
+          </div>
+          <div className="home-veterinary__panel" aria-label="Áreas do diagnóstico veterinário">
+            {["Laboratórios veterinários", "Clínicas veterinárias", "Hospitais veterinários", "Centros de diagnóstico animal"].map((item, index) => <div key={item}><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></div>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="home-support shell py-24">
+        <div className="grid gap-8 rounded-[2rem] border border-sky-100 bg-white p-8 shadow-[0_20px_60px_rgba(2,83,111,.08)] md:grid-cols-[auto_1fr_auto] md:items-center md:p-12">
+          <span className="grid size-14 place-items-center rounded-2xl bg-sky-50 text-sky-700" aria-hidden="true"><SupportIcon className="size-7" /></span>
+          <div><p className="eyebrow">Atendimento técnico-comercial</p><h2 className="mt-3 text-2xl font-bold text-ink">Contexto técnico antes da definição do produto</h2><p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">A equipe organiza aplicação, compatibilidade, documentação e disponibilidade para orientar cada consulta institucional.</p></div>
+          <Link href="/contato" className="button button-outline">Falar com a equipe</Link>
         </div>
       </section>
 

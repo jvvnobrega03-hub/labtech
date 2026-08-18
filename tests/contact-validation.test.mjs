@@ -42,7 +42,7 @@ test("limita e normaliza os itens do orçamento", () => {
   const result = validateContactPayload({ ...validContact, type: "orcamento", items });
   assert.equal(result.ok, true);
   if (!result.ok) return;
-  assert.deepEqual(result.data.items, [{ slug: "item-1", name: "Item 1", quantity: 2, notes: "nota" }]);
+  assert.deepEqual(result.data.items, [{ productId: "item-1", slug: "item-1", sku: "", name: "Item 1", quantity: 2, notes: "nota" }]);
 
   const tooMany = Array.from({ length: MAX_QUOTE_ITEMS + 1 }, () => items[0]);
   assert.equal(validateContactPayload({ ...validContact, type: "orcamento", items: tooMany }).ok, false);

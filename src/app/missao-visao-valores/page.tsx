@@ -8,6 +8,7 @@ import {
   TubesIcon,
 } from "@/components/icons";
 import { pageMetadata } from "@/lib/metadata";
+import { companyConfig } from "@/lib/config";
 
 export const metadata = pageMetadata(
   "Nossa essência",
@@ -90,7 +91,7 @@ export default function PrinciplesPage() {
         <div className="shell essence-hero__inner">
           <div className="essence-hero__header">
             <p className="essence-kicker"><span aria-hidden="true" /> Sistema institucional</p>
-            <p className="essence-code" aria-label="Labtech, desde 1997">LT / 1997—FUTURO</p>
+            <p className="essence-code" aria-label={`Labtech, desde ${companyConfig.foundedYear}`}>LT / {companyConfig.foundedYear}—FUTURO</p>
           </div>
           <div className="essence-hero__layout">
             <div>

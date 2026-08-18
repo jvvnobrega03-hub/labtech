@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { useAuroraNavigation } from "@/components/aurora-navigation";
 import { BagIcon, MenuIcon } from "@/components/icons";
 import { useQuote } from "@/components/quote-context";
@@ -12,6 +13,9 @@ export function HeaderActions(props: { mobileBrand?: ReactNode } = {}) {
 
   return (
     <div className="site-header__actions flex shrink-0 items-center gap-2">
+      <Link href="/orcamento" className="header-request-button hidden h-11 items-center px-3 text-[.69rem] font-extrabold text-teal-800 transition hover:text-deep 2xl:inline-flex">
+        Solicitar orçamento
+      </Link>
       <button
         type="button"
         onClick={open}
@@ -19,7 +23,7 @@ export function HeaderActions(props: { mobileBrand?: ReactNode } = {}) {
         aria-label={`Abrir orçamento com ${itemCount} itens`}
       >
         <BagIcon className="size-5" />
-        <span className="hidden text-xs font-extrabold sm:inline">Orçamento ({itemCount})</span>
+        <span className="hidden text-xs font-extrabold sm:inline">Minha cotação ({itemCount})</span>
       </button>
       <button
         type="button"

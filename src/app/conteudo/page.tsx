@@ -16,7 +16,7 @@ export default function ContentPage() {
     <div className="standard-page standard-page--content">
       <PageHero eyebrow="Conteúdo" title="Conhecimento para consultas mais conscientes." description="Notas editoriais para organizar necessidades e navegar com responsabilidade por temas laboratoriais." />
       <section className="shell py-24">
-        <SectionHeading eyebrow="Caderno editorial" title="Leituras em destaque" description="Conteúdos demonstrativos apresentados sem alegações científicas, comerciais ou regulatórias." />
+        <SectionHeading eyebrow="Guias de consulta" title="Informação para decisões mais organizadas" description="Orientações institucionais para reunir contexto, reduzir retrabalho e preparar uma consulta técnica mais clara." />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {articles.map((article, index) => (
             <article className="standard-page__card flex min-h-80 flex-col rounded-3xl border border-slate-200 bg-white p-7" key={article.title}>
@@ -24,7 +24,7 @@ export default function ContentPage() {
               <p className="mt-6 text-xs text-slate-400">Leitura editorial · 0{index + 1}</p>
               <h2 className="mt-3 text-2xl font-semibold leading-tight">{article.title}</h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">{article.text}</p>
-              <span className="mt-auto flex items-center gap-2 pt-7 text-sm font-bold text-slate-400" aria-label="Conteúdo demonstrativo, sem página individual">Em breve <ArrowIcon className="size-4" /></span>
+              <Link href="/contato" className="mt-auto flex items-center gap-2 pt-7 text-sm font-bold text-teal-700">Tirar uma dúvida <ArrowIcon className="size-4" /></Link>
             </article>
           ))}
         </div>

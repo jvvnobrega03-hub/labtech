@@ -3,7 +3,7 @@ import { AdaptiveHeader } from "@/components/adaptive-header";
 import { HeaderActions } from "@/components/header-actions";
 import { MailIcon, PhoneIcon, SearchIcon } from "@/components/icons";
 import { categories } from "@/data/products";
-import { siteConfig } from "@/lib/config";
+import { companyExperienceLabel, primaryNavigation, siteConfig } from "@/lib/config";
 
 export function Brand({ variant = "dark" }: { variant?: "dark" | "light" }) {
   const light = variant === "light";
@@ -24,7 +24,7 @@ export function Header() {
     <AdaptiveHeader>
       <div className="site-header__utility hidden bg-deep text-white sm:block">
         <div className="shell flex h-9 items-center justify-between text-[.68rem]">
-          <p className="font-semibold text-emerald-50/75">Desde 1997 oferecendo soluções para o mercado diagnóstico.</p>
+          <p className="font-semibold text-emerald-50/75">{companyExperienceLabel()} oferecendo soluções para o mercado diagnóstico.</p>
           <div className="flex items-center gap-5 text-emerald-50/80">
             <a href={siteConfig.phoneHref} className="inline-flex items-center gap-1.5 transition hover:text-white"><PhoneIcon className="size-3.5" />{siteConfig.phoneDisplay}</a>
             <a href={`mailto:${siteConfig.email}`} className="hidden items-center gap-1.5 transition hover:text-white md:inline-flex"><MailIcon className="size-3.5" />{siteConfig.email}</a>
@@ -35,14 +35,14 @@ export function Header() {
       <div className="site-header__bar border-b border-slate-200 bg-white/95 backdrop-blur-xl">
         <div className="site-header__inner shell flex h-[76px] items-center gap-4">
           <Brand />
-          <nav className="site-header__nav ml-auto hidden shrink-0 items-center gap-4 2xl:flex" aria-label="Navegação principal">
-            {siteConfig.navigation.slice(0, 5).map((item) => (
-              <Link key={item.href} href={item.href} className="site-header__nav-link whitespace-nowrap text-[.75rem] font-bold leading-none text-slate-700 transition hover:text-teal-800">
+          <nav className="site-header__nav ml-auto hidden shrink-0 items-center gap-3 xl:flex" aria-label="Navegação principal">
+            {primaryNavigation.map((item) => (
+              <Link key={item.href} href={item.href} className="site-header__nav-link whitespace-nowrap text-[.69rem] font-bold leading-none text-slate-700 transition hover:text-teal-800">
                 {item.label}
               </Link>
             ))}
           </nav>
-          <form action="/catalogo" className="site-header__search relative ml-auto hidden w-full max-w-[255px] lg:block xl:ml-1" role="search">
+          <form action="/catalogo" className="site-header__search relative ml-auto hidden w-full max-w-[255px] lg:block xl:hidden" role="search">
             <label htmlFor="header-search" className="sr-only">Buscar no catálogo</label>
             <input id="header-search" name="q" type="search" className="site-header__search-input h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-4 pr-11 text-xs text-ink placeholder:text-slate-400 focus:border-teal-700 focus:bg-white focus:outline-none" placeholder="Produto, categoria ou aplicação" />
             <button type="submit" className="site-header__search-button absolute right-1 top-1 grid size-9 place-items-center rounded-lg text-teal-800 hover:bg-emerald-50" aria-label="Buscar"><SearchIcon className="size-4.5" /></button>
@@ -61,11 +61,11 @@ export function Footer() {
         <div>
           <Brand variant="light" />
           <p className="mt-5 max-w-sm text-sm leading-6">Produtos e soluções B2B para laboratórios, hospitais, clínicas e centros de pesquisa.</p>
-          <p className="mt-4 text-xs text-emerald-100/50">Atuação comercial desde 1997.</p>
+          <p className="mt-4 text-xs text-emerald-100/50">Atuação comercial {companyExperienceLabel().toLocaleLowerCase("pt-BR")}.</p>
         </div>
         <div>
           <h2 className="text-xs font-extrabold uppercase tracking-[.2em] text-white">Categorias</h2>
-          <div className="mt-5 grid gap-3">{categories.slice(0, 6).map((item) => <Link className="text-sm hover:text-white" key={item.slug} href={`/catalogo?categoria=${item.slug}`}>{item.shortName}</Link>)}</div>
+          <div className="mt-5 grid gap-3">{categories.slice(0, 6).map((item) => <Link className="text-sm hover:text-white" key={item.slug} href={`/catalogo/${item.slug}`}>{item.shortName}</Link>)}</div>
         </div>
         <div>
           <h2 className="text-xs font-extrabold uppercase tracking-[.2em] text-white">Institucional</h2>

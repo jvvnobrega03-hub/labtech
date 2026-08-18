@@ -10,10 +10,24 @@ export type Product = {
   slug: string;
   name: string;
   category: Category["slug"];
+  subcategory?: string;
+  sku?: string;
+  brand?: string;
+  manufacturer?: string;
   summary: string;
   description: string;
   applications: string[];
   image: string;
+  gallery?: string[];
+  availability?: "Sob consulta" | "Disponível" | "Indisponível";
+  specifications?: ReadonlyArray<{ label: string; value: string }>;
+  presentation?: string;
+  volumeOrCapacity?: string;
+  packageQuantity?: string;
+  material?: string;
+  registration?: string;
+  certifications?: string[];
+  documents?: ReadonlyArray<{ label: string; href: string }>;
   featured?: boolean;
 };
 
@@ -32,11 +46,11 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
-  { slug: "linha-de-coleta-e-acondicionamento", name: "Linha de coleta e acondicionamento", category: "coleta-e-acondicionamento", summary: "Tubos, recipientes e acessórios para estruturar etapas de coleta e identificação.", description: "Linha para consulta técnica. Material, volume, aditivo, esterilidade e compatibilidade devem ser confirmados conforme a finalidade indicada e o protocolo da instituição.", applications: ["Coleta de amostras", "Identificação", "Acondicionamento"], image: "/images/recipientes.svg", featured: true },
+  { slug: "linha-de-coleta-e-acondicionamento", name: "Linha de coleta e acondicionamento", category: "coleta-e-acondicionamento", summary: "Tubos, recipientes e acessórios para estruturar etapas de coleta e identificação.", description: "Linha para consulta técnica. Material, volume, aditivo, esterilidade e compatibilidade devem ser confirmados conforme a finalidade indicada e o protocolo da instituição.", applications: ["Coleta de amostras", "Identificação", "Acondicionamento"], image: "/images/linha-coleta-acondicionamento.webp", availability: "Sob consulta", featured: true },
   { slug: "itens-para-transferencia", name: "Itens para transferência", category: "coleta-e-acondicionamento", summary: "Soluções para manipulação e transferência controlada de líquidos e materiais.", description: "Grupo de produtos sob consulta. Capacidade, graduação, material e uso pretendido variam conforme a configuração selecionada.", applications: ["Transferência", "Preparo", "Rotina pré-analítica"], image: "/images/transferencia.svg" },
-  { slug: "equipamentos-de-bancada", name: "Equipamentos de bancada", category: "equipamentos-laboratoriais", summary: "Agitadores, homogeneizadores e equipamentos de apoio para rotinas técnicas.", description: "Linha demonstrativa para levantamento de necessidade. Capacidade, faixa de operação, alimentação e demais especificações são confirmadas na consulta.", applications: ["Preparo de amostras", "Homogeneização", "Apoio de bancada"], image: "/images/homogeneizacao.svg", featured: true },
+  { slug: "equipamentos-de-bancada", name: "Equipamentos de bancada", category: "equipamentos-laboratoriais", summary: "Agitadores, homogeneizadores e equipamentos de apoio para rotinas técnicas.", description: "Linha para levantamento de necessidade. Capacidade, faixa de operação, alimentação e demais especificações são confirmadas na consulta.", applications: ["Preparo de amostras", "Homogeneização", "Apoio de bancada"], image: "/images/equipamentos-laboratoriais.webp", availability: "Sob consulta", featured: true },
   { slug: "centrifugacao-e-processamento", name: "Centrifugação e processamento", category: "equipamentos-laboratoriais", summary: "Equipamentos e acessórios para etapas de separação e processamento de rotina.", description: "A escolha depende de rotor, recipiente, capacidade, velocidade e finalidade de uso. A adequação é confirmada tecnicamente antes do fornecimento.", applications: ["Separação", "Processamento", "Rotinas clínicas e de pesquisa"], image: "/images/processo.svg" },
-  { slug: "reagentes-kits-e-controles", name: "Reagentes, kits e controles", category: "reagentes-e-kits", summary: "Linhas para diferentes metodologias, controles e necessidades analíticas.", description: "Produtos e configurações sob consulta. Metodologia, apresentação, armazenamento, validade e finalidade indicada pelo fabricante devem ser confirmados por item.", applications: ["Rotina analítica", "Controle", "Preparo de ensaios"], image: "/images/medicao.svg", featured: true },
+  { slug: "reagentes-kits-e-controles", name: "Reagentes, kits e controles", category: "reagentes-e-kits", summary: "Linhas para diferentes metodologias, controles e necessidades analíticas.", description: "Produtos e configurações sob consulta. Metodologia, apresentação, armazenamento, validade e finalidade indicada pelo fabricante devem ser confirmados por item.", applications: ["Rotina analítica", "Controle", "Preparo de ensaios"], image: "/images/reagentes-kits-controles.webp", availability: "Sob consulta", featured: true },
   { slug: "linha-de-diagnostico-in-vitro", name: "Linha de diagnóstico in vitro", category: "diagnostico-in-vitro", summary: "Referências de IVD e testes rápidos organizadas para consulta institucional.", description: "A indicação, o desempenho, a classe de risco e a regularização aplicável variam por produto e são confirmados a partir da documentação do fabricante.", applications: ["Triagem", "Apoio ao diagnóstico", "Rotinas institucionais"], image: "/images/medicao.svg" },
   { slug: "microbiologia-e-cultura", name: "Microbiologia e cultura", category: "microbiologia", summary: "Meios, placas, recipientes e consumíveis para fluxos microbiológicos.", description: "A seleção considera o tipo de rotina, a finalidade pretendida e os requisitos de armazenamento e processamento informados pela instituição.", applications: ["Microbiologia", "Cultura", "Preparo e inoculação"], image: "/images/recipientes.svg" },
   { slug: "hematologia-bioquimica-e-coagulacao", name: "Hematologia, bioquímica e coagulação", category: "hematologia-e-bioquimica", summary: "Linhas de apoio para diferentes metodologias e equipamentos de análise.", description: "Compatibilidade com equipamento, metodologia, apresentação e finalidade são avaliadas individualmente durante o atendimento técnico-comercial.", applications: ["Hematologia", "Bioquímica", "Coagulação"], image: "/images/medicao.svg" },

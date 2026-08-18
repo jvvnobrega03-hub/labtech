@@ -274,6 +274,7 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
     }
 
     function handleMouseMove(event: MouseEvent) {
+      if (!isOpenRef.current || !window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
       mouse = { x: event.clientX, y: event.clientY };
       update();
     }

@@ -54,7 +54,6 @@ export function CinematicCentrifugeHero() {
     let fallbackTimer: number | undefined;
     let forcedTransitionTimer: number | undefined;
     let loopPreparationTimer: number | undefined;
-    let animationFrame: number | undefined;
     let media: ReturnType<typeof gsap.matchMedia> | undefined;
 
     transitionStartedRef.current = false;
@@ -135,11 +134,6 @@ export function CinematicCentrifugeHero() {
         if (duration - introVideo.currentTime <= CROSSFADE_LEAD_SECONDS) beginTransition();
       };
 
-      const watchIntroFrames = () => {
-        updateIntro();
-        animationFrame = window.requestAnimationFrame(watchIntroFrames);
-      };
-
       const handleLoopReady = () => {
         loopReadyRef.current = true;
         if (transitionRequestedRef.current) beginTransition();
@@ -188,7 +182,6 @@ export function CinematicCentrifugeHero() {
       loopVideo.addEventListener("error", handleLoopError);
       root.addEventListener("pointerdown", attemptPlayback, { passive: true });
       root.addEventListener("keydown", attemptPlayback);
-      watchIntroFrames();
       fallbackTimer = window.setTimeout(() => beginTransition(true), INTRO_FALLBACK_MS);
 
       media = gsap.matchMedia();
@@ -229,7 +222,6 @@ export function CinematicCentrifugeHero() {
       if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
       if (forcedTransitionTimer !== undefined) window.clearTimeout(forcedTransitionTimer);
       if (loopPreparationTimer !== undefined) window.clearTimeout(loopPreparationTimer);
-      if (animationFrame !== undefined) window.cancelAnimationFrame(animationFrame);
       media?.revert();
       context.revert();
       unlockScroll();

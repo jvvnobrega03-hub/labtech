@@ -1,78 +1,74 @@
 # Labtech
 
-Site institucional B2B demonstrativo para apresentação de soluções laboratoriais, construído com Next.js 16 (App Router), React 19, TypeScript e Tailwind CSS 4. Todo o conteúdo público está em pt-BR.
-
-## Comportamento atual
-
-- Catálogo local com pesquisa e filtros por categoria.
-- Seleção de itens e quantidades persistida somente no `localStorage` do navegador.
-- Fluxos de contato e orçamento validados pelo servidor, sem envio, persistência, CRM ou integração externa.
-- O protocolo de orçamento é demonstrativo, gerado no navegador e não comprova recebimento.
-- Conteúdo de produtos em `src/data/products.ts`; não há CMS ou painel administrativo.
+Site institucional e catálogo B2B para produtos e soluções laboratoriais, hospitalares e de diagnóstico. A aplicação usa Next.js 16 App Router, React 19, TypeScript estrito e Tailwind CSS 4, com interface pública em pt-BR.
 
 ## Arquitetura
 
-- `src/app`: páginas, metadados, sitemap, robots e Route Handler.
-- `src/components`: componentes de servidor e ilhas interativas de catálogo, formulários e orçamento.
-- `src/data`: catálogo estático.
-- `src/lib`: configuração de ambiente, metadados e núcleo tipado de validação.
-- `tests`: testes unitários do contrato de validação.
+- `src/app`: rotas, páginas estáticas, metadados, sitemap, robots, manifesto e Route Handler.
+- `src/components`: componentes de servidor e ilhas interativas para menu, vídeo, catálogo, formulários e cotação.
+- `src/data`: catálogo estático e tipos de domínio.
+- `src/lib`: configuração institucional, busca, cotação, analytics preparado, metadata e validação.
+- `tests`: testes nativos de busca, cotação e contrato de validação.
+- `docs/redirects.md`: tabela de URLs antigas e destinos atuais.
 
-Componentes estáticos, como rodapé, navegação desktop e estrutura dos cards, são renderizados no servidor. Somente controles que dependem de estado, navegador ou eventos são Client Components.
+O catálogo é estático e não depende de CMS ou banco. A cotação é um mini-carrinho B2B, persistido no `localStorage` com versão de schema, sem checkout ou pagamento.
 
-## Requisitos e execução
+## Contato e orçamento
 
-Use Node.js 22.18 ou mais recente. A versão mínima aqui também permite executar testes TypeScript com o test runner nativo, sem dependência adicional.
+`POST /api/contato` aceita somente JSON, limita o corpo a 32 KiB, sanitiza os campos, valida consentimento e honeypot, limita tentativas em memória e confere produtos da cotação contra o catálogo.
+
+A API não declara entrega nem persistência. Depois da validação, a interface direciona o usuário ao WhatsApp ou e-mail verificados para que o envio seja confirmado no canal escolhido. Habilitar entrega automática exige uma integração aprovada e rate limiting distribuído.
+
+## Dados institucionais
+
+A fonte única está em `src/lib/config.ts`. Telefone, WhatsApp, e-mail, CNPJ, nome legal e ano de fundação não devem ser repetidos em componentes.
+
+Dados ainda ausentes e deliberadamente não inventados:
+
+- endereço oficial;
+- horário de atendimento;
+- perfis sociais;
+- marcas e fabricantes parceiros;
+- SKU, marca, fabricante e documentação de cada produto;
+- tabela histórica de IDs antigos para redirects `/produto/:id`;
+- provedor autorizado para entrega automática dos formulários.
+
+## Ambiente
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Abra `http://localhost:3000`. O servidor de desenvolvimento atualiza a página conforme os arquivos são editados.
+Abra `http://localhost:3000`.
 
-## Ambiente e SEO
-
-Copie `.env.example` para `.env.local` apenas quando houver valores verificados. `NEXT_PUBLIC_SITE_URL` deve conter a origem pública HTTPS sem barra final, por exemplo `https://site.exemplo`.
-
-Enquanto essa variável estiver ausente, inválida ou apontar para uma origem local:
-
-- URLs canônicas absolutas são omitidas;
-- o sitemap fica vazio;
-- `robots.txt` bloqueia rastreamento;
-- os metadados usam `noindex, nofollow`.
-
-Isso evita publicar referências acidentais a `localhost`. E-mail e WhatsApp são opcionais e só devem ser configurados com dados comerciais confirmados.
-
-O cartão social está disponível em `public/og.png` e é incluído nos metadados Open Graph e X somente quando a URL pública HTTPS estiver configurada.
-
-## Scripts
+Variáveis aceitas em `.env.local`:
 
 ```bash
-npm run dev        # desenvolvimento
-npm run typegen    # gera os tipos de rotas do Next.js
-npm run typecheck  # executa typegen e TypeScript estrito
-npm run lint       # ESLint
-npm test           # testes unitários nativos
-npm run build      # build de produção
-npm run build:cloudflare # build do adaptador OpenNext
-npm run build:sites # prepara dist/server e dist/assets para o Sites
-npm run verify     # typecheck, lint, testes e build
+NEXT_PUBLIC_SITE_URL=https://dominio-oficial.example
+NEXT_PUBLIC_CONTACT_EMAIL=contato@example.com
+NEXT_PUBLIC_WHATSAPP_URL=https://wa.me/5511000000000
 ```
 
-## Rota demonstrativa
+`NEXT_PUBLIC_SITE_URL` só é aceita quando for HTTPS pública. Sem ela, canonical absoluto e sitemap são omitidos e o site usa `noindex`, evitando indexação acidental de ambientes locais.
 
-`POST /api/contato` aceita somente `application/json`, limita o corpo a 32 KiB, sanitiza e valida os campos e responde sempre com `Cache-Control: no-store`. Uma resposta válida declara explicitamente `persisted: false` e `delivered: false`.
+## Qualidade
 
-O limitador de tentativas em memória é apenas uma proteção de melhor esforço para esta demonstração. Em uma implantação distribuída ele não substitui um controle centralizado na borda ou em armazenamento compartilhado.
+```bash
+npm run typecheck
+npm run lint
+npm test
+npm run build
+npm run verify
+```
 
-## Publicação
+O projeto também possui builds compatíveis com OpenNext/Cloudflare em `build:cloudflare` e `build:sites`, preservados para o ambiente de hospedagem existente.
 
-Antes de publicar:
+## Privacidade, segurança e analytics
 
-1. Configure `NEXT_PUBLIC_SITE_URL` com o domínio HTTPS definitivo.
-2. Execute `npm ci` e `npm run verify` no mesmo ambiente da publicação.
-3. Confira `/robots.txt`, `/sitemap.xml`, canonical e cabeçalhos de segurança na URL publicada.
-4. Mantenha os textos de ambiente demonstrativo até existir um canal real de entrega aprovado.
-
-Nenhum segredo, banco de dados, analytics, CRM, CMS ou serviço externo é necessário para executar o projeto atual.
+- seleção da cotação fica apenas no navegador;
+- não há analytics ou publicidade de terceiros instalados;
+- eventos B2B são emitidos por uma camada neutra (`labtech:analytics`) e só chegam a `dataLayer` quando uma ferramenta aprovada já estiver presente;
+- não são enviados dados pessoais nos eventos;
+- headers de segurança, CSP, proteção contra framing e `no-store` na API estão configurados;
+- o limitador em memória é de melhor esforço e deve ser substituído antes de entrega automática distribuída.

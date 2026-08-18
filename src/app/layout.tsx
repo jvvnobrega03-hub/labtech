@@ -5,7 +5,7 @@ import { QuoteDrawer } from "@/components/quote-drawer";
 import { QuoteProvider } from "@/components/quote-context";
 import { MotionSystem } from "@/components/motion-system";
 import { Footer, Header } from "@/components/site-shell";
-import { absoluteSiteUrl, publicSiteUrl, siteConfig } from "@/lib/config";
+import { absoluteSiteUrl, companyConfig, publicSiteUrl, siteConfig } from "@/lib/config";
 import "./globals.css";
 
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
@@ -40,12 +40,39 @@ export const metadata: Metadata = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: siteConfig.name,
+  name: companyConfig.name,
+  legalName: companyConfig.legalName,
   ...(publicSiteUrl ? { url: publicSiteUrl } : {}),
   description: siteConfig.description,
-  ...(siteConfig.email ? { email: siteConfig.email } : {}),
-  telephone: siteConfig.phoneDisplay,
-  taxID: siteConfig.taxId,
+  email: companyConfig.email,
+  telephone: companyConfig.phone.e164,
+  taxID: companyConfig.cnpj,
+  foundingDate: String(companyConfig.foundedYear),
+  ...(companyConfig.address ? {
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: companyConfig.address.street,
+      addressLocality: companyConfig.address.city,
+      addressRegion: companyConfig.address.region,
+      postalCode: companyConfig.address.postalCode,
+      addressCountry: companyConfig.address.country,
+    },
+  } : {}),
+  ...(companyConfig.socialLinks.length ? { sameAs: companyConfig.socialLinks.map((link) => link.href) } : {}),
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: companyConfig.name,
+  ...(publicSiteUrl ? { url: publicSiteUrl } : {}),
+  ...(publicSiteUrl ? {
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${publicSiteUrl}/catalogo?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  } : {}),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -62,7 +89,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <MotionSystem />
           </AuroraNavigationShell>
         </QuoteProvider>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationJsonLd, websiteJsonLd]).replace(/</g, "\\u003c") }} />
       </body>
     </html>
   );

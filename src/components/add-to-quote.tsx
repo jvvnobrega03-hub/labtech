@@ -2,6 +2,7 @@
 
 import { BagIcon, CheckIcon } from "@/components/icons";
 import { useQuote } from "@/components/quote-context";
+import { trackEvent } from "@/lib/analytics";
 
 export function AddToQuote({ slug, compact = false }: { slug: string; compact?: boolean }) {
   const { addItem, hasItem, open } = useQuote();
@@ -9,14 +10,14 @@ export function AddToQuote({ slug, compact = false }: { slug: string; compact?: 
 
   return (
     <button
-      className={compact ? "icon-button" : "button button-primary"}
+      className={compact ? "quote-chip" : "button button-primary"}
       type="button"
-      onClick={() => (added ? open() : addItem(slug))}
+      onClick={() => { if (added) open(); else { addItem(slug); trackEvent("add_to_quote", { product_id: slug }); } }}
       aria-label={added ? "Ver itens do orçamento" : "Adicionar ao orçamento"}
       aria-pressed={added}
     >
-      {added ? <CheckIcon className="size-5" /> : <BagIcon className="size-5" />}
-      {!compact && (added ? "Adicionado ao orçamento" : "Adicionar ao orçamento")}
+      {added ? <CheckIcon className="size-4" /> : <BagIcon className="size-4" />}
+      {compact ? (added ? "Adicionado" : "+ Cotação") : (added ? "Adicionado à cotação" : "Adicionar à cotação")}
     </button>
   );
 }

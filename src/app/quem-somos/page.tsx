@@ -3,10 +3,11 @@ import Link from "next/link";
 import { FlaskIcon, MicroscopeIcon, ShieldIcon, SupportIcon, TubesIcon } from "@/components/icons";
 import { Callout, SectionHeading } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
+import { companyExperienceLabel } from "@/lib/config";
 
 export const metadata = pageMetadata(
   "Quem somos",
-  "Desde 1997, a Labtech oferece produtos, serviços e soluções para laboratórios, hospitais, clínicas e centros de pesquisa.",
+  `${companyExperienceLabel()}, a Labtech oferece produtos, serviços e soluções para laboratórios, hospitais, clínicas e centros de pesquisa.`,
   "/quem-somos",
 );
 
@@ -14,7 +15,7 @@ export default function AboutPage() {
   const differentiators = [
     {
       title: "Experiência consolidada",
-      text: "Quase 30 anos de atuação no setor diagnóstico.",
+      text: `${companyExperienceLabel()} no setor diagnóstico.`,
       icon: TubesIcon,
     },
     {
@@ -72,14 +73,14 @@ export default function AboutPage() {
         <div className="about-video-hero__content shell">
           <div className="about-video-hero__copy">
             <p className="about-video-hero__eyebrow"><span aria-hidden="true" /> Quem somos</p>
-            <h1 id="about-hero-title" className="about-video-hero__title">Há quase 30 anos, soluções diagnósticas com qualidade, agilidade e confiança.</h1>
+            <h1 id="about-hero-title" className="about-video-hero__title">{companyExperienceLabel()}, soluções diagnósticas com qualidade, agilidade e confiança.</h1>
             <p className="about-video-hero__description">Atendemos laboratórios, hospitais, clínicas e centros de pesquisa com um portfólio completo de produtos, serviços e soluções para a área diagnóstica, sempre com foco em excelência, inovação e atendimento especializado.</p>
             <div className="about-video-hero__actions">
               <Link href="/contato" className="about-video-hero__button about-video-hero__button--primary text-center leading-5">Fale com nossa e tenha a solução ideal <span aria-hidden="true">→</span></Link>
               <Link href="/catalogo" className="about-video-hero__button about-video-hero__button--secondary">Explorar catálogo</Link>
             </div>
             <div className="about-video-hero__proof" aria-label="Diferenciais da Labtech">
-              <span>Desde 1997</span>
+              <span>{companyExperienceLabel()}</span>
               <span>Padrões internacionais</span>
               <span>Atendimento especializado</span>
             </div>
@@ -91,7 +92,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="Nossa trajetória"
             title="Experiência que acompanha a evolução do diagnóstico"
-            description="Desde 1997, construímos uma trajetória sólida levando produtos, serviços e soluções para os mais diversos segmentos da área diagnóstica. Atuamos ao lado de laboratórios humanos e veterinários, hospitais, centros de pesquisa, clínicas e outros serviços de saúde, sempre com foco em qualidade, confiança e padrões reconhecidos internacionalmente. Com uma linha ampla e completa, unimos experiência, eficiência e atendimento especializado para apoiar nossos clientes em um mercado cada vez mais dinâmico e exigente. Mais do que fornecer soluções, buscamos gerar valor real no dia a dia, contribuindo para a excelência operacional e o fortalecimento de cada parceiro que atendemos."
+            description={`${companyExperienceLabel()}, construímos uma trajetória sólida levando produtos, serviços e soluções para os mais diversos segmentos da área diagnóstica. Atuamos ao lado de laboratórios humanos e veterinários, hospitais, centros de pesquisa, clínicas e outros serviços de saúde, sempre com foco em qualidade, confiança e padrões reconhecidos internacionalmente. Com uma linha ampla e completa, unimos experiência, eficiência e atendimento especializado para apoiar nossos clientes em um mercado cada vez mais dinâmico e exigente. Mais do que fornecer soluções, buscamos gerar valor real no dia a dia, contribuindo para a excelência operacional e o fortalecimento de cada parceiro que atendemos.`}
           />
           <p className="mt-6 border-l-2 border-sky-400 pl-5 text-lg font-medium leading-8 text-slate-700">Tradição, tecnologia e atendimento próximo para gerar mais eficiência, segurança e confiança em cada etapa.</p>
         </div>
