@@ -90,7 +90,7 @@ export function createWhatsAppUrl(message?: string): string {
 export const primaryNavigation = [
   { label: "Início", href: "/" },
   { label: "Quem somos", href: "/quem-somos" },
-  { label: "Soluções", href: "/#solucoes" },
+  { label: "Soluções", href: "/solucoes" },
   { label: "Catálogo", href: "/catalogo" },
   { label: "Veterinário", href: "/veterinario" },
   { label: "Orçamento", href: "/orcamento" },

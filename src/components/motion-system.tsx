@@ -70,6 +70,9 @@ export function MotionSystem() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const processed = new WeakSet<HTMLElement>();
     let scheduledFrame: number | undefined;
+    let hydrationFrame: number | undefined;
+    let hydrationSafetyFrame: number | undefined;
+    let started = false;
 
     const observer = "IntersectionObserver" in window
       ? new IntersectionObserver((entries) => {
@@ -163,15 +166,29 @@ export function MotionSystem() {
       if (pendingTarget) revealWithoutMotion(pendingTarget);
     };
 
-    prepareTargets();
-
     const mutationObserver = new MutationObserver(schedulePreparation);
-    mutationObserver.observe(content, { childList: true, subtree: true });
-    content.addEventListener("focusin", handleFocusIn);
-    reducedMotion.addEventListener("change", handleMotionPreference);
+
+    const start = () => {
+      if (started) return;
+      started = true;
+      hydrationFrame = window.requestAnimationFrame(() => {
+        hydrationSafetyFrame = window.requestAnimationFrame(() => {
+          prepareTargets();
+          mutationObserver.observe(content, { childList: true, subtree: true });
+          content.addEventListener("focusin", handleFocusIn);
+          reducedMotion.addEventListener("change", handleMotionPreference);
+        });
+      });
+    };
+
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
 
     return () => {
       if (scheduledFrame !== undefined) window.cancelAnimationFrame(scheduledFrame);
+      if (hydrationFrame !== undefined) window.cancelAnimationFrame(hydrationFrame);
+      if (hydrationSafetyFrame !== undefined) window.cancelAnimationFrame(hydrationSafetyFrame);
+      window.removeEventListener("load", start);
       mutationObserver.disconnect();
       observer?.disconnect();
       content.removeEventListener("focusin", handleFocusIn);

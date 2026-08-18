@@ -2,16 +2,11 @@ import Link from "next/link";
 import {
   ArrowIcon,
   BagIcon,
-  BoxIcon,
   CategoryIcon,
-  CheckIcon,
-  FlaskIcon,
-  MicroscopeIcon,
   SearchIcon,
   ShieldIcon,
   SupportIcon,
   TruckIcon,
-  TubesIcon,
 } from "@/components/icons";
 import CinematicCentrifugeHero from "@/components/CinematicCentrifugeHero";
 import { ProductCard } from "@/components/product-card";
@@ -27,7 +22,7 @@ export const metadata = pageMetadata(
 );
 
 const trustPoints = [
-  { title: companyExperienceLabel(), text: "Experiência no mercado diagnóstico", icon: ShieldIcon },
+  { title: "Atendimento institucional", text: "Rotinas B2B do mercado diagnóstico", icon: ShieldIcon },
   { title: "Atendimento nacional", text: "Consultas para instituições em todo o Brasil", icon: TruckIcon },
   { title: "Suporte especializado", text: "Orientação técnica e comercial", icon: SupportIcon },
   { title: "Orçamento organizado", text: "Vários itens em uma única solicitação", icon: BagIcon },
@@ -38,13 +33,6 @@ const stats = [
   { eyebrow: "Portfólio", value: String(categories.length), label: "categorias organizadas" },
   { eyebrow: "Modelo", value: "B2B", label: "atendimento institucional" },
   { eyebrow: "Alcance", value: "Brasil", label: "cobertura de atendimento" },
-];
-
-const segments = [
-  { title: "Laboratórios humanos", text: "Produtos e soluções para rotinas pré-analíticas, analíticas e de apoio.", href: "/catalogo?q=diagnóstico", icon: TubesIcon },
-  { title: "Laboratórios veterinários", text: "Atendimento técnico-comercial voltado ao diagnóstico animal.", href: "/veterinario", icon: FlaskIcon },
-  { title: "Hospitais e clínicas", text: "Materiais e linhas de apoio para serviços de saúde e rotinas assistenciais.", href: "/catalogo/materiais-hospitalares", icon: ShieldIcon },
-  { title: "Centros de pesquisa", text: "Soluções para preparo, observação, processamento e organização de amostras.", href: "/catalogo?q=pesquisa", icon: MicroscopeIcon },
 ];
 
 export default function Home() {
@@ -87,17 +75,19 @@ export default function Home() {
         <div className="mt-5 flex justify-center"><Link href="/catalogo" className="button button-outline">Ver todas as categorias <ArrowIcon className="size-4" /></Link></div>
       </section>
 
-      <section id="solucoes" className="home-segments shell scroll-mt-28 pb-20">
-        <SectionHeading eyebrow="Segmentos atendidos" title="Soluções para cada tipo de operação" description="Uma navegação orientada ao contexto técnico de laboratórios, instituições de saúde e centros de pesquisa." />
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {segments.map(({ title, text, href, icon: Icon }) => (
-            <article key={title} className="home-segment-card">
-              <span className="home-segment-card__icon" aria-hidden="true"><Icon className="size-6" /></span>
-              <h2 className="mt-6 text-xl font-bold text-ink">{title}</h2>
-              <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
-              <Link href={href} className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-teal-800">Ver soluções <ArrowIcon className="size-4" /></Link>
-            </article>
-          ))}
+      <section className="home-solutions-entry shell pb-20" aria-labelledby="home-solutions-title">
+        <div className="home-solutions-entry__panel tech-panel overflow-hidden">
+          <div className="home-solutions-entry__copy">
+            <p className="eyebrow">Soluções Labtech</p>
+            <h2 id="home-solutions-title" className="display">Uma rota clara entre a necessidade e a escolha.</h2>
+            <p>Conheça como o portfólio se conecta ao contexto da operação, à aplicação e à consulta comercial.</p>
+            <Link href="/solucoes" className="button button-primary">Explorar soluções <ArrowIcon className="size-4" /></Link>
+          </div>
+          <ol className="home-solutions-entry__steps" aria-label="Etapas de uma consulta organizada">
+            {["Contexto", "Aplicação", "Seleção", "Cotação"].map((step, index) => (
+              <li key={step}><span aria-hidden="true">0{index + 1}</span><strong>{step}</strong></li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -123,37 +113,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-guidance shell grid items-center gap-14 py-24 lg:grid-cols-[.92fr_1.08fr]">
-        <div className="home-guidance__panel rounded-[2rem] bg-deep p-7 text-white sm:p-10">
-          <p className="text-[.64rem] font-extrabold uppercase tracking-[.2em] text-emerald-200/80">Consulta organizada</p>
-          <p className="mt-3 max-w-md text-2xl font-extrabold leading-tight tracking-[-.035em]">Da necessidade técnica ao orçamento, sem perder o contexto.</p>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              [BoxIcon, "Produto e quantidade"],
-              [SearchIcon, "Aplicação e contexto"],
-              [ShieldIcon, "Documentação aplicável"],
-              [SupportIcon, "Retorno consultivo"],
-            ].map(([Icon, label], index) => {
-              const ItemIcon = Icon as typeof BoxIcon;
-              return <div key={label as string} className="home-guidance__item rounded-2xl border border-white/10 bg-white/[.04] p-5"><div className="flex items-center justify-between"><ItemIcon className="size-6 text-emerald-200" /><span aria-hidden="true">0{index + 1}</span></div><p className="mt-8 text-sm font-bold">{label as string}</p></div>;
-            })}
-          </div>
-          <p className="mt-5 text-xs leading-5 text-emerald-50/55">Cada item permanece sujeito à confirmação de disponibilidade, configuração e condição comercial.</p>
-        </div>
-        <div>
-          <SectionHeading eyebrow="Compra técnica, decisão segura" title="A informação certa vem antes do produto" description="Em produtos laboratoriais e hospitalares, a finalidade indicada pelo fabricante orienta a escolha. Por isso, organizamos a consulta sem transformar características técnicas em promessas genéricas." />
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-            {[
-              "Finalidade de uso e compatibilidade",
-              "Apresentação, material e capacidade",
-              "Regularização aplicável por produto",
-              "Disponibilidade e condição comercial",
-            ].map((item) => <li key={item} className="flex items-start gap-3 text-sm font-bold leading-6 text-slate-700"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-teal-800"><CheckIcon className="size-3" /></span>{item}</li>)}
-          </ul>
-          <div className="mt-8 flex flex-wrap gap-3"><Link href="/orcamento" className="button button-primary">Montar orçamento</Link><Link href="/contato" className="button button-outline">Falar com a equipe</Link></div>
-        </div>
-      </section>
-
       <section className="home-veterinary border-y border-sky-100 bg-[#F4FAFC] py-24">
         <div className="shell grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
           <div>
@@ -163,14 +122,6 @@ export default function Home() {
           <div className="home-veterinary__panel" aria-label="Áreas do diagnóstico veterinário">
             {["Laboratórios veterinários", "Clínicas veterinárias", "Hospitais veterinários", "Centros de diagnóstico animal"].map((item, index) => <div key={item}><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></div>)}
           </div>
-        </div>
-      </section>
-
-      <section className="home-support shell py-24">
-        <div className="grid gap-8 rounded-[2rem] border border-sky-100 bg-white p-8 shadow-[0_20px_60px_rgba(2,83,111,.08)] md:grid-cols-[auto_1fr_auto] md:items-center md:p-12">
-          <span className="grid size-14 place-items-center rounded-2xl bg-sky-50 text-sky-700" aria-hidden="true"><SupportIcon className="size-7" /></span>
-          <div><p className="eyebrow">Atendimento técnico-comercial</p><h2 className="mt-3 text-2xl font-bold text-ink">Contexto técnico antes da definição do produto</h2><p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">A equipe organiza aplicação, compatibilidade, documentação e disponibilidade para orientar cada consulta institucional.</p></div>
-          <Link href="/contato" className="button button-outline">Falar com a equipe</Link>
         </div>
       </section>
 
