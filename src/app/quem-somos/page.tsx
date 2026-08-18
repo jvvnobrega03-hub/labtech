@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FlaskIcon, MicroscopeIcon, ShieldIcon, SupportIcon, TubesIcon } from "@/components/icons";
 import { Callout, SectionHeading } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
@@ -49,11 +50,34 @@ export default function AboutPage() {
 
   return (
     <div className="standard-page standard-page--about">
+      <link rel="preload" as="image" href="/images/about-puppy-hero-poster.webp" fetchPriority="high" />
+      <section className="veterinary-video-hero institutional-static-hero" aria-labelledby="about-hero-title">
+        <div className="veterinary-video-hero__scrim" aria-hidden="true" />
+        <div className="veterinary-video-hero__grid" aria-hidden="true" />
+        <div className="veterinary-video-hero__content shell">
+          <div className="veterinary-video-hero__copy">
+            <p className="veterinary-video-hero__eyebrow"><span aria-hidden="true" /> Quem somos</p>
+            <h1 id="about-hero-title" className="veterinary-video-hero__title">{companyExperienceLabel()}, soluções diagnósticas com qualidade, agilidade e confiança.</h1>
+            <p className="veterinary-video-hero__description">Atendemos laboratórios, hospitais, clínicas e centros de pesquisa com um portfólio completo de produtos, serviços e soluções para a área diagnóstica, sempre com foco em excelência, inovação e atendimento especializado.</p>
+            <div className="veterinary-video-hero__actions">
+              <Link href="/contato" className="veterinary-video-hero__button veterinary-video-hero__button--primary text-center leading-5">Fale com nossa e tenha a solução ideal <span aria-hidden="true">→</span></Link>
+              <Link href="/catalogo" className="veterinary-video-hero__button veterinary-video-hero__button--secondary">Explorar catálogo</Link>
+            </div>
+            <div className="veterinary-video-hero__proof" aria-label="Diferenciais da Labtech">
+              <span>{companyExperienceLabel()}</span>
+              <span>Padrões internacionais</span>
+              <span>Atendimento especializado</span>
+            </div>
+          </div>
+        </div>
+      </section>
       <section id="nossa-atuacao" className="standard-page__intro shell scroll-mt-28 grid items-center gap-14 py-24 lg:grid-cols-2">
         <div>
-          <p className="eyebrow">Quem somos · Nossa trajetória</p>
-          <h1 className="display mt-4 text-5xl text-ink md:text-6xl">Experiência que acompanha a evolução do diagnóstico</h1>
-          <p className="mt-6 text-lg leading-8 text-slate-600">{companyExperienceLabel()}, construímos uma trajetória sólida levando produtos, serviços e soluções para os mais diversos segmentos da área diagnóstica. Atuamos ao lado de laboratórios humanos e veterinários, hospitais, centros de pesquisa, clínicas e outros serviços de saúde, sempre com foco em qualidade, confiança e padrões reconhecidos internacionalmente. Com uma linha ampla e completa, unimos experiência, eficiência e atendimento especializado para apoiar nossos clientes em um mercado cada vez mais dinâmico e exigente. Mais do que fornecer soluções, buscamos gerar valor real no dia a dia, contribuindo para a excelência operacional e o fortalecimento de cada parceiro que atendemos.</p>
+          <SectionHeading
+            eyebrow="Nossa trajetória"
+            title="Experiência que acompanha a evolução do diagnóstico"
+            description={`${companyExperienceLabel()}, construímos uma trajetória sólida levando produtos, serviços e soluções para os mais diversos segmentos da área diagnóstica. Atuamos ao lado de laboratórios humanos e veterinários, hospitais, centros de pesquisa, clínicas e outros serviços de saúde, sempre com foco em qualidade, confiança e padrões reconhecidos internacionalmente. Com uma linha ampla e completa, unimos experiência, eficiência e atendimento especializado para apoiar nossos clientes em um mercado cada vez mais dinâmico e exigente. Mais do que fornecer soluções, buscamos gerar valor real no dia a dia, contribuindo para a excelência operacional e o fortalecimento de cada parceiro que atendemos.`}
+          />
           <p className="mt-6 border-l-2 border-sky-400 pl-5 text-lg font-medium leading-8 text-slate-700">Tradição, tecnologia e atendimento próximo para gerar mais eficiência, segurança e confiança em cada etapa.</p>
         </div>
         <div className="standard-page__media relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-emerald-50">
