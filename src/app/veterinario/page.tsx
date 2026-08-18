@@ -26,7 +26,6 @@ export default function VeterinaryPage() {
           className="veterinary-video-hero__video"
           autoPlay
           muted
-          loop
           playsInline
           preload="metadata"
           poster="/images/about-puppy-hero-poster.webp"
