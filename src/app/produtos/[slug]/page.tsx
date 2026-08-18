@@ -68,7 +68,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
         <div className="self-center">
           <Eyebrow>{category?.name ?? "Catálogo"}</Eyebrow>
-          <h1 className="display mt-5 text-5xl md:text-6xl">{product.name}</h1>
+          <h1 className="product-page__title display mt-5">{product.name}</h1>
           {(product.sku || product.brand || product.manufacturer || product.subcategory) && <p className="mt-4 text-sm text-slate-500">{[product.sku && `Código ${product.sku}`, product.brand, product.manufacturer, product.subcategory].filter(Boolean).join(" · ")}</p>}
           <p className="mt-6 text-lg leading-8 text-slate-600">{product.summary}</p>
           <div className="mt-7 rounded-2xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-900"><strong>Confirmação por item:</strong> marca, configuração, especificação, regularização aplicável, preço e disponibilidade dependem do produto selecionado.</div>
@@ -90,7 +90,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
       {product.documents && product.documents.length > 0 && <section className="shell py-16"><Eyebrow>Documentos</Eyebrow><h2 className="display mt-4 text-3xl">Materiais técnicos disponíveis</h2><ul className="mt-6 grid gap-3 sm:grid-cols-2">{product.documents.map((document) => <li key={document.href}><a className="button button-outline w-full" href={document.href} target="_blank" rel="noreferrer">{document.label}</a></li>)}</ul></section>}
-      {related.length > 0 && <section className="shell py-20"><Eyebrow>Na mesma categoria</Eyebrow><h2 className="display mt-4 text-4xl">Continue explorando</h2><div className="mt-8 grid gap-6 md:grid-cols-2">{related.map((item) => <ProductCard product={item} key={item.slug} />)}</div></section>}
+      {related.length > 0 && <section className="shell py-20"><Eyebrow>Na mesma categoria</Eyebrow><h2 className="display mt-4 text-3xl md:text-4xl">Continue explorando</h2><div className="mt-8 grid gap-6 md:grid-cols-2">{related.map((item) => <ProductCard product={item} key={item.slug} />)}</div></section>}
       <Callout title="Precisa contextualizar sua aplicação?" text="Adicione este item à seleção e descreva sua necessidade no fluxo de orçamento." />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([productJsonLd, breadcrumbJsonLd]).replace(/</g, "\\u003c") }} />
     </>

@@ -21,7 +21,7 @@ export function SectionHeading({ eyebrow, title, description, light = false }: {
   return (
     <div className="max-w-3xl">
       <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 className={`display mt-4 text-4xl md:text-5xl ${light ? "text-white" : "text-ink"}`}>{title}</h2>
+      <h2 className={`section-heading__title display mt-4 ${light ? "text-white" : "text-ink"}`}>{title}</h2>
       {description && <p className={`mt-5 text-lg leading-8 ${light ? "text-slate-300" : "text-slate-600"}`}>{description}</p>}
     </div>
   );
@@ -42,7 +42,7 @@ export function Callout({ title, text, href = "/orcamento", label = "Iniciar or�
       <div className="relative overflow-hidden rounded-[2rem] bg-navy px-7 py-12 text-white md:px-14 md:py-16">
         <div className="orb right-0 top-0" />
         <div className="relative grid items-end gap-8 md:grid-cols-[1fr_auto]">
-          <div><Eyebrow>Próximo passo</Eyebrow><h2 className="display mt-4 max-w-2xl text-4xl md:text-5xl">{title}</h2><p className="mt-5 max-w-xl leading-7 text-slate-300">{text}</p></div>
+          <div><Eyebrow>Próximo passo</Eyebrow><h2 className="callout__title display mt-4 max-w-2xl">{title}</h2><p className="mt-5 max-w-xl leading-7 text-slate-300">{text}</p></div>
           <Link className="button button-light" href={href}>{label}<ArrowIcon className="size-5" /></Link>
         </div>
       </div>

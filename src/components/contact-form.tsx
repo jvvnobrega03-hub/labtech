@@ -45,7 +45,7 @@ export function ContactForm() {
     return (
       <div className="contact-form contact-form--success rounded-[2rem] border border-slate-200 bg-white p-10 text-center shadow-sm">
         <span className="contact-form__success-icon mx-auto grid size-14 place-items-center rounded-full bg-emerald-50 text-teal-700"><CheckIcon className="size-7" /></span>
-        <h2 ref={confirmationHeading} tabIndex={-1} className="display mt-5 text-3xl">Dados revisados</h2>
+        <h2 ref={confirmationHeading} tabIndex={-1} className="display mt-5 text-2xl md:text-3xl">Dados revisados</h2>
         <p className="mt-4 leading-7 text-slate-600">Para concluir o contato e confirmar o recebimento, fale agora com a equipe por um dos canais comerciais.</p>
         <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><a className="button button-primary" href={createWhatsAppUrl(channelMessage)} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { context: "contact" })}>Abrir WhatsApp</a><a className="button button-outline" href={`mailto:${siteConfig.email}?subject=${encodeURIComponent("Contato pelo site Labtech")}&body=${encodeURIComponent(channelMessage)}`}>Enviar e-mail</a></div>
         <button type="button" onClick={() => setStatus("idle")} className="mt-6 text-sm font-bold text-teal-700">Revisar mensagem</button>
