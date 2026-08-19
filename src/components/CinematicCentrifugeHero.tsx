@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { AuroraHeroOpening } from "@/components/AuroraHeroOpening";
 
 const INTRO_VIDEO_SRC = "/videos/centrifuge-film-intro.mp4";
 const INTRO_VIDEO_WEBM_SRC = "/videos/centrifuge-film-intro.webm";
@@ -63,7 +64,9 @@ export function CinematicCentrifugeHero() {
       const startSpinLoop = () => {
         if (loopFailedRef.current) return;
         loopVideo.muted = true;
-        try { loopVideo.currentTime = 0; } catch { /* Usa o primeiro frame decodificado. */ }
+        if (loopVideo.currentTime > 0.05) {
+          try { loopVideo.currentTime = 0; } catch { /* Usa o primeiro frame decodificado. */ }
+        }
         void loopVideo.play().catch(() => { /* O poster permanece funcional. */ });
       };
 
@@ -204,6 +207,7 @@ export function CinematicCentrifugeHero() {
   return (
     <>
       <section ref={rootRef} className="cinematic-hero" aria-label="Tecnologia laboratorial de alta precisão">
+        <AuroraHeroOpening>
       <div ref={visualRef} className="cinematic-hero__visual" aria-hidden="true">
         <div className="cinematic-hero__fallback" />
         <video ref={introVideoRef} className="cinematic-hero__video cinematic-hero__video--intro" autoPlay muted playsInline preload="auto" poster={POSTER_SRC} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback" draggable={false} aria-hidden="true" tabIndex={-1}>
@@ -254,6 +258,7 @@ export function CinematicCentrifugeHero() {
           <div className="cinematic-loader__progress" aria-hidden="true"><span ref={progressRef} /></div>
         </div>
       )}
+        </AuroraHeroOpening>
       </section>
       <div className="cinematic-hero-transition" aria-hidden="true" />
     </>

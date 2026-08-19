@@ -1,0 +1,78 @@
+.aurora-hero-animations-4 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.aurora-hero-animations-4 .aurora-hero-animations-4__stage {
+  position: absolute;
+  inset: 0;
+  min-height: 100svh;
+  transform: scale(1.15);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.aurora-hero-animations-4 .aurora-hero-animations-4__loader {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  min-height: 100svh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-hero-animations-4 .aurora-hero-animations-4__half {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 50%;
+  background: #ffffff;
+  will-change: transform;
+}
+
+.aurora-hero-animations-4 .aurora-hero-animations-4__half--top {
+  top: 0;
+}
+
+.aurora-hero-animations-4 .aurora-hero-animations-4__half--bottom {
+  bottom: 0;
+}
+
+.aurora-hero-animations-4 .aurora-hero-animations-4__logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: min(76vw, 980px);
+  transform: translate(-50%, -50%);
+}
+
+.aurora-hero-animations-4 .aurora-hero-animations-4__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transform-origin: center center;
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: opacity, transform, letter-spacing;
+}
+
+@media (max-width: 600px) {
+  .aurora-hero-animations-4 .aurora-hero-animations-4__logo {
+    width: 92vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-hero-animations-4 .aurora-hero-animations-4__loader {
+    display: none;
+  }
+
+  .aurora-hero-animations-4 .aurora-hero-animations-4__stage {
+    transform: none;
+  }
+}

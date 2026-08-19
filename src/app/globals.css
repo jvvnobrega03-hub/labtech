@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../components/aurora-hero-opening.css";
 
 :root { --navy: #087A9F; --deep: #071018; --ink: #102833; --teal: #0796C4; --mint: #74DCFF; --mist: #F4FBFD; --paper: #FFFFFF; --line: #D8EEF5; --focus: #0AA6D2; }
 @theme inline {
