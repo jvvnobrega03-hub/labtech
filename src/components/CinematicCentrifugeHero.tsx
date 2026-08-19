@@ -5,9 +5,7 @@ import { gsap } from "gsap";
 import { AuroraHeroOpening } from "@/components/AuroraHeroOpening";
 
 const INTRO_VIDEO_SRC = "/videos/centrifuge-film-intro.mp4";
-const INTRO_VIDEO_WEBM_SRC = "/videos/centrifuge-film-intro.webm";
 const SPIN_LOOP_MP4_SRC = "/videos/centrifuge-spin-loop.mp4";
-const SPIN_LOOP_WEBM_SRC = "/videos/centrifuge-spin-loop.webm";
 const POSTER_SRC = "/images/centrifuge-film-poster.webp";
 const INTRO_FALLBACK_MS = 12_000;
 const CROSSFADE_LEAD_SECONDS = 0.06;
@@ -46,7 +44,6 @@ export function CinematicCentrifugeHero() {
     let fallbackTimer: number | undefined;
     let forcedTransitionTimer: number | undefined;
     let loopPreparationTimer: number | undefined;
-    let media: ReturnType<typeof gsap.matchMedia> | undefined;
 
     transitionStartedRef.current = false;
     transitionRequestedRef.current = false;
@@ -141,7 +138,7 @@ export function CinematicCentrifugeHero() {
         return;
       }
 
-      gsap.set(visual, { autoAlpha: 1, scale: 1.012 });
+      gsap.set(visual, { autoAlpha: 1 });
       gsap.set(introVideo, { autoAlpha: 1 });
       gsap.set(loopVideo, { autoAlpha: 0 });
       gsap.set(revealTargets, { autoAlpha: 0, y: 36 });
@@ -161,27 +158,6 @@ export function CinematicCentrifugeHero() {
       root.addEventListener("keydown", attemptPlayback);
       fallbackTimer = window.setTimeout(() => beginTransition(true), INTRO_FALLBACK_MS);
 
-      media = gsap.matchMedia();
-      media.add("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
-        const moveX = gsap.quickTo(visual, "x", { duration: 1.2, ease: "power3.out" });
-        const moveY = gsap.quickTo(visual, "y", { duration: 1.2, ease: "power3.out" });
-        const rotateX = gsap.quickTo(visual, "rotationX", { duration: 1.2, ease: "power3.out" });
-        const rotateY = gsap.quickTo(visual, "rotationY", { duration: 1.2, ease: "power3.out" });
-        const handlePointerMove = (event: PointerEvent) => {
-          const bounds = root.getBoundingClientRect();
-          const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
-          const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
-          moveX(x * 8); moveY(y * 6); rotateY(x * 2.2); rotateX(y * -1.4);
-        };
-        const resetDepth = () => { moveX(0); moveY(0); rotateX(0); rotateY(0); };
-        root.addEventListener("pointermove", handlePointerMove, { passive: true });
-        root.addEventListener("pointerleave", resetDepth);
-        return () => {
-          root.removeEventListener("pointermove", handlePointerMove);
-          root.removeEventListener("pointerleave", resetDepth);
-        };
-      });
-
       return () => {
         introVideo.removeEventListener("timeupdate", updateIntro);
         introVideo.removeEventListener("playing", prepareLoop);
@@ -199,7 +175,6 @@ export function CinematicCentrifugeHero() {
       if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
       if (forcedTransitionTimer !== undefined) window.clearTimeout(forcedTransitionTimer);
       if (loopPreparationTimer !== undefined) window.clearTimeout(loopPreparationTimer);
-      media?.revert();
       context.revert();
     };
   }, []);
@@ -211,11 +186,9 @@ export function CinematicCentrifugeHero() {
       <div ref={visualRef} className="cinematic-hero__visual" aria-hidden="true">
         <div className="cinematic-hero__fallback" />
         <video ref={introVideoRef} className="cinematic-hero__video cinematic-hero__video--intro" autoPlay muted playsInline preload="auto" poster={POSTER_SRC} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback" draggable={false} aria-hidden="true" tabIndex={-1}>
-          <source src={INTRO_VIDEO_WEBM_SRC} type="video/webm" />
           <source src={INTRO_VIDEO_SRC} type="video/mp4" />
         </video>
         <video ref={loopVideoRef} className="cinematic-hero__video cinematic-hero__video--loop" muted loop playsInline preload="metadata" poster={POSTER_SRC} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback" draggable={false} aria-hidden="true" tabIndex={-1}>
-          <source src={SPIN_LOOP_WEBM_SRC} type="video/webm" />
           <source src={SPIN_LOOP_MP4_SRC} type="video/mp4" />
         </video>
       </div>
