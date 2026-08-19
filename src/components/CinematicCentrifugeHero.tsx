@@ -93,7 +93,7 @@ export function CinematicCentrifugeHero() {
           .to(loaderInterfaceRef.current, { autoAlpha: 0, y: -12, duration: 0.3, ease: "power2.out" }, 0)
           .to(flashRef.current, { opacity: 0.4, duration: 0.18, ease: "power2.out" }, 0.06)
           .to(loopVideo, { autoAlpha: loopFailedRef.current ? 0 : 1, duration: 0.46, ease: "power2.inOut" }, 0.1)
-          .to(introVideo, { autoAlpha: 0, scale: 1.012, duration: 0.48, ease: "power2.inOut" }, 0.12)
+          .to(introVideo, { autoAlpha: 0, duration: 0.48, ease: "power2.inOut" }, 0.12)
           .to(loaderRef.current, { autoAlpha: 0, pointerEvents: "none", duration: 0.46, ease: "power2.inOut" }, 0.24)
           .to(flashRef.current, { opacity: 0, duration: 0.58, ease: "power2.out" }, 0.3)
           .fromTo(eyebrowRef.current, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.55)
@@ -206,8 +206,8 @@ export function CinematicCentrifugeHero() {
 
   return (
     <>
+      <AuroraHeroOpening stageRef={rootRef} />
       <section ref={rootRef} className="cinematic-hero" aria-label="Tecnologia laboratorial de alta precisão">
-        <AuroraHeroOpening>
       <div ref={visualRef} className="cinematic-hero__visual" aria-hidden="true">
         <div className="cinematic-hero__fallback" />
         <video ref={introVideoRef} className="cinematic-hero__video cinematic-hero__video--intro" autoPlay muted playsInline preload="auto" poster={POSTER_SRC} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noremoteplayback" draggable={false} aria-hidden="true" tabIndex={-1}>
@@ -258,7 +258,6 @@ export function CinematicCentrifugeHero() {
           <div className="cinematic-loader__progress" aria-hidden="true"><span ref={progressRef} /></div>
         </div>
       )}
-        </AuroraHeroOpening>
       </section>
       <div className="cinematic-hero-transition" aria-hidden="true" />
     </>

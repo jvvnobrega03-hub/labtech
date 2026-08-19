@@ -1,25 +1,20 @@
 .aurora-hero-animations-4 {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  width: 100%;
-  min-height: 100svh;
+  z-index: 10000;
+  width: 100vw;
+  height: 100svh;
   overflow: hidden;
-}
-
-.aurora-hero-animations-4 .aurora-hero-animations-4__stage {
-  position: absolute;
-  inset: 0;
-  min-height: 100svh;
-  transform: scale(1.15);
-  transform-origin: center center;
-  will-change: transform;
+  isolation: isolate;
+  pointer-events: auto;
 }
 
 .aurora-hero-animations-4 .aurora-hero-animations-4__loader {
   position: absolute;
   inset: 0;
-  z-index: 30;
-  min-height: 100svh;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   pointer-events: none;
 }
@@ -68,11 +63,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aurora-hero-animations-4 .aurora-hero-animations-4__loader {
+  .aurora-hero-animations-4 {
     display: none;
-  }
-
-  .aurora-hero-animations-4 .aurora-hero-animations-4__stage {
-    transform: none;
   }
 }

@@ -1,19 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { type ReactNode, useEffect, useRef } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 const OPENING_LOGO_SRC = "/images/labtech-opening-logo-transparent.png";
 const SAFETY_FALLBACK_MS = 6_000;
 
 type AuroraHeroOpeningProps = {
-  children: ReactNode;
+  stageRef: RefObject<HTMLElement | null>;
 };
 
-export function AuroraHeroOpening({ children }: AuroraHeroOpeningProps) {
+export function AuroraHeroOpening({ stageRef }: AuroraHeroOpeningProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
   const halfTopRef = useRef<HTMLSpanElement>(null);
   const halfBottomRef = useRef<HTMLSpanElement>(null);
@@ -27,20 +26,24 @@ export function AuroraHeroOpening({ children }: AuroraHeroOpeningProps) {
     const halfBottom = halfBottomRef.current;
     const logo = logoRef.current;
 
-    if (!root || !stage || !loader || !halfTop || !halfBottom || !logo) return;
+    if (!root || !loader || !halfTop || !halfBottom || !logo) return;
+    if (!stage) {
+      gsap.set(root, { display: "none" });
+      return;
+    }
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let fallbackTimer: number | undefined;
 
     const context = gsap.context(() => {
       if (reducedMotion) {
-        gsap.set(stage, { scale: 1 });
-        gsap.set(loader, { display: "none" });
+        gsap.set(stage, { clearProps: "transform,willChange" });
+        gsap.set(root, { display: "none" });
         return;
       }
 
       gsap.set(logo, { opacity: 0, letterSpacing: "0.3em" });
-      gsap.set(stage, { scale: 1.15 });
+      gsap.set(stage, { scale: 1.15, willChange: "transform" });
 
       const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -97,13 +100,15 @@ export function AuroraHeroOpening({ children }: AuroraHeroOpeningProps) {
           "<",
         )
         .set(loader, { display: "none" }, "+=0.05")
+        .set(stage, { clearProps: "transform,willChange" })
+        .set(root, { display: "none" })
         .call(() => {
           if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
         });
 
       fallbackTimer = window.setTimeout(() => {
-        gsap.set(stage, { scale: 1 });
-        gsap.set(loader, { display: "none" });
+        gsap.set(stage, { clearProps: "transform,willChange" });
+        gsap.set(root, { display: "none" });
       }, SAFETY_FALLBACK_MS);
     }, root);
 
@@ -111,14 +116,10 @@ export function AuroraHeroOpening({ children }: AuroraHeroOpeningProps) {
       if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
       context.revert();
     };
-  }, []);
+  }, [stageRef]);
 
   return (
     <div ref={rootRef} className="aurora-hero-animations-4">
-      <div ref={stageRef} className="aurora-hero-animations-4__stage">
-        {children}
-      </div>
-
       <div
         ref={loaderRef}
         className="aurora-hero-animations-4__loader"
@@ -149,7 +150,7 @@ export function AuroraHeroOpening({ children }: AuroraHeroOpeningProps) {
       </div>
 
       <noscript>
-        <style>{`.aurora-hero-animations-4__loader{display:none}.aurora-hero-animations-4__stage{transform:none}`}</style>
+        <style>{`.aurora-hero-animations-4{display:none}`}</style>
       </noscript>
     </div>
   );
