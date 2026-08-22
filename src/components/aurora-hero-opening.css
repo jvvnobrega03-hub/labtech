@@ -6,7 +6,7 @@
   height: 100svh;
   overflow: hidden;
   isolation: isolate;
-  background: #f7f8fa;
+  background: #ffffff;
   pointer-events: auto;
   will-change: opacity;
 }
@@ -20,7 +20,7 @@
   height: 100%;
   padding: clamp(12px, 2vw, 36px);
   overflow: hidden;
-  background: #f7f8fa;
+  background: #ffffff;
 }
 
 .aurora-hero-animations-4 .aurora-hero-animations-4__video {
@@ -31,7 +31,8 @@
   aspect-ratio: 16 / 9;
   object-fit: contain;
   object-position: center;
-  background: #f7f8fa;
+  filter: brightness(1.02) contrast(1.025);
+  background: #ffffff;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
