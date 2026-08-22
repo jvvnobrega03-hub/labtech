@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { AuroraHeroOpening } from "@/components/AuroraHeroOpening";
 
@@ -23,7 +23,15 @@ export function CinematicCentrifugeHero() {
   const ctasRef = useRef<HTMLDivElement>(null);
   const trustRef = useRef<HTMLDivElement>(null);
   const transitionStartedRef = useRef(false);
+  const heroPlaybackRequestedRef = useRef(false);
+  const openingCompletedRef = useRef(false);
+  const startHeroPlaybackRef = useRef<() => void>(() => {});
   const [introFinished, setIntroFinished] = useState(false);
+
+  const startHeroPlayback = useCallback(() => {
+    openingCompletedRef.current = true;
+    startHeroPlaybackRef.current();
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -46,9 +54,17 @@ export function CinematicCentrifugeHero() {
     let fallbackTimer: number | undefined;
 
     transitionStartedRef.current = false;
+    heroPlaybackRequestedRef.current = false;
 
     const attemptPlayback = () => {
-      if (introVideo.error || introVideo.ended || !introVideo.paused) return;
+      if (
+        !heroPlaybackRequestedRef.current ||
+        introVideo.error ||
+        introVideo.ended ||
+        !introVideo.paused
+      ) {
+        return;
+      }
       introVideo.muted = true;
       void introVideo.play().catch(() => {
         /* Um gesto posterior fará uma nova tentativa. */
@@ -157,6 +173,30 @@ export function CinematicCentrifugeHero() {
         beginTransition();
       };
 
+      startHeroPlaybackRef.current = () => {
+        if (
+          reduceMotion.matches ||
+          saveData ||
+          heroPlaybackRequestedRef.current
+        ) {
+          return;
+        }
+
+        heroPlaybackRequestedRef.current = true;
+        try {
+          introVideo.currentTime = 0;
+        } catch {
+          /* Começa no primeiro frame disponível. */
+        }
+        introVideo.muted = true;
+        void introVideo.play().catch(() => {
+          /* A primeira interação tenta novamente. */
+        });
+        fallbackTimer = window.setTimeout(beginTransition, INTRO_FALLBACK_MS);
+      };
+
+      if (openingCompletedRef.current) startHeroPlaybackRef.current();
+
       if (reduceMotion.matches || saveData) {
         introVideo.pause();
         gsap.set(introVideo, { display: "none" });
@@ -190,21 +230,13 @@ export function CinematicCentrifugeHero() {
         },
       );
 
-      try {
-        introVideo.currentTime = 0;
-      } catch {
-        /* Começa no primeiro frame disponível. */
-      }
-      void introVideo.play().catch(() => {
-        /* A primeira interação tenta novamente. */
-      });
+      introVideo.pause();
 
       introVideo.addEventListener("timeupdate", updateIntro);
       introVideo.addEventListener("ended", beginTransition);
       introVideo.addEventListener("error", handleIntroError);
       root.addEventListener("pointerdown", attemptPlayback, { passive: true });
       root.addEventListener("keydown", attemptPlayback);
-      fallbackTimer = window.setTimeout(beginTransition, INTRO_FALLBACK_MS);
 
       return () => {
         introVideo.removeEventListener("timeupdate", updateIntro);
@@ -217,13 +249,17 @@ export function CinematicCentrifugeHero() {
 
     return () => {
       if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+      startHeroPlaybackRef.current = () => {};
       context.revert();
     };
   }, []);
 
   return (
     <>
-      <AuroraHeroOpening stageRef={rootRef} />
+      <AuroraHeroOpening
+        stageRef={rootRef}
+        onComplete={startHeroPlayback}
+      />
       <section
         ref={rootRef}
         className="cinematic-hero"
@@ -238,7 +274,6 @@ export function CinematicCentrifugeHero() {
           <video
             ref={introVideoRef}
             className="cinematic-hero__video cinematic-hero__video--intro"
-            autoPlay
             muted
             playsInline
             preload="auto"

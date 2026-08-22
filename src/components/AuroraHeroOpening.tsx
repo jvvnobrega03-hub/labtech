@@ -1,152 +1,120 @@
 "use client";
 
-import Image from "next/image";
 import { type RefObject, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-const OPENING_LOGO_SRC = "/images/labtech-opening-logo-transparent.png";
-const SAFETY_FALLBACK_MS = 6_000;
+const OPENING_VIDEO_SRC = "/videos/labtech-logo-opening.mp4";
+const SAFETY_FALLBACK_MS = 10_000;
 
 type AuroraHeroOpeningProps = {
   stageRef: RefObject<HTMLElement | null>;
+  onComplete: () => void;
 };
 
-export function AuroraHeroOpening({ stageRef }: AuroraHeroOpeningProps) {
+export function AuroraHeroOpening({
+  stageRef,
+  onComplete,
+}: AuroraHeroOpeningProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const loaderRef = useRef<HTMLDivElement>(null);
-  const halfTopRef = useRef<HTMLSpanElement>(null);
-  const halfBottomRef = useRef<HTMLSpanElement>(null);
-  const logoRef = useRef<HTMLImageElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const completedRef = useRef(false);
 
   useEffect(() => {
     const root = rootRef.current;
+    const video = videoRef.current;
     const stage = stageRef.current;
-    const loader = loaderRef.current;
-    const halfTop = halfTopRef.current;
-    const halfBottom = halfBottomRef.current;
-    const logo = logoRef.current;
+    if (!root || !video || !stage) return;
 
-    if (!root || !loader || !halfTop || !halfBottom || !logo) return;
-    if (!stage) {
-      gsap.set(root, { display: "none" });
-      return;
-    }
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const connection = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection;
+    const saveData = Boolean(connection?.saveData);
     let fallbackTimer: number | undefined;
 
+    completedRef.current = false;
+
     const context = gsap.context(() => {
-      if (reducedMotion) {
-        gsap.set(stage, { clearProps: "transform,willChange" });
+      const finishOpening = () => {
+        if (completedRef.current) return;
+        completedRef.current = true;
+        if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+
+        onComplete();
+        gsap.to(root, {
+          autoAlpha: 0,
+          duration: 0.55,
+          ease: "power2.inOut",
+          pointerEvents: "none",
+          onComplete: () => gsap.set(root, { display: "none" }),
+        });
+      };
+
+      if (reducedMotion || saveData) {
+        onComplete();
         gsap.set(root, { display: "none" });
         return;
       }
 
-      gsap.set(logo, { opacity: 0, letterSpacing: "0.3em" });
-      gsap.set(stage, { scale: 1.15, willChange: "transform" });
-
-      const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      timeline
-        .to(logo, {
-          opacity: 1,
-          duration: 0.6,
-          delay: 0.3,
-        })
-        .to(
-          logo,
-          {
-            letterSpacing: "0.05em",
-            duration: 0.7,
-            ease: "power3.inOut",
-          },
-          "+=0.3",
-        )
-        .to(
-          halfTop,
-          {
-            yPercent: -100,
-            duration: 1.3,
-            ease: "power3.inOut",
-          },
-          "+=0.2",
-        )
-        .to(
-          halfBottom,
-          {
-            yPercent: 100,
-            duration: 1.3,
-            ease: "power3.inOut",
-          },
-          "<",
-        )
-        .to(
-          logo,
-          {
-            opacity: 0,
-            scale: 0.96,
-            duration: 0.5,
-            ease: "power2.in",
-          },
-          "<0.15",
-        )
-        .to(
-          stage,
-          {
-            scale: 1,
-            duration: 1.4,
-            ease: "expo.out",
-          },
-          "<",
-        )
-        .set(loader, { display: "none" }, "+=0.05")
-        .set(stage, { clearProps: "transform,willChange" })
-        .set(root, { display: "none" })
-        .call(() => {
-          if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+      const attemptPlayback = () => {
+        if (video.error || video.ended || !video.paused) return;
+        video.muted = true;
+        void video.play().catch(() => {
+          /* Um gesto posterior fará uma nova tentativa. */
         });
+      };
 
-      fallbackTimer = window.setTimeout(() => {
-        gsap.set(stage, { clearProps: "transform,willChange" });
-        gsap.set(root, { display: "none" });
-      }, SAFETY_FALLBACK_MS);
+      try {
+        video.currentTime = 0;
+      } catch {
+        /* Começa no primeiro quadro disponível. */
+      }
+
+      video.addEventListener("ended", finishOpening);
+      video.addEventListener("error", finishOpening);
+      root.addEventListener("pointerdown", attemptPlayback, { passive: true });
+      root.addEventListener("keydown", attemptPlayback);
+      fallbackTimer = window.setTimeout(finishOpening, SAFETY_FALLBACK_MS);
+      attemptPlayback();
+
+      return () => {
+        video.removeEventListener("ended", finishOpening);
+        video.removeEventListener("error", finishOpening);
+        root.removeEventListener("pointerdown", attemptPlayback);
+        root.removeEventListener("keydown", attemptPlayback);
+      };
     }, root);
 
     return () => {
       if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
       context.revert();
     };
-  }, [stageRef]);
+  }, [onComplete, stageRef]);
 
   return (
-    <div ref={rootRef} className="aurora-hero-animations-4">
-      <div
-        ref={loaderRef}
-        className="aurora-hero-animations-4__loader"
-        aria-hidden="true"
-      >
-        <span
-          ref={halfTopRef}
-          className="aurora-hero-animations-4__half aurora-hero-animations-4__half--top"
-        />
-        <span
-          ref={halfBottomRef}
-          className="aurora-hero-animations-4__half aurora-hero-animations-4__half--bottom"
-        />
-
-        <div className="aurora-hero-animations-4__logo">
-          <Image
-            ref={logoRef}
-            src={OPENING_LOGO_SRC}
-            alt=""
-            width={1898}
-            height={829}
-            sizes="(max-width: 600px) 92vw, (max-width: 1200px) 76vw, 980px"
-            quality={90}
-            preload
-            draggable={false}
-          />
-        </div>
+    <div
+      ref={rootRef}
+      className="aurora-hero-animations-4"
+      role="status"
+      aria-label="Apresentação da marca Labtech"
+    >
+      <div className="aurora-hero-animations-4__loader">
+        <video
+          ref={videoRef}
+          className="aurora-hero-animations-4__video"
+          muted
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload nofullscreen noremoteplayback"
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source src={OPENING_VIDEO_SRC} type="video/mp4" />
+        </video>
       </div>
 
       <noscript>
