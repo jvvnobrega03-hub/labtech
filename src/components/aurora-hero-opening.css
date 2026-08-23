@@ -18,18 +18,18 @@
   place-items: center;
   width: 100%;
   height: 100%;
-  padding: clamp(12px, 2vw, 36px);
+  padding: 0;
   overflow: hidden;
   background: #ffffff;
 }
 
 .aurora-hero-animations-4 .aurora-hero-animations-4__video {
   display: block;
-  width: min(92vw, 1680px);
-  height: auto;
-  max-height: 88svh;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
+  width: 100vw;
+  height: 100svh;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
   object-position: center;
   filter: brightness(1.02) contrast(1.025);
   background: #ffffff;
@@ -40,12 +40,13 @@
 
 @media (max-width: 700px) {
   .aurora-hero-animations-4 .aurora-hero-animations-4__loader {
-    padding: 12px;
+    padding: 0;
   }
 
   .aurora-hero-animations-4 .aurora-hero-animations-4__video {
-    width: min(96vw, 720px);
-    max-height: 76svh;
+    width: 100vw;
+    height: 100svh;
+    object-fit: contain;
   }
 }
 
