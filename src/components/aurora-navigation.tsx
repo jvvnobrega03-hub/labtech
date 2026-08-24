@@ -387,7 +387,7 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
               <span data-aurora-menu-logo className="aurora-navigation-menus-17__menu-logo-inner">
                 <BrandLogo
                   className="aurora-navigation-menus-17__menu-brand-image"
-                  sizes="(max-width: 500px) 176px, 272px"
+                  sizes="(max-width: 500px) 184px, 240px"
                 />
               </span>
             </Link>

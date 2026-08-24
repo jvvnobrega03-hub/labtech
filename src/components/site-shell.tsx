@@ -14,8 +14,8 @@ export function Brand({ variant = "dark" }: { variant?: "dark" | "light" }) {
       <BrandLogo
         className="brand-logo"
         sizes={isFooterBrand
-          ? "(max-width: 430px) 174px, (max-width: 1023px) 204px, 248px"
-          : "(max-width: 430px) 172px, (max-width: 1023px) 190px, 232px"}
+          ? "248px"
+          : "(max-width: 500px) 184px, 196px"}
         preload={variant === "dark"}
       />
     </Link>

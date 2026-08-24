@@ -24,9 +24,22 @@ export function BrandLogo({ className, preload = false, sizes }: BrandLogoProps)
         quality={90}
         preload={preload}
       />
-      <span className="brand-logo__tagline" aria-hidden="true">
-        Produtos para laboratórios e hospitais
-      </span>
+      <svg
+        className="brand-logo__tagline"
+        viewBox="0 0 1000 120"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <text
+          x="0"
+          y="91"
+          textLength="1000"
+          lengthAdjust="spacingAndGlyphs"
+        >
+          Produtos para laboratórios e hospitais
+        </text>
+      </svg>
     </span>
   );
 }
