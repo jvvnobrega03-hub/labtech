@@ -3,7 +3,7 @@ import { absoluteSiteUrl, publicSiteUrl, siteConfig } from "@/lib/config";
 
 export function pageMetadata(title: string, description: string, path: string): Metadata {
   const url = absoluteSiteUrl(path);
-  const socialImageUrl = absoluteSiteUrl("/og.png");
+  const socialImageUrl = absoluteSiteUrl("/og.jpg");
   return {
     title,
     description,

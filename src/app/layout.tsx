@@ -9,7 +9,7 @@ import { absoluteSiteUrl, companyConfig, publicSiteUrl, siteConfig } from "@/lib
 import "./globals.css";
 
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
-const socialImageUrl = absoluteSiteUrl("/og.png");
+const socialImageUrl = absoluteSiteUrl("/og.jpg");
 
 export const metadata: Metadata = {
   ...(publicSiteUrl ? { metadataBase: new URL(publicSiteUrl) } : {}),

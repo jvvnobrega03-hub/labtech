@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { AuroraHeroOpening } from "@/components/AuroraHeroOpening";
 
 const INTRO_VIDEO_SRC = "/videos/centrifuge-film-intro.mp4";
+const INTRO_VIDEO_WEBM_SRC = "/videos/centrifuge-film-intro.webm";
 const POSTER_SRC = "/images/centrifuge-film-poster.webp";
 const INTRO_FALLBACK_MS = 12_000;
 const CONTENT_REVEAL_LEAD_SECONDS = 0.06;
@@ -285,6 +286,7 @@ export function CinematicCentrifugeHero() {
             aria-hidden="true"
             tabIndex={-1}
           >
+            <source src={INTRO_VIDEO_WEBM_SRC} type="video/webm" />
             <source src={INTRO_VIDEO_SRC} type="video/mp4" />
           </video>
         </div>
