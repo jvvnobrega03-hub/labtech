@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 const hasSecurePublicUrl = process.env.NEXT_PUBLIC_SITE_URL?.startsWith("https://") ?? false;
+const externalCatalogUrl = "https://catalogolab.tech";
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -38,11 +39,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // TEMPORÁRIO: manter todas as superfícies do catálogo indisponíveis até a migração externa.
-      { source: "/categoria-produto/:path+", destination: "/catalogo", permanent: false },
-      { source: "/produto/:path+", destination: "/catalogo", permanent: false },
-      { source: "/catalogo/:path+", destination: "/catalogo", permanent: false },
-      { source: "/produtos/:path+", destination: "/catalogo", permanent: false },
+      // O catálogo agora opera em um domínio dedicado; manter temporário facilita futuras migrações.
+      { source: "/catalogo", destination: externalCatalogUrl, permanent: false },
+      { source: "/categoria-produto/:path+", destination: externalCatalogUrl, permanent: false },
+      { source: "/produto/:path+", destination: externalCatalogUrl, permanent: false },
+      { source: "/catalogo/:path+", destination: externalCatalogUrl, permanent: false },
+      { source: "/produtos/:path+", destination: externalCatalogUrl, permanent: false },
       { source: "/nossa-essencia", destination: "/missao-visao-valores", permanent: true },
     ];
   },
