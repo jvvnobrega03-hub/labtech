@@ -20,6 +20,7 @@ export function BrandLogo({ className, preload = false, sizes }: BrandLogoProps)
       height={486}
       className={className}
       sizes={sizes}
+      quality={90}
       preload={preload}
     />
   );

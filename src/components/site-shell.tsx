@@ -7,11 +7,15 @@ import { categories } from "@/data/products";
 import { companyExperienceLabel, primaryNavigation, siteConfig } from "@/lib/config";
 
 export function Brand({ variant = "dark" }: { variant?: "dark" | "light" }) {
+  const isFooterBrand = variant === "light";
+
   return (
     <Link href="/" className={`brand brand--${variant}`} aria-label="Labtech — início">
       <BrandLogo
         className="brand-logo"
-        sizes="(max-width: 430px) 140px, (max-width: 1023px) 154px, 180px"
+        sizes={isFooterBrand
+          ? "(max-width: 430px) 174px, (max-width: 1023px) 204px, 248px"
+          : "(max-width: 430px) 140px, (max-width: 1023px) 154px, 180px"}
         preload={variant === "dark"}
       />
     </Link>
