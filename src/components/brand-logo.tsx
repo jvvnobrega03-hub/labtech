@@ -13,15 +13,20 @@ type BrandLogoProps = {
  */
 export function BrandLogo({ className, preload = false, sizes }: BrandLogoProps) {
   return (
-    <Image
-      src="/images/labtech-brand-transparent-v2.png"
-      alt=""
-      width={2087}
-      height={753}
-      className={className}
-      sizes={sizes}
-      quality={90}
-      preload={preload}
-    />
+    <span className={className}>
+      <Image
+        src="/images/labtech-brand-clean-v3.png"
+        alt=""
+        width={2087}
+        height={753}
+        className="brand-logo__image"
+        sizes={sizes}
+        quality={90}
+        preload={preload}
+      />
+      <span className="brand-logo__tagline" aria-hidden="true">
+        Produtos para laboratórios e hospitais
+      </span>
+    </span>
   );
 }

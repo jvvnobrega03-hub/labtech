@@ -15,7 +15,7 @@ export function Brand({ variant = "dark" }: { variant?: "dark" | "light" }) {
         className="brand-logo"
         sizes={isFooterBrand
           ? "(max-width: 430px) 174px, (max-width: 1023px) 204px, 248px"
-          : "(max-width: 430px) 140px, (max-width: 1023px) 154px, 180px"}
+          : "(max-width: 430px) 172px, (max-width: 1023px) 190px, 232px"}
         preload={variant === "dark"}
       />
     </Link>
@@ -36,7 +36,7 @@ export function Header() {
         </div>
       </div>
       <div className="site-header__bar border-b border-white/10 bg-deep/95 backdrop-blur-xl">
-        <div className="site-header__inner shell flex h-[76px] items-center gap-4">
+        <div className="site-header__inner shell flex h-[88px] items-center gap-4">
           <Brand />
           <nav className="site-header__nav ml-auto hidden shrink-0 items-center gap-3 xl:flex" aria-label="Navegação principal">
             {primaryNavigation.map((item) => (

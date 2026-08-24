@@ -383,11 +383,11 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="aurora-navigation-menus-17__menu-items" data-aurora-menu-items>
-            <Link href="/" className="aurora-navigation-menus-17__menu-logo" onClick={handleMenuLinkClick}>
+            <Link href="/" className="aurora-navigation-menus-17__menu-logo" aria-label="Labtech — início" onClick={handleMenuLinkClick}>
               <span data-aurora-menu-logo className="aurora-navigation-menus-17__menu-logo-inner">
                 <BrandLogo
                   className="aurora-navigation-menus-17__menu-brand-image"
-                  sizes="(max-width: 500px) 164px, 232px"
+                  sizes="(max-width: 500px) 176px, 272px"
                 />
               </span>
             </Link>
