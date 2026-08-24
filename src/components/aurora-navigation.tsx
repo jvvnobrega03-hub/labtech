@@ -13,6 +13,7 @@ import {
   useState,
 } from "react";
 import { gsap } from "gsap";
+import { BrandLogo } from "@/components/brand-logo";
 import { CloseIcon } from "@/components/icons";
 import { siteConfig } from "@/lib/config";
 
@@ -384,8 +385,10 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
           <div className="aurora-navigation-menus-17__menu-items" data-aurora-menu-items>
             <Link href="/" className="aurora-navigation-menus-17__menu-logo" onClick={handleMenuLinkClick}>
               <span data-aurora-menu-logo className="aurora-navigation-menus-17__menu-logo-inner">
-                <span className="aurora-navigation-menus-17__menu-logo-mark">LT</span>
-                <span>LABTECH</span>
+                <BrandLogo
+                  className="aurora-navigation-menus-17__menu-brand-image"
+                  sizes="(max-width: 500px) 164px, 232px"
+                />
               </span>
             </Link>
 

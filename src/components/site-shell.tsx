@@ -1,20 +1,19 @@
 import Link from "next/link";
 import { AdaptiveHeader } from "@/components/adaptive-header";
+import { BrandLogo } from "@/components/brand-logo";
 import { HeaderActions } from "@/components/header-actions";
 import { MailIcon, PhoneIcon, SearchIcon } from "@/components/icons";
 import { categories } from "@/data/products";
 import { companyExperienceLabel, primaryNavigation, siteConfig } from "@/lib/config";
 
 export function Brand({ variant = "dark" }: { variant?: "dark" | "light" }) {
-  const light = variant === "light";
-
   return (
-    <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Labtech — início">
-      <span className={`brand-monogram ${light ? "brand-monogram-light" : ""}`} aria-hidden="true">LT</span>
-      <span className="leading-none">
-        <span className={`brand-name block text-[1.05rem] font-extrabold tracking-[-.045em] ${light ? "text-white" : "text-ink"}`}>LABTECH</span>
-        <span className={`brand-tagline mt-1 block text-[.48rem] font-bold uppercase tracking-[.2em] ${light ? "text-emerald-200" : "text-teal-700"}`}>Produtos laboratoriais</span>
-      </span>
+    <Link href="/" className={`brand brand--${variant}`} aria-label="Labtech — início">
+      <BrandLogo
+        className="brand-logo"
+        sizes="(max-width: 430px) 140px, (max-width: 1023px) 154px, 180px"
+        preload={variant === "dark"}
+      />
     </Link>
   );
 }
@@ -77,7 +76,6 @@ export function Footer() {
             <a className="hover:text-white" href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a>
             <a className="break-all hover:text-white" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
             <a className="hover:text-white" href={siteConfig.whatsapp} target="_blank" rel="noreferrer">WhatsApp comercial</a>
-            <Link className="hover:text-white" href="/orcamento">Solicitar orçamento</Link>
           </div>
         </div>
       </div>

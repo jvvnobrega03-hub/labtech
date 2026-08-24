@@ -93,7 +93,6 @@ export const primaryNavigation = [
   { label: "Soluções", href: "/solucoes" },
   { label: "Catálogo", href: "/catalogo" },
   { label: "Veterinário", href: "/veterinario" },
-  { label: "Orçamento", href: "/orcamento" },
   { label: "Contato", href: "/contato" },
 ] as const;
 
