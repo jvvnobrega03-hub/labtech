@@ -14,10 +14,10 @@ type BrandLogoProps = {
 export function BrandLogo({ className, preload = false, sizes }: BrandLogoProps) {
   return (
     <Image
-      src="/images/labtech-brand-transparent.webp"
+      src="/images/labtech-brand-transparent-v2.png"
       alt=""
-      width={1274}
-      height={486}
+      width={2087}
+      height={753}
       className={className}
       sizes={sizes}
       quality={90}
