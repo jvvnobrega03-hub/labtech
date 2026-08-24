@@ -10,7 +10,7 @@ export function HeaderActions() {
     <div className="site-header__actions flex shrink-0 items-center gap-2">
       <button
         type="button"
-        className="header-menu-button aurora-navigation-menus-17__menu-open inline-flex h-11 items-center justify-center gap-2 rounded-xl px-3 text-ink"
+        className="header-menu-button aurora-navigation-menus-17__menu-open inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[.05] px-3 text-white hover:border-mint/45 hover:bg-white/10"
         onClick={openMenu}
         aria-label="Abrir menu"
         aria-expanded={menuOpen}
