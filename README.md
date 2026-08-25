@@ -17,7 +17,9 @@ O catálogo é estático e não depende de CMS ou banco. A cotação é um mini-
 
 `POST /api/contato` aceita somente JSON, limita o corpo a 32 KiB, sanitiza os campos, valida consentimento e honeypot, limita tentativas em memória e confere produtos da cotação contra o catálogo.
 
-A API não declara entrega nem persistência. Depois da validação, a interface direciona o usuário ao WhatsApp ou e-mail verificados para que o envio seja confirmado no canal escolhido. Habilitar entrega automática exige uma integração aprovada e rate limiting distribuído.
+Mensagens da página de contato são enviadas no servidor pelo Resend. A interface só confirma o envio quando o provedor aceita a mensagem; a chave privada nunca é exposta ao navegador. A configuração manual do domínio, da chave e do destinatário está em [`docs/resend.md`](docs/resend.md).
+
+O fluxo de cotação continua separado e não declara entrega ou persistência sem uma integração comercial aprovada.
 
 ## Dados institucionais
 
@@ -31,7 +33,7 @@ Dados ainda ausentes e deliberadamente não inventados:
 - marcas e fabricantes parceiros;
 - SKU, marca, fabricante e documentação de cada produto;
 - tabela histórica de IDs antigos para redirects `/produto/:id`;
-- provedor autorizado para entrega automática dos formulários.
+- canal definitivo para processamento das solicitações de cotação.
 
 ## Ambiente
 
@@ -48,9 +50,14 @@ Variáveis aceitas em `.env.local`:
 NEXT_PUBLIC_SITE_URL=https://dominio-oficial.example
 NEXT_PUBLIC_CONTACT_EMAIL=contato@example.com
 NEXT_PUBLIC_WHATSAPP_URL=https://wa.me/5511000000000
+RESEND_API_KEY=re_...
+CONTACT_EMAIL_TO=site@labtech.com.br
+CONTACT_EMAIL_FROM="Labtech <site@labtech.com.br>"
 ```
 
 `NEXT_PUBLIC_SITE_URL` só é aceita quando for HTTPS pública. Sem ela, canonical absoluto e sitemap são omitidos e o site usa `noindex`, evitando indexação acidental de ambientes locais.
+
+`RESEND_API_KEY` é exclusivamente server-side e nunca deve ser versionada ou receber o prefixo `NEXT_PUBLIC_`.
 
 ## Qualidade
 

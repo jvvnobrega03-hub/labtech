@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { MAX_REQUEST_BYTES, validateContactPayload } from "@/lib/contact-validation";
+import { sendContactEmail } from "@/lib/contact-email";
 import { products } from "@/data/products";
 
 type RateLimitState = { count: number; resetAt: number };
@@ -8,7 +9,7 @@ type ValidationResponse = {
   ok: true;
   validated: true;
   persisted: false;
-  delivered: false;
+  delivered: boolean;
   normalized: { type: "contato" | "orcamento"; itemCount: number };
 };
 
@@ -120,6 +121,27 @@ export async function POST(request: Request) {
       return !product || product.name !== item.name || (item.sku && product.sku !== item.sku);
     });
     if (containsUnknownProduct) return json({ ok: false, message: "A cotação contém um produto inválido." }, 400);
+  }
+
+  if (result.data.type === "contato") {
+    const delivery = await sendContactEmail(result.data);
+    if (!delivery.ok) {
+      return json(
+        {
+          ok: false,
+          message: "O envio por e-mail está temporariamente indisponível. Tente novamente em instantes.",
+        },
+        503,
+      );
+    }
+
+    return json({
+      ok: true,
+      validated: true,
+      persisted: false,
+      delivered: true,
+      normalized: { type: result.data.type, itemCount: result.data.items.length },
+    });
   }
 
   return json({
