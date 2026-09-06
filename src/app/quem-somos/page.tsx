@@ -4,6 +4,7 @@ import { FlaskIcon, MicroscopeIcon, ShieldIcon, SupportIcon, TubesIcon } from "@
 import { Callout, SectionHeading } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
 import { companyExperienceLabel } from "@/lib/config";
+import styles from "./story.module.css";
 
 export const metadata = pageMetadata(
   "Quem somos",
@@ -72,18 +73,28 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <section id="nossa-atuacao" className="standard-page__intro shell scroll-mt-28 grid items-center gap-14 py-24 lg:grid-cols-2">
-        <div>
-          <SectionHeading
-            eyebrow="Nossa trajetória"
-            title="Experiência que acompanha a evolução do diagnóstico"
-            description={`${companyExperienceLabel()}, construímos uma trajetória sólida levando produtos, serviços e soluções para os mais diversos segmentos da área diagnóstica. Atuamos ao lado de laboratórios humanos e veterinários, hospitais, centros de pesquisa, clínicas e outros serviços de saúde, sempre com foco em qualidade, confiança e padrões reconhecidos internacionalmente. Com uma linha ampla e completa, unimos experiência, eficiência e atendimento especializado para apoiar nossos clientes em um mercado cada vez mais dinâmico e exigente. Mais do que fornecer soluções, buscamos gerar valor real no dia a dia, contribuindo para a excelência operacional e o fortalecimento de cada parceiro que atendemos.`}
-          />
-          <p className="mt-6 border-l-2 border-sky-400 pl-5 text-lg font-medium leading-8 text-slate-700">Tradição, tecnologia e atendimento próximo para gerar mais eficiência, segurança e confiança em cada etapa.</p>
+      <section id="nossa-atuacao" aria-labelledby="about-story-title" className={`standard-page__intro shell scroll-mt-28 ${styles.story}`}>
+        <div className={styles.context}>
+          <p className="eyebrow">Nossa trajetória</p>
+          <h2 id="about-story-title" className={styles.title}>Uma história de propósito, pioneirismo e precisão.</h2>
+          <div className={`standard-page__media ${styles.image}`}>
+            <Image src="/images/hero-lab-v4.webp" alt="Rotina técnica em laboratório clínico" fill quality={90} sizes="(min-width: 1024px) 360px, (min-width: 768px) 32vw, 100vw" className="object-cover" />
+          </div>
         </div>
-        <div className="standard-page__media relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-emerald-50">
-          <Image src="/images/hero-lab-v4.webp" alt="Rotina técnica em laboratório clínico" fill quality={90} sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
-        </div>
+        <figure className={styles.letter}>
+          <blockquote className={styles.quotation}>
+            <p className={styles.opening}>“Construir o futuro do diagnóstico exige mais do que ciência: exige <strong>propósito e coragem.</strong>”</p>
+            <div className={styles.body}>
+              <p>Minha história com a saúde começou em 1981, quando me formei em Biomedicina e mergulhei na rotina dos maiores centros diagnósticos de São Paulo. Essa vivência prática foi a base que me impulsionou à liderança de <strong>gigantes globais da indústria</strong>: na <strong>Merck S.A.,</strong> conduzi operações estratégicas como Gerente Regional da Divisão Diagnóstica e, tempos depois, assumi como Diretor Comercial a missão de planejar e executar a <strong>implantação integral da Boehringer Mannheim no Brasil</strong>.</p>
+              <p>Após liderar multinacionais, entendi que era hora de criar algo que carregasse a minha própria visão de excelência e compromisso com o mercado nacional. Em 1997, dei vida à <strong>Labtech</strong> — empresa que nasceu para ser referência e que, há décadas, abastece e impulsiona a rotina de laboratórios clínicos e veterinários de todo o país.</p>
+              <p>Mas a inovação não para. Em 2014, expandi essa fronteira ao fundar a <strong>Biomedtech do Brasil</strong>, erguendo uma <strong>estrutura fabril de alta precisão</strong> dedicada à <strong>produção de reagentes</strong> para suprir as demandas diagnósticas não apenas do Brasil, mas de <strong>toda a América Latina</strong>.</p>
+              <p>A <strong>Labtech</strong> não é apenas uma fornecedora; é a materialização de <strong>mais de quatro décadas de paixão pela biomedicina</strong>, pioneirismo e um compromisso inegociável com a <strong>precisão absoluta da saúde humana e animal.</strong></p>
+            </div>
+          </blockquote>
+          <figcaption className={styles.signature}>
+            <strong><em><span className={styles.name}>Carlos Benzoni (Benzoni)</span><span className={styles.role}>Biomédico e Fundador do Grupo Labtech</span></em></strong>
+          </figcaption>
+        </figure>
       </section>
       <section className="standard-page__band py-24">
         <div className="shell">
