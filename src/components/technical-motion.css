@@ -1,0 +1,101 @@
+/* Shared motion only: the existing pages own geometry, color and typography. */
+[data-technical-surface] { --technical-play: paused; --technical-x: 0px; --technical-y: 0px; }
+[data-technical-active="true"] { --technical-play: running; }
+.technical-decoration { position: absolute; z-index: -1; inset: 0; overflow: hidden; pointer-events: none; }
+.technical-decoration i { position: absolute; pointer-events: none; }
+.technical-halo { display: none; top: -210px; left: -210px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgb(39 199 255 / 4.5%), transparent 70%); opacity: 0; transform: translate(var(--halo-x, 0px), var(--halo-y, 0px)); transition: opacity .4s ease; }
+.technical-scanner { top: 32%; left: 58%; width: min(22vw, 320px); height: 1px; background: linear-gradient(90deg, transparent, rgb(116 220 255 / 26%), transparent); opacity: 0; }
+
+/* Each layer uses a different period; the grid keeps its original pattern. */
+[data-technical-surface="hero"] [data-technical-grid] { inset: -12px; pointer-events: none; animation: technical-grid 38s ease-in-out infinite alternate; animation-play-state: var(--technical-play); translate: var(--technical-x) var(--technical-y); transition: translate .4s ease-out; }
+[data-technical-surface="hero"] [data-technical-orbit] { animation: technical-orbit 46s ease-in-out infinite alternate; animation-play-state: var(--technical-play); translate: calc(var(--technical-x) * -.65) calc(var(--technical-y) * -.65); transition: translate .5s ease-out; }
+[data-technical-surface="hero"] .institutional-static-hero__ambient { animation: technical-ambient 34s ease-in-out infinite alternate; animation-play-state: var(--technical-play); }
+[data-technical-surface="hero"] [data-technical-signal] { opacity: .16; box-shadow: none; background: linear-gradient(transparent, #74dcff, transparent); animation: technical-signal 31s linear infinite; animation-play-state: var(--technical-play); pointer-events: none; }
+[data-technical-surface="hero"] .technical-scanner { animation: technical-scan 37s linear infinite; animation-play-state: var(--technical-play); }
+.institutional-static-hero .technical-scanner { top: 74%; left: 60%; animation-duration: 43s; }
+
+.technical-counter { font-style: normal; font-variant-numeric: tabular-nums; }
+
+/* A static highlight layer fades in, so borders and layout never change. */
+[data-technical-flow] > * { position: relative; isolation: isolate; }
+[data-technical-flow] > *::after { position: absolute; z-index: -1; inset: 0; border-top: 1px solid rgb(116 220 255 / 45%); background: linear-gradient(180deg, rgb(39 199 255 / 7%), transparent 90%); opacity: 0; content: ""; pointer-events: none; animation: technical-step 14s ease-in-out infinite; animation-play-state: var(--technical-play); }
+[data-technical-flow] > :nth-child(2)::after { animation-delay: 2.2s; }
+[data-technical-flow] > :nth-child(3)::after { animation-delay: 4.4s; }
+[data-technical-flow] > :nth-child(4)::after { animation-delay: 6.6s; }
+[data-technical-flow="pillars"] > *::after { animation-duration: 12s; }
+
+/* CSS starts with the initial render. H1 stays painted for LCP and legibility. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-technical-enter] { animation: technical-enter .7s cubic-bezier(.22, 1, .36, 1) both; animation-delay: var(--technical-delay, 0ms); }
+  h1[data-technical-enter] { animation-name: technical-title-enter; }
+  [data-technical-enter="1"] { --technical-delay: 80ms; }
+  [data-technical-enter="2"] { --technical-delay: 160ms; }
+  [data-technical-enter="3"] { --technical-delay: 240ms; }
+  [data-technical-enter="4"] { --technical-delay: 320ms; }
+  [data-technical-enter="5"] { --technical-delay: 420ms; }
+  [data-technical-enter="6"] { --technical-delay: 520ms; }
+  [data-technical-enter]:focus-within { animation: none; }
+  [data-technical-page] [data-motion-state="pending"] { transform: translateY(18px); }
+}
+
+/* Footer decoration sits behind the unchanged columns and logo. */
+.technical-footer { position: relative; isolation: isolate; overflow: hidden; }
+.technical-footer::before { position: absolute; z-index: -1; inset: -10px; background-image: linear-gradient(rgb(116 220 255 / 2%) 1px, transparent 1px), linear-gradient(90deg, rgb(116 220 255 / 2%) 1px, transparent 1px); background-size: 84px 84px; content: ""; pointer-events: none; animation: technical-grid 50s ease-in-out infinite alternate; animation-play-state: var(--technical-play); }
+.technical-footer > .technical-decoration { z-index: 0; border-top: 1px solid rgb(116 220 255 / 10%); }
+.technical-energy { top: 0; left: -12%; width: 12%; height: 1px; background: linear-gradient(90deg, transparent, rgb(116 220 255 / 48%), transparent); opacity: 0; animation: technical-energy 9s ease-in-out infinite; animation-play-state: var(--technical-play); }
+.technical-footer .brand { position: relative; overflow: hidden; }
+.technical-footer .brand::after { position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgb(116 220 255 / 12%) 50%, transparent 65%); opacity: 0; content: ""; pointer-events: none; animation: technical-brand 13s ease-in-out infinite; animation-play-state: var(--technical-play); }
+.technical-footer a:not(.brand) { transition: translate .25s ease, color .25s ease; }
+.technical-footer a:focus-visible { color: #74dcff; }
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  [data-technical-pointer="true"] .technical-halo { display: block; opacity: 1; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .technical-footer a:not(.brand):hover { translate: 3px 0; color: #74dcff; }
+}
+@media (max-width: 1023px) {
+  [data-technical-surface="hero"] [data-technical-grid],
+  [data-technical-surface="hero"] [data-technical-orbit] { translate: none; }
+  [data-technical-surface="hero"] .technical-scanner { display: none; }
+}
+@media (max-width: 767px), (pointer: coarse) {
+  .technical-halo, .technical-scanner,
+  [data-technical-surface="hero"] [data-technical-signal] { display: none; }
+  [data-technical-flow] > *::after, .technical-energy, .technical-footer .brand::after { display: none; animation: none; }
+  [data-technical-surface="hero"] .institutional-static-hero__ambient { animation: none; }
+  [data-technical-surface="hero"] [data-technical-grid] { animation-duration: 50s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-technical-surface], [data-technical-surface] *,
+  [data-technical-surface]::before, [data-technical-surface] *::after { animation: none !important; transition: none !important; translate: none !important; }
+  .technical-halo, .technical-scanner, .technical-energy,
+  [data-technical-surface="hero"] [data-technical-signal],
+  [data-technical-flow] > *::after, .technical-footer .brand::after { display: none !important; }
+}
+
+@keyframes technical-grid { from { transform: translate(-4px, -3px); } to { transform: translate(4px, 3px); } }
+@keyframes technical-orbit { from { transform: translate(0, 0) rotate(-2deg); } to { transform: translate(-8px, 6px) rotate(3deg); } }
+@keyframes technical-ambient { from { opacity: .72; transform: translate(-5px, 0); } to { opacity: .9; transform: translate(5px, 4px); } }
+/* Unequal gaps inside long cycles avoid an obvious repeating scan rhythm. */
+@keyframes technical-scan {
+  0%, 8% { opacity: 0; transform: translateX(-45%); }
+  12%, 23% { opacity: .45; }
+  29%, 58% { opacity: 0; transform: translateX(45%); }
+  59% { opacity: 0; transform: translateX(-45%); }
+  64%, 78% { opacity: .35; }
+  87%, 100% { opacity: 0; transform: translateX(45%); }
+}
+@keyframes technical-signal {
+  0%, 12% { opacity: 0; transform: translateY(-100%); }
+  18%, 30% { opacity: .18; }
+  42%, 67% { opacity: 0; transform: translateY(280%); }
+  68% { opacity: 0; transform: translateY(-100%); }
+  73%, 83% { opacity: .14; }
+  96%, 100% { opacity: 0; transform: translateY(280%); }
+}
+@keyframes technical-step { 0%, 2%, 22%, 100% { opacity: 0; } 8%, 14% { opacity: 1; } }
+@keyframes technical-enter { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+@keyframes technical-title-enter { from { translate: 0 18px; } to { translate: 0 0; } }
+@keyframes technical-energy { 0%, 12% { opacity: 0; transform: translateX(0); } 18% { opacity: .7; } 58%, 100% { opacity: 0; transform: translateX(940%); } }
+@keyframes technical-brand { 0%, 55% { opacity: 0; transform: translateX(-100%); } 62% { opacity: .65; } 76%, 100% { opacity: 0; transform: translateX(100%); } }

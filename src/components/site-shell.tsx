@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AdaptiveHeader } from "@/components/adaptive-header";
 import { BrandLogo } from "@/components/brand-logo";
+import { TechnicalMotion } from "@/components/technical-motion";
 import { HeaderActions } from "@/components/header-actions";
 import { MailIcon, PhoneIcon, SearchIcon } from "@/components/icons";
 import { categories } from "@/data/products";
@@ -59,7 +60,8 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="bg-deep text-emerald-50/70">
+    <footer className="technical-footer bg-deep text-emerald-50/70" data-technical-surface="footer">
+      <TechnicalMotion footer />
       <div className="shell grid gap-12 py-16 md:grid-cols-[1.25fr_1fr_1fr_1fr]">
         <div>
           <Brand variant="light" />

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FlaskIcon, MicroscopeIcon, ShieldIcon, SupportIcon, TubesIcon } from "@/components/icons";
 import { Callout, SectionHeading } from "@/components/ui";
+import { TechnicalMotion } from "@/components/technical-motion";
 import { pageMetadata } from "@/lib/metadata";
 import { companyExperienceLabel } from "@/lib/config";
 import styles from "./story.module.css";
@@ -50,22 +51,23 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="standard-page standard-page--about">
-      <section className="veterinary-video-hero institutional-static-hero" aria-labelledby="about-hero-title">
+    <div className="standard-page standard-page--about" data-technical-page>
+      <section className="veterinary-video-hero institutional-static-hero" aria-labelledby="about-hero-title" data-technical-surface="hero">
+        <TechnicalMotion />
         <div className="veterinary-video-hero__scrim" aria-hidden="true" />
-        <div className="veterinary-video-hero__grid" aria-hidden="true" />
+        <div className="veterinary-video-hero__grid" data-technical-grid aria-hidden="true" />
         <div className="institutional-static-hero__ambient" aria-hidden="true" />
-        <div className="institutional-static-hero__orbit" aria-hidden="true" />
+        <div className="institutional-static-hero__orbit" data-technical-orbit aria-hidden="true" />
         <div className="veterinary-video-hero__content shell">
           <div className="veterinary-video-hero__copy">
-            <p className="veterinary-video-hero__eyebrow"><span aria-hidden="true" /> Quem somos</p>
-            <h1 id="about-hero-title" className="veterinary-video-hero__title">{companyExperienceLabel()}, soluções diagnósticas com qualidade, agilidade e confiança.</h1>
-            <p className="veterinary-video-hero__description">Atendemos laboratórios, hospitais, clínicas e centros de pesquisa com um portfólio completo de produtos, serviços e soluções para a área diagnóstica, sempre com foco em excelência, inovação e atendimento especializado.</p>
-            <div className="veterinary-video-hero__actions">
+            <p className="veterinary-video-hero__eyebrow" data-technical-enter="0"><span aria-hidden="true" /> Quem somos</p>
+            <h1 id="about-hero-title" className="veterinary-video-hero__title" data-technical-enter="1">{companyExperienceLabel()}, soluções diagnósticas com qualidade, agilidade e confiança.</h1>
+            <p className="veterinary-video-hero__description" data-technical-enter="2">Atendemos laboratórios, hospitais, clínicas e centros de pesquisa com um portfólio completo de produtos, serviços e soluções para a área diagnóstica, sempre com foco em excelência, inovação e atendimento especializado.</p>
+            <div className="veterinary-video-hero__actions" data-technical-enter="3">
               <Link href="/contato" className="veterinary-video-hero__button veterinary-video-hero__button--primary text-center leading-5">Fale com nossa e tenha a solução ideal <span aria-hidden="true">→</span></Link>
               <Link href="/catalogo" className="veterinary-video-hero__button veterinary-video-hero__button--secondary">Explorar catálogo</Link>
             </div>
-            <div className="veterinary-video-hero__proof" aria-label="Diferenciais da Labtech">
+            <div className="veterinary-video-hero__proof" aria-label="Diferenciais da Labtech" data-technical-enter="4">
               <span>{companyExperienceLabel()}</span>
               <span>Padrões internacionais</span>
               <span>Atendimento especializado</span>
@@ -83,15 +85,15 @@ export default function AboutPage() {
         </div>
         <figure className={styles.letter}>
           <blockquote className={styles.quotation}>
-            <p className={styles.opening}>“Construir o futuro do diagnóstico exige mais do que ciência: exige <strong>propósito e coragem.</strong>”</p>
+            <p className={styles.opening} data-motion-reveal="true">“Construir o futuro do diagnóstico exige mais do que ciência: exige <strong>propósito e coragem.</strong>”</p>
             <div className={styles.body}>
-              <p>Minha história com a saúde começou em 1981, quando me formei em Biomedicina e mergulhei na rotina dos maiores centros diagnósticos de São Paulo. Essa vivência prática foi a base que me impulsionou à liderança de <strong>gigantes globais da indústria</strong>: na <strong>Merck S.A.,</strong> conduzi operações estratégicas como Gerente Regional da Divisão Diagnóstica e, tempos depois, assumi como Diretor Comercial a missão de planejar e executar a <strong>implantação integral da Boehringer Mannheim no Brasil</strong>.</p>
-              <p>Após liderar multinacionais, entendi que era hora de criar algo que carregasse a minha própria visão de excelência e compromisso com o mercado nacional. Em 1997, dei vida à <strong>Labtech</strong> — empresa que nasceu para ser referência e que, há décadas, abastece e impulsiona a rotina de laboratórios clínicos e veterinários de todo o país.</p>
-              <p>Mas a inovação não para. Em 2014, expandi essa fronteira ao fundar a <strong>Biomedtech do Brasil</strong>, erguendo uma <strong>estrutura fabril de alta precisão</strong> dedicada à <strong>produção de reagentes</strong> para suprir as demandas diagnósticas não apenas do Brasil, mas de <strong>toda a América Latina</strong>.</p>
-              <p>A <strong>Labtech</strong> não é apenas uma fornecedora; é a materialização de <strong>mais de quatro décadas de paixão pela biomedicina</strong>, pioneirismo e um compromisso inegociável com a <strong>precisão absoluta da saúde humana e animal.</strong></p>
+              <p data-motion-reveal="true">Minha história com a saúde começou em 1981, quando me formei em Biomedicina e mergulhei na rotina dos maiores centros diagnósticos de São Paulo. Essa vivência prática foi a base que me impulsionou à liderança de <strong>gigantes globais da indústria</strong>: na <strong>Merck S.A.,</strong> conduzi operações estratégicas como Gerente Regional da Divisão Diagnóstica e, tempos depois, assumi como Diretor Comercial a missão de planejar e executar a <strong>implantação integral da Boehringer Mannheim no Brasil</strong>.</p>
+              <p data-motion-reveal="true">Após liderar multinacionais, entendi que era hora de criar algo que carregasse a minha própria visão de excelência e compromisso com o mercado nacional. Em 1997, dei vida à <strong>Labtech</strong> — empresa que nasceu para ser referência e que, há décadas, abastece e impulsiona a rotina de laboratórios clínicos e veterinários de todo o país.</p>
+              <p data-motion-reveal="true">Mas a inovação não para. Em 2014, expandi essa fronteira ao fundar a <strong>Biomedtech do Brasil</strong>, erguendo uma <strong>estrutura fabril de alta precisão</strong> dedicada à <strong>produção de reagentes</strong> para suprir as demandas diagnósticas não apenas do Brasil, mas de <strong>toda a América Latina</strong>.</p>
+              <p data-motion-reveal="true">A <strong>Labtech</strong> não é apenas uma fornecedora; é a materialização de <strong>mais de quatro décadas de paixão pela biomedicina</strong>, pioneirismo e um compromisso inegociável com a <strong>precisão absoluta da saúde humana e animal.</strong></p>
             </div>
           </blockquote>
-          <figcaption className={styles.signature}>
+          <figcaption className={styles.signature} data-motion-reveal="true">
             <strong><em><span className={styles.name}>Carlos Benzoni (Benzoni)</span><span className={styles.role}>Biomédico e Fundador do Grupo Labtech</span></em></strong>
           </figcaption>
         </figure>

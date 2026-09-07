@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TechnicalCounter, TechnicalMotion } from "@/components/technical-motion";
 import {
   ArrowIcon,
   BoxIcon,
@@ -90,35 +91,36 @@ const operationContexts = [
 
 export default function SolutionsPage() {
   return (
-    <div className={styles.page}>
-      <section className={styles.hero} aria-labelledby="solutions-title">
-        <div className={styles.heroGrid} aria-hidden="true" />
-        <div className={styles.heroSignal} aria-hidden="true" />
+    <div className={styles.page} data-technical-page>
+      <section className={styles.hero} aria-labelledby="solutions-title" data-technical-surface="hero">
+        <TechnicalMotion />
+        <div className={styles.heroGrid} data-technical-grid aria-hidden="true" />
+        <div className={styles.heroSignal} data-technical-signal aria-hidden="true" />
         <div className={`shell ${styles.heroInner}`}>
-          <nav className={styles.breadcrumb} aria-label="Navegação estrutural">
+          <nav className={styles.breadcrumb} aria-label="Navegação estrutural" data-technical-enter="0">
             <Link href="/">Início</Link><span aria-hidden="true">/</span><span>Soluções</span>
           </nav>
           <div className={styles.heroLayout}>
             <div className={styles.heroCopy}>
-              <p className={styles.kicker}><span aria-hidden="true" /> Ecossistema de soluções</p>
-              <h1 id="solutions-title">Do contexto técnico à escolha mais clara.</h1>
-              <p>Organizamos as frentes do portfólio por etapa da rotina e tipo de operação para tornar a consulta institucional mais objetiva.</p>
-              <div className={styles.heroActions}>
+              <p className={styles.kicker} data-technical-enter="1"><span aria-hidden="true" /> Ecossistema de soluções</p>
+              <h1 id="solutions-title" data-technical-enter="2">Do contexto técnico à escolha mais clara.</h1>
+              <p data-technical-enter="3">Organizamos as frentes do portfólio por etapa da rotina e tipo de operação para tornar a consulta institucional mais objetiva.</p>
+              <div className={styles.heroActions} data-technical-enter="4">
                 <Link href="#frentes" className="button button-light">Conhecer as frentes <ArrowIcon className="size-4" /></Link>
                 <Link href="/orcamento" className="button button-dark-outline">Solicitar orçamento</Link>
               </div>
             </div>
-            <aside className={styles.heroPanel} aria-label="Resumo da estrutura de soluções">
+            <aside className={styles.heroPanel} aria-label="Resumo da estrutura de soluções" data-technical-enter="5">
               <p className={styles.panelLabel}>Mapa técnico / Labtech</p>
               <div className={styles.panelMetrics}>
-                <div><strong>{categories.length}</strong><span>categorias organizadas</span></div>
-                <div><strong>{solutionFamilies.length}</strong><span>frentes de solução</span></div>
-                <div><strong>{operationContexts.length}</strong><span>contextos de operação</span></div>
+                <div><strong><TechnicalCounter value={categories.length} /></strong><span>categorias organizadas</span></div>
+                <div><strong><TechnicalCounter value={solutionFamilies.length} /></strong><span>frentes de solução</span></div>
+                <div><strong><TechnicalCounter value={operationContexts.length} /></strong><span>contextos de operação</span></div>
               </div>
               <p className={styles.panelNote}>Configuração, disponibilidade e regularização aplicável são confirmadas individualmente por produto.</p>
             </aside>
           </div>
-          <ol className={styles.heroRail} aria-label="Fluxo resumido da consulta">
+          <ol className={styles.heroRail} aria-label="Fluxo resumido da consulta" data-technical-flow="journey" data-technical-enter="6">
             {journey.map((item, index) => <li key={item.title}><span>0{index + 1}</span>{item.title}</li>)}
           </ol>
         </div>
@@ -131,7 +133,7 @@ export default function SolutionsPage() {
         </div>
         <ol className={styles.journeyGrid}>
           {journey.map(({ title, text, icon: Icon }, index) => (
-            <li key={title}>
+            <li key={title} data-motion-reveal="true">
               <div className={styles.journeyTop}><span>0{index + 1}</span><Icon aria-hidden="true" /></div>
               <h3>{title}</h3><p>{text}</p>
             </li>
@@ -174,7 +176,7 @@ export default function SolutionsPage() {
         </div>
         <div className={styles.contextGrid}>
           {operationContexts.map(({ code, title, text, href }) => (
-            <Link key={code} href={href} className={styles.contextCard}>
+            <Link key={code} href={href} className={styles.contextCard} data-motion-reveal="true">
               <span>{code}</span><h3>{title}</h3><p>{text}</p><strong>Explorar contexto <ArrowIcon /></strong>
             </Link>
           ))}

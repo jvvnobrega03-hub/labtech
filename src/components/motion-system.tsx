@@ -15,7 +15,6 @@ const REVEAL_SELECTOR = [
   "#conteudo section > .shell > *",
   "#conteudo ul.grid > li",
   "#conteudo ul[class*='space-y-'] > li",
-  "footer .shell > *",
 ].join(",");
 
 const HOVER_SELECTOR = [
@@ -30,6 +29,7 @@ const EXCLUDED_SELECTOR = [
   ".cinematic-loader",
   "[aria-hidden='true']",
   "[hidden]",
+  "[data-technical-surface='hero']",
 ].join(",");
 
 function isRenderable(element: HTMLElement) {
@@ -166,7 +166,12 @@ export function MotionSystem() {
       if (pendingTarget) revealWithoutMotion(pendingTarget);
     };
 
-    const mutationObserver = new MutationObserver(schedulePreparation);
+    const mutationObserver = new MutationObserver((mutations) => {
+      // Counting changes text, not reveal targets; avoid rescanning the page per digit.
+      if (mutations.some(({ target }) => !(target instanceof Element && target.closest(".technical-counter")))) {
+        schedulePreparation();
+      }
+    });
 
     const start = () => {
       if (started) return;

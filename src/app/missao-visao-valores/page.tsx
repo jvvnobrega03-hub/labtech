@@ -9,6 +9,7 @@ import {
 } from "@/components/icons";
 import { pageMetadata } from "@/lib/metadata";
 import { companyConfig } from "@/lib/config";
+import { TechnicalMotion } from "@/components/technical-motion";
 
 export const metadata = pageMetadata(
   "Nossa essência",
@@ -84,23 +85,24 @@ const commitments = [
 
 export default function PrinciplesPage() {
   return (
-    <div className="standard-page essence-page">
-      <section className="essence-hero" aria-labelledby="essence-title">
-        <div className="essence-hero__grid" aria-hidden="true" />
-        <div className="essence-hero__signal" aria-hidden="true" />
+    <div className="standard-page essence-page" data-technical-page>
+      <section className="essence-hero" aria-labelledby="essence-title" data-technical-surface="hero">
+        <TechnicalMotion />
+        <div className="essence-hero__grid" data-technical-grid aria-hidden="true" />
+        <div className="essence-hero__signal" data-technical-signal aria-hidden="true" />
         <div className="shell essence-hero__inner">
-          <div className="essence-hero__header">
+          <div className="essence-hero__header" data-technical-enter="0">
             <p className="essence-kicker"><span aria-hidden="true" /> Sistema institucional</p>
             <p className="essence-code" aria-label={`Labtech, desde ${companyConfig.foundedYear}`}>LT / {companyConfig.foundedYear}—FUTURO</p>
           </div>
           <div className="essence-hero__layout">
             <div>
-              <p className="essence-index">01 / MISSÃO</p>
-              <h1 id="essence-title" className="essence-hero__title">Nossa essência orienta cada decisão.</h1>
+              <p className="essence-index" data-technical-enter="1">01 / MISSÃO</p>
+              <h1 id="essence-title" className="essence-hero__title" data-technical-enter="2">Nossa essência orienta cada decisão.</h1>
             </div>
-            <p className="essence-hero__statement">Entregar soluções para o mercado de diagnósticos com excelência operacional, rigor técnico e confiabilidade, promovendo agilidade, segurança e suporte qualificado em cada etapa da cadeia de valor.</p>
+            <p className="essence-hero__statement" data-technical-enter="3">Entregar soluções para o mercado de diagnósticos com excelência operacional, rigor técnico e confiabilidade, promovendo agilidade, segurança e suporte qualificado em cada etapa da cadeia de valor.</p>
           </div>
-          <div className="essence-hero__metrics" aria-label="Pilares da missão Labtech">
+          <div className="essence-hero__metrics" aria-label="Pilares da missão Labtech" data-technical-enter="5" data-technical-flow="pillars">
             <span><b>EXC</b> Excelência operacional</span>
             <span><b>RIG</b> Rigor técnico</span>
             <span><b>CNF</b> Confiabilidade</span>
