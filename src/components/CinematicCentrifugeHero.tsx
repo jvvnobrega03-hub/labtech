@@ -96,7 +96,7 @@ export function CinematicCentrifugeHero() {
           )
           .to(
             flashRef.current,
-            { opacity: 0.24, duration: 0.18, ease: "power2.out" },
+            { opacity: 0.06, duration: 0.4, ease: "power2.out" },
             0.06,
           )
           .to(
@@ -116,31 +116,31 @@ export function CinematicCentrifugeHero() {
           )
           .fromTo(
             eyebrowRef.current,
-            { autoAlpha: 0, y: 30 },
+            { autoAlpha: 0, y: 12 },
             { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" },
             0.55,
           )
           .fromTo(
             headingRef.current,
-            { autoAlpha: 0, y: 38 },
-            { autoAlpha: 1, y: 0, duration: 0.82, ease: "power4.out" },
+            { autoAlpha: 0, y: 14 },
+            { autoAlpha: 1, y: 0, duration: 0.72, ease: "power4.out" },
             0.65,
           )
           .fromTo(
             descriptionRef.current,
-            { autoAlpha: 0, y: 34 },
+            { autoAlpha: 0, y: 12 },
             { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out" },
             0.82,
           )
           .fromTo(
             ctasRef.current,
-            { autoAlpha: 0, y: 30 },
+            { autoAlpha: 0, y: 12 },
             { autoAlpha: 1, y: 0, duration: 0.66, ease: "power3.out" },
             0.96,
           )
           .fromTo(
             trustRef.current,
-            { autoAlpha: 0, y: 26 },
+            { autoAlpha: 0, y: 10 },
             { autoAlpha: 1, y: 0, duration: 0.66, ease: "power3.out" },
             1.08,
           );
@@ -218,7 +218,7 @@ export function CinematicCentrifugeHero() {
 
       gsap.set(visual, { autoAlpha: 1 });
       gsap.set(introVideo, { autoAlpha: 1 });
-      gsap.set(revealTargets, { autoAlpha: 0, y: 36 });
+      gsap.set(revealTargets, { autoAlpha: 0, y: 14 });
       gsap.fromTo(
         loaderInterfaceRef.current,
         { autoAlpha: 0, y: 18 },
@@ -314,9 +314,11 @@ export function CinematicCentrifugeHero() {
               <span aria-hidden="true" />
               Tecnologia para a saúde
             </p>
-            <p className="cinematic-hero__index" aria-hidden="true">LT.01 / BRASIL / B2B</p>
+            <p className="cinematic-hero__index" aria-hidden="true"><span>LT / 1997</span><span>BRASIL · B2B</span></p>
             <h1 ref={headingRef} className="cinematic-hero__title">
-              Precisão que <span>transforma o futuro</span> da saúde.
+              <span>Precisão que</span>{" "}
+              <span>transforma o</span>{" "}
+              <span>futuro da saúde.</span>
             </h1>
             <p
               ref={descriptionRef}

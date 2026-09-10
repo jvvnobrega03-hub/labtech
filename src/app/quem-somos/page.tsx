@@ -56,15 +56,13 @@ export default function AboutPage() {
         <TechnicalMotion />
         <div className="veterinary-video-hero__scrim" aria-hidden="true" />
         <div className="veterinary-video-hero__grid" data-technical-grid aria-hidden="true" />
-        <div className="institutional-static-hero__ambient" aria-hidden="true" />
-        <div className="institutional-static-hero__orbit" data-technical-orbit aria-hidden="true" />
         <div className="veterinary-video-hero__content shell">
           <div className="veterinary-video-hero__copy">
             <p className="veterinary-video-hero__eyebrow" data-technical-enter="0"><span aria-hidden="true" /> Quem somos</p>
             <h1 id="about-hero-title" className="veterinary-video-hero__title" data-technical-enter="1">{companyExperienceLabel()}, soluções diagnósticas com qualidade, agilidade e confiança.</h1>
             <p className="veterinary-video-hero__description" data-technical-enter="2">Atendemos laboratórios, hospitais, clínicas e centros de pesquisa com um portfólio completo de produtos, serviços e soluções para a área diagnóstica, sempre com foco em excelência, inovação e atendimento especializado.</p>
             <div className="veterinary-video-hero__actions" data-technical-enter="3">
-              <Link href="/contato" className="veterinary-video-hero__button veterinary-video-hero__button--primary text-center leading-5">Fale com nossa e tenha a solução ideal <span aria-hidden="true">→</span></Link>
+              <Link href="/contato" className="veterinary-video-hero__button veterinary-video-hero__button--primary text-center leading-5">Fale com nossa equipe e tenha a solução ideal <span aria-hidden="true">→</span></Link>
               <Link href="/catalogo" className="veterinary-video-hero__button veterinary-video-hero__button--secondary">Explorar catálogo</Link>
             </div>
             <div className="veterinary-video-hero__proof" aria-label="Diferenciais da Labtech" data-technical-enter="4">
@@ -78,7 +76,7 @@ export default function AboutPage() {
       <section id="nossa-atuacao" aria-labelledby="about-story-title" className={`standard-page__intro shell scroll-mt-28 ${styles.story}`}>
           <div className={styles.context}>
             <p className="eyebrow">Nossa trajetória</p>
-            <p className={styles.year}>1997 / FUNDAÇÃO</p>
+            <p className={styles.year}><strong>1997</strong><span>Fundação / Labtech</span></p>
             <h2 id="about-story-title" className={styles.title}>Uma história de propósito, pioneirismo e precisão.</h2>
           <div className={`standard-page__media ${styles.image}`}>
             <Image src="/images/hero-lab-v4.webp" alt="Rotina técnica em laboratório clínico" fill quality={90} sizes="(min-width: 1024px) 360px, (min-width: 768px) 32vw, 100vw" className="object-cover" />

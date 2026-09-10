@@ -1,8 +1,8 @@
 .page {
-  --solution-dark: #06141d;
-  --solution-ink: #102833;
+  --solution-dark: var(--deep);
+  --solution-ink: var(--ink);
   --solution-muted: #607983;
-  --solution-cyan: #27c7ff;
+  --solution-cyan: var(--teal);
   overflow: hidden;
   background: #fff;
   color: var(--solution-ink);
@@ -82,7 +82,7 @@
 .journeyGrid li { min-height: 19rem; border-left: 1px solid rgb(39 199 255 / 16%); padding: clamp(1.4rem, 2.6vw, 2.2rem); }
 .journeyGrid li:first-child { border-left: 0; }
 .journeyTop { display: flex; align-items: center; justify-content: space-between; color: #0796c4; }
-.journeyTop span { font-size: .61rem; font-weight: 850; letter-spacing: .18em; }
+.journeyTop span { font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 550; letter-spacing: -.04em; }
 .journeyTop svg { width: 1.35rem; height: 1.35rem; }
 .journeyGrid h3 { margin: clamp(4rem, 7vw, 6rem) 0 0; font-size: clamp(1.35rem, 1.9vw, 1.8rem); letter-spacing: -.035em; }
 .journeyGrid p { margin: 1rem 0 0; color: var(--solution-muted); font-size: .9rem; line-height: 1.75; }
@@ -92,7 +92,7 @@
 .familyCard { position: relative; border-right: 1px solid rgb(39 199 255 / 15%); border-bottom: 1px solid rgb(39 199 255 / 15%); background: #fff; box-shadow: none; }
 .familyCard::before { position: absolute; top: -1px; left: -1px; width: 4rem; height: 2px; background: var(--solution-cyan); content: ""; }
 .familyHeader { display: flex; align-items: center; justify-content: space-between; padding: clamp(1.5rem, 3vw, 2.2rem); }
-.familyHeader > span:first-child { color: #0796c4; font-size: .62rem; font-weight: 850; letter-spacing: .18em; }
+.familyHeader > span:first-child { color: var(--teal); font-size: clamp(1.6rem, 2.8vw, 2.8rem); font-weight: 550; letter-spacing: -.05em; }
 .familyIcon, .categoryIcon { display: grid; place-items: center; border: 1px solid rgb(39 199 255 / 20%); background: #ecf9fd; color: #087da8; }
 .familyIcon { width: 3rem; height: 3rem; }
 .familyIcon svg { width: 1.35rem; height: 1.35rem; }
@@ -113,7 +113,7 @@
 .contextCard { display: flex; min-height: 20rem; flex-direction: column; border-left: 1px solid rgb(39 199 255 / 16%); padding: clamp(1.4rem, 2.5vw, 2rem); transition: background-color .25s ease, border-color .25s ease; }
 .contextCard:first-child { border-left: 0; }
 .contextCard:hover { background: #f2fbfe; }
-.contextCard > span { color: #0796c4; font-size: .61rem; font-weight: 850; letter-spacing: .17em; }
+.contextCard > span { color: var(--teal); font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 550; letter-spacing: -.04em; }
 .contextCard h3 { margin: clamp(4rem, 7vw, 6.5rem) 0 0; font-size: clamp(1.25rem, 1.7vw, 1.65rem); line-height: 1.1; letter-spacing: -.03em; }
 .contextCard p { margin: 1rem 0 0; color: var(--solution-muted); font-size: .87rem; line-height: 1.7; }
 .contextCard > strong { display: flex; align-items: center; gap: .5rem; margin-top: auto; padding-top: 1.5rem; color: #087da8; font-size: .72rem; }

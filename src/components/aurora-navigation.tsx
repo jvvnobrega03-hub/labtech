@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   createContext,
   type MouseEvent as ReactMouseEvent,
@@ -18,6 +19,11 @@ import { CloseIcon } from "@/components/icons";
 import { siteConfig } from "@/lib/config";
 
 const DEFAULT_EASE = "power4.inOut";
+const MENU_DURATION = 0.55;
+
+function motionDuration(duration = MENU_DURATION) {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : duration;
+}
 const IMAGE_SCALES = [0.81, 0.84, 0.87, 0.9] as const;
 const FOCUSABLE_SELECTOR = [
   "a[href]",
@@ -48,6 +54,7 @@ function getHeroTarget(root: HTMLElement): HTMLElement | null {
 }
 
 export function AuroraNavigationShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const rootRef = useRef<HTMLDivElement>(null);
   const surfaceRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -111,15 +118,15 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
     gsap.to(menu, {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
       pointerEvents: "none",
-      duration: 1.25,
+      duration: motionDuration(),
       ease: DEFAULT_EASE,
     });
 
     if (menuItems) {
       gsap.to(menuItems, {
-        top: "-300px",
+        top: "-12px",
         opacity: 0,
-        duration: 1.25,
+        duration: motionDuration(),
         ease: DEFAULT_EASE,
       });
     }
@@ -127,14 +134,14 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
     gsap.to(hero ?? surface, {
       top: "0%",
       opacity: 1,
-      duration: 1.25,
+      duration: motionDuration(),
       ease: DEFAULT_EASE,
       onComplete: () => {
         gsap.set(menu, {
           clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
         });
-        if (menuLogo) gsap.set(menuLogo, { y: 50 });
-        gsap.set(menuLinks, { y: 40 });
+        if (menuLogo) gsap.set(menuLogo, { y: 12 });
+        gsap.set(menuLinks, { y: 12 });
         gsap.set(menuSubItems, { y: 12 });
         if (menuItems) gsap.set(menuItems, { opacity: 1, top: "0px" });
         gsap.set(layeredImages, { top: "150%" });
@@ -176,50 +183,50 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
     gsap.to(menu, {
       clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
       pointerEvents: "all",
-      duration: 1.25,
+      duration: motionDuration(),
       ease: DEFAULT_EASE,
     });
 
     gsap.to(hero ?? surface, {
-      top: "-50%",
+      top: "-12px",
       opacity: 0,
-      duration: 1.25,
+      duration: motionDuration(),
       ease: DEFAULT_EASE,
     });
 
     if (menuLogo) {
       gsap.to(menuLogo, {
         y: 0,
-        duration: 1,
-        delay: 0.75,
+        duration: motionDuration(0.4),
+        delay: motionDuration(0.12),
         ease: "power3.out",
       });
     }
 
     gsap.to(menuLinks, {
       y: 0,
-      duration: 1,
-      stagger: 0.075,
-      delay: 1,
+      duration: motionDuration(0.4),
+      stagger: motionDuration(0.025),
+      delay: motionDuration(0.12),
       ease: "power3.out",
     });
 
     gsap.to(menuSubItems, {
       y: 0,
-      duration: 0.75,
-      stagger: 0.05,
-      delay: 1,
+      duration: motionDuration(0.4),
+      stagger: motionDuration(0.025),
+      delay: motionDuration(0.12),
       ease: "power3.out",
     });
 
     gsap.to(layeredImages, {
       top: "50%",
-      duration: 1.25,
+      duration: motionDuration(),
       ease: DEFAULT_EASE,
-      stagger: 0.1,
-      delay: 0.25,
+      stagger: motionDuration(0.04),
+      delay: motionDuration(0.08),
       onComplete: () => {
-        gsap.set(hero ?? surface, { top: "50%" });
+        gsap.set(hero ?? surface, { top: "12px" });
         isOpenRef.current = true;
         isTransitioningRef.current = false;
         closeButtonRef.current?.focus();
@@ -244,8 +251,8 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
     let cx = menu.clientWidth / 2;
     let cy = menu.clientHeight / 2;
 
-    if (menuLogo) gsap.set(menuLogo, { y: 50 });
-    gsap.set(menuLinks, { y: 40 });
+    if (menuLogo) gsap.set(menuLogo, { y: 12 });
+    gsap.set(menuLinks, { y: 12 });
     gsap.set(menuSubItems, { y: 12 });
     gsap.set(layeredImages, { top: "150%" });
 
@@ -257,13 +264,13 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
 
       gsap.to(menuImage, {
         duration: 2,
-        transform: `rotate3d(${tiltX}, ${tiltY}, 0, 15deg)`,
+        transform: `rotate3d(${tiltX}, ${tiltY}, 0, 0deg)`,
         ease: "power3.out",
       });
 
       images.forEach((image, index) => {
-        const parallaxX = -(dx * (index + 1)) / 100;
-        const parallaxY = -(dy * (index + 1)) / 100;
+        const parallaxX = -(dx * (index + 1)) / 800;
+        const parallaxY = -(dy * (index + 1)) / 800;
         const transform = `translate(calc(-50% + ${parallaxX}px), calc(-50% + ${parallaxY}px)) scale(${IMAGE_SCALES[index]})`;
 
         gsap.to(image, {
@@ -397,7 +404,7 @@ export function AuroraNavigationShell({ children }: { children: ReactNode }) {
                 <div key={item.href} className="aurora-navigation-menus-17__menu-link-mask">
                   <p data-aurora-menu-link className="aurora-navigation-menus-17__menu-link">
                     <span>{String(index + 1).padStart(2, "0")}</span>
-                    <Link href={item.href} onClick={handleMenuLinkClick}>{item.label}</Link>
+                    <Link href={item.href} aria-current={(item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)) ? "page" : undefined} onClick={handleMenuLinkClick}>{item.label}</Link>
                   </p>
                 </div>
               ))}

@@ -42,7 +42,7 @@ export default function Home() {
     <>
       <CinematicCentrifugeHero />
 
-      <section className="home-trust shell relative z-10 -mt-7" aria-label="Diferenciais de atendimento">
+      <section className="home-trust shell relative z-10" aria-label="Diferenciais de atendimento">
         <div className="home-trust__grid grid overflow-hidden border border-slate-200 bg-white sm:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map(({ title, text, icon: Icon }) => (
             <article key={title} className="home-trust__item flex gap-3.5 border-b border-slate-200 p-5 last:border-0 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:border-r lg:last:border-r-0">
@@ -54,7 +54,7 @@ export default function Home() {
       </section>
 
       <section id="produtos" className="home-catalog shell scroll-mt-28 py-20">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="home-catalog__heading">
           <SectionHeading eyebrow="Encontre o que você precisa" title="Um catálogo organizado pela sua rotina" description="Pesquise diretamente ou comece pela categoria mais próxima da sua necessidade." />
           <form action="/catalogo" className="home-catalog__search flex w-full max-w-xl overflow-hidden border border-slate-200 bg-white" role="search">
             <label htmlFor="home-search" className="sr-only">Buscar produtos no catálogo</label>
@@ -63,16 +63,17 @@ export default function Home() {
             <button type="submit" className="grid w-14 place-items-center bg-navy text-white transition hover:bg-deep" aria-label="Buscar no catálogo"><ArrowIcon className="size-5" /></button>
           </form>
         </div>
-        <div className="home-category-grid mt-9 grid grid-cols-2 overflow-hidden border border-slate-200 bg-white sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="home-category-grid">
           {categories.slice(0, 10).map((category, index) => (
             <Link href={`/catalogo/${category.slug}`} key={category.slug} className="category-tile group">
               <span className="home-category-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-              <span className="grid size-11 place-items-center bg-emerald-50 text-teal-800 transition group-hover:bg-navy group-hover:text-white"><CategoryIcon slug={category.slug} className="size-5.5" /></span>
-              <span className="mt-4 text-center text-xs font-extrabold leading-4 text-slate-700 group-hover:text-teal-800">{category.shortName}</span>
+              <span className="home-category-icon"><CategoryIcon slug={category.slug} className="size-7" /></span>
+              <span className="home-category-label">{category.shortName}</span>
+              <ArrowIcon className="home-category-arrow" />
             </Link>
           ))}
         </div>
-        <div className="mt-5 flex justify-center"><Link href="/catalogo" className="button button-outline">Ver todas as categorias <ArrowIcon className="size-4" /></Link></div>
+        <div className="home-catalog__footer"><p className="eyebrow">Portfólio / {String(categories.length).padStart(2, "0")} categorias</p><Link href="/catalogo" className="button button-outline">Ver todas as categorias <ArrowIcon className="size-4" /></Link></div>
       </section>
 
       <section className="home-solutions-entry shell pb-20" aria-labelledby="home-solutions-title">
@@ -92,9 +93,9 @@ export default function Home() {
       </section>
 
       <section className="home-proof bg-navy text-white" aria-label="Indicadores institucionais">
-        <div className="shell relative z-10 grid grid-cols-2 py-8 lg:grid-cols-4">
+        <div className="home-proof__grid shell relative z-10">
           {stats.map((stat) => (
-            <div key={stat.value} className="home-proof__item border-white/10 px-4 py-4 text-center even:border-l lg:border-l lg:first:border-l-0">
+            <div key={stat.value} className="home-proof__item">
               <p className="home-proof__eyebrow">{stat.eyebrow}</p>
               <p className="text-2xl font-extrabold tracking-[-.04em] text-emerald-200 sm:text-3xl">{stat.value}</p>
               <p className="mt-1 text-[.68rem] font-semibold text-emerald-50/65 sm:text-xs">{stat.label}</p>
@@ -114,7 +115,7 @@ export default function Home() {
       </section>
 
       <section className="home-veterinary border-y border-sky-100 bg-[#F4FAFC] py-24">
-        <div className="shell grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
+        <div className="home-veterinary__grid shell">
           <div>
             <SectionHeading eyebrow="Diagnóstico veterinário" title="Tecnologia e cuidado para operações que atendem a saúde animal" description="Uma frente B2B dedicada a laboratórios, clínicas e hospitais veterinários, com organização por aplicação e atendimento especializado." />
             <div className="mt-8 flex flex-wrap gap-3"><Link href="/veterinario" className="button button-primary">Conhecer a área veterinária</Link><Link href="/orcamento" className="button button-outline bg-white">Solicitar orçamento</Link></div>
