@@ -39,7 +39,7 @@ export function Breadcrumbs({ items }: { items: { label: string; href?: string }
 export function Callout({ title, text, href = "/orcamento", label = "Iniciar orçamento" }: { title: string; text: string; href?: string; label?: string }) {
   return (
     <section className="shell py-20">
-      <div className="relative overflow-hidden rounded-[2rem] bg-navy px-7 py-12 text-white md:px-14 md:py-16">
+      <div className="callout-surface relative overflow-hidden bg-navy px-7 py-12 text-white md:px-14 md:py-16">
         <div className="orb right-0 top-0" />
         <div className="relative grid items-end gap-8 md:grid-cols-[1fr_auto]">
           <div><Eyebrow>Próximo passo</Eyebrow><h2 className="callout__title display mt-4 max-w-2xl">{title}</h2><p className="mt-5 max-w-xl leading-7 text-slate-300">{text}</p></div>

@@ -1,8 +1,19 @@
 .story {
+  position: relative;
   display: grid;
   align-items: start;
   gap: clamp(2.25rem, 5vw, 5rem);
   padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.story::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--line);
+  content: "";
 }
 
 .context,
@@ -20,12 +31,22 @@
   text-wrap: balance;
 }
 
+.year {
+  margin: 1.5rem 0 0;
+  color: var(--teal);
+  font-size: clamp(2.5rem, 4.8vw, 4.75rem);
+  font-weight: 780;
+  letter-spacing: -0.075em;
+  line-height: .9;
+}
+
 .image {
   position: relative;
   aspect-ratio: 4 / 3;
   margin-top: 2rem;
   overflow: hidden;
-  border-radius: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
   background: var(--mist);
 }
 
@@ -35,9 +56,9 @@
 }
 
 .opening {
-  margin: 0 0 2rem;
-  border-left: 3px solid var(--teal);
-  padding-left: clamp(1.125rem, 2vw, 1.75rem);
+  margin: 0 0 2.5rem;
+  border-left: 1px solid var(--teal);
+  padding-left: clamp(1.5rem, 3vw, 2.75rem);
   color: var(--ink);
   font-size: clamp(1.375rem, 2.2vw, 1.875rem);
   font-weight: 500;
@@ -52,6 +73,8 @@
 }
 
 .body {
+  border-top: 1px solid var(--line);
+  padding-top: 2rem;
   color: #475569;
   font-size: clamp(1rem, 1.3vw, 1.0625rem);
   line-height: 1.9;
@@ -73,7 +96,7 @@
 }
 
 .signature {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   border-top: 1px solid var(--line);
   padding-top: 1.5rem;
   color: var(--ink);
@@ -100,8 +123,11 @@
 .role {
   margin-top: 0.375rem;
   color: #076787;
-  font-size: 0.9375rem;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .13em;
   line-height: 1.7;
+  text-transform: uppercase;
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {

@@ -76,9 +76,10 @@ export default function AboutPage() {
         </div>
       </section>
       <section id="nossa-atuacao" aria-labelledby="about-story-title" className={`standard-page__intro shell scroll-mt-28 ${styles.story}`}>
-        <div className={styles.context}>
-          <p className="eyebrow">Nossa trajetória</p>
-          <h2 id="about-story-title" className={styles.title}>Uma história de propósito, pioneirismo e precisão.</h2>
+          <div className={styles.context}>
+            <p className="eyebrow">Nossa trajetória</p>
+            <p className={styles.year}>1997 / FUNDAÇÃO</p>
+            <h2 id="about-story-title" className={styles.title}>Uma história de propósito, pioneirismo e precisão.</h2>
           <div className={`standard-page__media ${styles.image}`}>
             <Image src="/images/hero-lab-v4.webp" alt="Rotina técnica em laboratório clínico" fill quality={90} sizes="(min-width: 1024px) 360px, (min-width: 768px) 32vw, 100vw" className="object-cover" />
           </div>
@@ -107,8 +108,8 @@ export default function AboutPage() {
           />
           <div className="standard-page__card-grid mt-10 grid gap-5 md:grid-cols-3">
             {differentiators.map(({ title, text, icon: Icon }) => (
-              <article className="standard-page__card rounded-3xl bg-white p-7" key={title}>
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-700" aria-hidden="true">
+              <article className="standard-page__card bg-white p-7" key={title}>
+                <div className="flex size-12 items-center justify-center bg-sky-50 text-sky-700" aria-hidden="true">
                   <Icon className="size-6" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold">{title}</h3>
@@ -126,8 +127,8 @@ export default function AboutPage() {
         />
         <div className="standard-page__card-grid mt-10 grid gap-5 md:grid-cols-3">
           {areas.map(({ title, text, icon: Icon }) => (
-            <article className="standard-page__card rounded-3xl bg-white p-7" key={title}>
-              <div className="flex size-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-700" aria-hidden="true">
+            <article className="standard-page__card bg-white p-7" key={title}>
+              <div className="flex size-12 items-center justify-center bg-sky-50 text-sky-700" aria-hidden="true">
                 <Icon className="size-6" />
               </div>
               <h3 className="mt-6 text-xl font-semibold">{title}</h3>

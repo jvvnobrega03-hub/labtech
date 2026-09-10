@@ -314,6 +314,7 @@ export function CinematicCentrifugeHero() {
               <span aria-hidden="true" />
               Tecnologia para a saúde
             </p>
+            <p className="cinematic-hero__index" aria-hidden="true">LT.01 / BRASIL / B2B</p>
             <h1 ref={headingRef} className="cinematic-hero__title">
               Precisão que <span>transforma o futuro</span> da saúde.
             </h1>
