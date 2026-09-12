@@ -55,7 +55,7 @@
 .heroCopy { max-width: 50rem; }
 .kicker { display: inline-flex; align-items: center; gap: .7rem; margin: 0; color: #bfefff; font-size: .66rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
 .kicker > span { width: 1.8rem; height: 1px; background: #74dcff; }
-.hero h1 { max-width: 49rem; margin: 1.25rem 0 0; font-size: clamp(2.75rem, 5vw, 5rem); font-weight: 780; line-height: .98; letter-spacing: -.055em; text-wrap: balance; }
+.hero h1 { max-width: 49rem; margin: 1.25rem 0 0; font-size: var(--type-hero-page); font-weight: 780; line-height: .98; letter-spacing: -.055em; text-wrap: balance; }
 .heroCopy > p:not(.kicker) { max-width: 42rem; margin: 1.7rem 0 0; color: rgb(221 246 255 / 68%); font-size: clamp(.98rem, 1.25vw, 1.15rem); line-height: 1.75; }
 .heroActions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 2rem; }
 
@@ -75,14 +75,14 @@
 
 .journey, .contexts { padding-block: clamp(5.5rem, 9vw, 8.5rem); }
 .sectionLead { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(17rem, .65fr); align-items: end; gap: clamp(2rem, 7vw, 7rem); }
-.sectionLead h2 { max-width: 48rem; margin: 1.1rem 0 0; font-size: clamp(2.15rem, 3.4vw, 3.65rem); font-weight: 780; line-height: 1.02; letter-spacing: -.048em; text-wrap: balance; }
+.sectionLead h2 { max-width: 48rem; margin: 1.1rem 0 0; font-size: var(--type-section); font-weight: 780; line-height: 1.02; letter-spacing: -.048em; text-wrap: balance; }
 .sectionLead > p { margin: 0 0 .25rem; color: var(--solution-muted); line-height: 1.8; }
 
 .journeyGrid { display: grid; grid-template-columns: repeat(4, 1fr); margin: clamp(3rem, 5vw, 4.8rem) 0 0; border-block: 1px solid rgb(39 199 255 / 16%); list-style: none; padding: 0; }
 .journeyGrid li { min-height: 19rem; border-left: 1px solid rgb(39 199 255 / 16%); padding: clamp(1.4rem, 2.6vw, 2.2rem); }
 .journeyGrid li:first-child { border-left: 0; }
 .journeyTop { display: flex; align-items: center; justify-content: space-between; color: #0796c4; }
-.journeyTop span { font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 550; letter-spacing: -.04em; }
+.journeyTop span { font-size: var(--type-reference); font-weight: 550; letter-spacing: -.04em; }
 .journeyTop svg { width: 1.35rem; height: 1.35rem; }
 .journeyGrid h3 { margin: clamp(4rem, 7vw, 6rem) 0 0; font-size: clamp(1.35rem, 1.9vw, 1.8rem); letter-spacing: -.035em; }
 .journeyGrid p { margin: 1rem 0 0; color: var(--solution-muted); font-size: .9rem; line-height: 1.75; }
@@ -92,11 +92,11 @@
 .familyCard { position: relative; border-right: 1px solid rgb(39 199 255 / 15%); border-bottom: 1px solid rgb(39 199 255 / 15%); background: #fff; box-shadow: none; }
 .familyCard::before { position: absolute; top: -1px; left: -1px; width: 4rem; height: 2px; background: var(--solution-cyan); content: ""; }
 .familyHeader { display: flex; align-items: center; justify-content: space-between; padding: clamp(1.5rem, 3vw, 2.2rem); }
-.familyHeader > span:first-child { color: var(--teal); font-size: clamp(1.6rem, 2.8vw, 2.8rem); font-weight: 550; letter-spacing: -.05em; }
+.familyHeader > span:first-child { color: var(--teal); font-size: var(--type-reference); font-weight: 550; letter-spacing: -.05em; }
 .familyIcon, .categoryIcon { display: grid; place-items: center; border: 1px solid rgb(39 199 255 / 20%); background: #ecf9fd; color: #087da8; }
 .familyIcon { width: 3rem; height: 3rem; }
 .familyIcon svg { width: 1.35rem; height: 1.35rem; }
-.familyCard > h3 { margin: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 3vw, 2.2rem) 0; font-size: clamp(1.7rem, 2.5vw, 2.45rem); line-height: 1.04; letter-spacing: -.045em; }
+.familyCard > h3 { margin: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 3vw, 2.2rem) 0; font-size: var(--type-subsection); line-height: 1.04; letter-spacing: -.045em; }
 .familyCard > p { max-width: 34rem; margin: 1rem clamp(1.5rem, 3vw, 2.2rem) 2rem; color: var(--solution-muted); line-height: 1.75; }
 .familyCard ul { margin: 0; border-top: 1px solid rgb(39 199 255 / 14%); list-style: none; padding: 0; }
 .familyCard li + li { border-top: 1px solid rgb(39 199 255 / 12%); }
@@ -113,7 +113,7 @@
 .contextCard { display: flex; min-height: 20rem; flex-direction: column; border-left: 1px solid rgb(39 199 255 / 16%); padding: clamp(1.4rem, 2.5vw, 2rem); transition: background-color .25s ease, border-color .25s ease; }
 .contextCard:first-child { border-left: 0; }
 .contextCard:hover { background: #f2fbfe; }
-.contextCard > span { color: var(--teal); font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 550; letter-spacing: -.04em; }
+.contextCard > span { color: var(--teal); font-size: var(--type-reference); font-weight: 550; letter-spacing: -.04em; }
 .contextCard h3 { margin: clamp(4rem, 7vw, 6.5rem) 0 0; font-size: clamp(1.25rem, 1.7vw, 1.65rem); line-height: 1.1; letter-spacing: -.03em; }
 .contextCard p { margin: 1rem 0 0; color: var(--solution-muted); font-size: .87rem; line-height: 1.7; }
 .contextCard > strong { display: flex; align-items: center; gap: .5rem; margin-top: auto; padding-top: 1.5rem; color: #087da8; font-size: .72rem; }
@@ -124,7 +124,7 @@
 .closingInner { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(2rem, 5vw, 5rem); padding-block: clamp(4.5rem, 8vw, 7rem); }
 .closingCode { display: grid; width: 5rem; height: 5rem; place-items: center; border: 1px solid rgb(116 220 255 / 22%); color: #74dcff; font-weight: 900; letter-spacing: -.08em; }
 .closingCode i { position: absolute; width: 1px; height: 1.4rem; margin-top: 6.4rem; background: #74dcff; }
-.closingInner h2 { max-width: 46rem; margin: 1rem 0 0; font-size: clamp(2rem, 3.4vw, 3.6rem); line-height: 1.02; letter-spacing: -.048em; text-wrap: balance; }
+.closingInner h2 { max-width: 46rem; margin: 1rem 0 0; font-size: var(--type-section); line-height: 1.02; letter-spacing: -.048em; text-wrap: balance; }
 .closingInner div > p:not(.kicker) { max-width: 42rem; margin: 1.2rem 0 0; color: rgb(215 244 255 / 60%); line-height: 1.75; }
 .closingActions { display: grid; gap: .65rem; min-width: 12rem; }
 
@@ -144,7 +144,7 @@
 @media (max-width: 700px) {
   .hero, .heroInner { min-height: 42rem; }
   .heroInner { padding-top: 3.5rem; }
-  .hero h1 { font-size: clamp(2.45rem, 12vw, 3.4rem); }
+  .hero h1 { font-size: var(--type-hero-page); }
   .hero::before { width: 36rem; right: -22rem; }
   .heroRail { grid-template-columns: repeat(2, 1fr); }
   .heroRail li:nth-child(3) { border-left: 0; }
