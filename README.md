@@ -57,6 +57,10 @@ CONTACT_EMAIL_FROM="Labtech <site@labtech.com.br>"
 
 `NEXT_PUBLIC_SITE_URL` só é aceita quando for HTTPS pública. Sem ela, canonical absoluto e sitemap são omitidos e o site usa `noindex`, evitando indexação acidental de ambientes locais.
 
+Os ícones da aba e dos atalhos usam o símbolo alado da logo oficial: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png` e `public/icons/`. O Next.js publica os links dos ícones automaticamente; o manifesto referencia as versões de 192 e 512 pixels. Os dados estruturados da organização identificam a logo completa usada no site.
+
+Para permitir a atualização do ícone no Google, configure `NEXT_PUBLIC_SITE_URL=https://labtech.com.br` no ambiente de produção antes do build e publique a alteração. A página inicial e o favicon precisam estar acessíveis aos robôs. A atualização depende de um novo rastreamento do Google; a inspeção de URL no Search Console permite solicitar a indexação da página inicial.
+
 `RESEND_API_KEY` é exclusivamente server-side e nunca deve ser versionada ou receber o prefixo `NEXT_PUBLIC_`.
 
 ## Qualidade

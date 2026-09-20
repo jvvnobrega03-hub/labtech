@@ -10,6 +10,7 @@ import "./globals.css";
 
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
 const socialImageUrl = absoluteSiteUrl("/og.jpg");
+const organizationLogoUrl = absoluteSiteUrl("/images/labtech-brand-clean-v3.png");
 
 export const metadata: Metadata = {
   ...(publicSiteUrl ? { metadataBase: new URL(publicSiteUrl) } : {}),
@@ -43,6 +44,14 @@ const organizationJsonLd = {
   name: companyConfig.name,
   legalName: companyConfig.legalName,
   ...(publicSiteUrl ? { url: publicSiteUrl } : {}),
+  ...(organizationLogoUrl ? {
+    logo: {
+      "@type": "ImageObject",
+      url: organizationLogoUrl,
+      width: 2087,
+      height: 753,
+    },
+  } : {}),
   description: siteConfig.description,
   email: companyConfig.email,
   telephone: companyConfig.phone.e164,
